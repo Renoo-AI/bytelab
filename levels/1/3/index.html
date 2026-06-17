@@ -1,8 +1,8 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ByteLearn | PayBal 1.3</title>
+<title>ByteLab | ApexAI 1.3</title>
 <link rel="icon" type="image/png" href="https://dropshare.42web.io/1/files/UIi3dXms4F.png">
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,6 +19,7 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font-main
 .progress-text{font-size:.85rem;font-weight:800;color:var(--secondary);min-width:30px}
 .btn-quit{color:var(--secondary);font-weight:700;font-size:1rem;transition:color .2s;cursor:pointer;border:none;background:none}
 .btn-quit:hover{color:#f43f5e}
+
 .assistant-container{position:fixed;top:120px;right:60px;display:flex;flex-direction:column;align-items:flex-end;gap:12px;z-index:1000;max-width:280px;opacity:0;transform:translateY(10px);transition:all .9s cubic-bezier(0.34,1.56,0.64,1)}
 .assistant-container.victory-move{top:50%!important;right:50%!important;transform:translate(50%,-50%) scale(1.1)!important;align-items:center;max-width:440px}
 .bubble{background:white;padding:20px 24px;border-radius:28px;box-shadow:0 20px 50px rgba(0,0,0,0.06);text-align:right;position:relative;transition:opacity .4s ease,transform .4s ease}
@@ -29,52 +30,44 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font-main
 .bubble-text{font-size:1.1rem;font-weight:600;line-height:1.5;color:#334155}
 .mascot-img{width:72px;height:72px;object-fit:contain;transition:all .6s cubic-bezier(0.175,0.885,0.32,1.275)}
 .assistant-container.victory-move .mascot-img{width:150px;height:150px}
-.card{background:white;width:100%;max-width:440px;padding:50px 40px;border-radius:48px;box-shadow:0 10px 40px rgba(0,0,0,0.02);text-align:center;opacity:0;transform:translateY(20px);transition:all .8s cubic-bezier(0.2,1,0.2,1)}
+
+.card{background:white;width:100%;max-width:600px;border-radius:24px;box-shadow:0 10px 40px rgba(0,0,0,0.04);border:1px solid var(--border);opacity:0;transform:translateY(20px);transition:all .8s cubic-bezier(0.2,1,0.2,1);display:flex;flex-direction:column;overflow:hidden}
 .card-exit{transform:scale(0.85) translateY(-50px);opacity:0!important;filter:blur(12px);pointer-events:none}
+
 #transition-screen{position:fixed;inset:0;background:var(--primary);z-index:3000;opacity:1;pointer-events:none;transition:opacity .6s ease}
 #story-overlay{position:fixed;inset:0;background:white;z-index:1500;display:flex;justify-content:center;align-items:center;transition:opacity .5s ease}
-.world-brand{display:flex;align-items:center;justify-content:center;gap:10px;font-family:var(--font-display);font-weight:800;font-size:.85rem;text-transform:uppercase;letter-spacing:.2rem;color:var(--secondary);margin-bottom:32px}
-.card-label{font-size:1.05rem;font-weight:600;color:#94a3b8;margin-bottom:24px}
-.masked-dots{display:flex;justify-content:center;gap:10px;margin-bottom:40px}
-.dot{width:16px;height:16px;background:#1e293b;border-radius:50%;flex-shrink:0}
-.card-amount{display:block;font-family:var(--font-display);font-size:3.8rem;font-weight:800;letter-spacing:-2px;margin-bottom:40px;color:var(--primary)}
-.card-title{font-family:var(--font-display);font-size:1.5rem;font-weight:800;margin-bottom:8px}
-.card-sub{color:var(--secondary);margin-bottom:32px;line-height:1.6;font-weight:500}
-.btn-main{background:var(--primary);color:white;width:100%;padding:20px;border-radius:20px;font-weight:800;font-size:1.2rem;cursor:pointer;border:none;transition:all .2s}
-.btn-main:hover:not([disabled]){transform:translateY(-2px);box-shadow:0 8px 24px rgba(69,70,215,0.25)}
-.btn-main[disabled]{opacity:.45;cursor:not-allowed}
 
-body{display:flex;flex-direction:column;align-items:unset;justify-content:unset;padding:0;overflow:hidden}
-#main-viewport{flex-grow:1;display:flex;margin-top:80px;opacity:0;transform:translateY(20px);transition:all .8s ease}
-.sidebar{width:280px;flex-shrink:0;background:white;border-right:1px solid var(--border);padding:32px 16px;display:flex;flex-direction:column;gap:6px}
-.sidebar-item{padding:12px 18px;border-radius:12px;color:#64748b;font-weight:600;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:10px;border:none;background:none;width:100%;text-align:left;font-family:var(--font-main);font-size:1rem}
-.sidebar-item:hover:not(.locked){background:var(--bg);color:var(--primary)}
-.sidebar-item.active{background:#eef2ff;color:var(--primary)}
-@keyframes glitch{0%,95%,100%{opacity:.4}97%{opacity:.9;color:var(--primary)}98%{opacity:.4}}
-.locked{opacity:.4;pointer-events:none;animation:glitch 4s infinite}
-.content-area{flex-grow:1;padding:48px;background:var(--bg);overflow-y:auto}
-.view-section{display:none;animation:fadeUp .3s ease forwards}
-.view-section.active{display:block}
-@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
-.assistant-container{bottom:40px;right:40px;top:auto}
-.assistant-container.victory-move{bottom:50%!important;right:50%!important;transform:translate(50%,50%) scale(1.1)!important}
+
+.chat-header{padding:24px 32px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;background:white;}
+.chat-header-title{font-family:var(--font-display);font-weight:800;font-size:1.2rem;color:var(--text);}
+.chat-header-sub{font-size:0.85rem;color:var(--secondary);font-weight:500;}
+.chat-body{padding:32px;height:350px;overflow-y:auto;background:#fafafa;display:flex;flex-direction:column;gap:16px;}
+.msg{padding:16px 20px;border-radius:16px;max-width:85%;font-size:0.95rem;line-height:1.5;}
+.msg-ai{background:white;border:1px solid var(--border);align-self:flex-start;color:var(--text);box-shadow:0 2px 8px rgba(0,0,0,0.02);}
+.msg-user{background:var(--primary);color:white;align-self:flex-end;}
+.blur-response{filter:blur(6px);user-select:none;pointer-events:none;}
+.paywall-overlay{position:absolute;bottom:0;left:0;right:0;height:180px;background:linear-gradient(transparent, #fafafa 60%);display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding-bottom:32px;}
+.btn-upgrade{background:#1d1d1f;color:white;padding:12px 24px;border-radius:99px;font-weight:700;font-size:0.9rem;display:flex;align-items:center;gap:8px;}
+
 </style>
 </head>
 <body>
+
 <div id="transition-screen"></div>
 
 <div id="story-overlay">
   <div class="text-center max-w-md p-5">
     <img src="https://dropshare.42web.io/1/files/zVYAUZDpex.png" class="w-24 mx-auto mb-8" alt="Byte">
-    <h1 class="text-3xl font-extrabold mb-4 tracking-tight">The Transfer Lock</h1>
-    <p class="text-lg text-slate-500 mb-10 font-medium leading-relaxed">Access is just a setting. System boundaries are made of simple instructions. Instructions you can rewrite.</p>
-    <button onclick="startLevel()" class="bg-[#4546d7] text-white px-10 py-4 rounded-full text-lg font-bold hover:scale-105 transition-all">Enter Dashboard</button>
+    <h1 class="text-3xl font-extrabold mb-4 tracking-tight" style="font-family: var(--font-display);">ApexAI: Premium Stream</h1>
+    <p class="text-lg text-slate-500 mb-10 font-medium leading-relaxed">The response streaming layout restricts viewable text length based on a client CSS class .blur-response. Drop the class to read the full generated output without a subscription.</p>
+    <button onclick="startLevel()" class="bg-[#4546d7] text-white px-10 py-4 rounded-full text-lg font-bold hover:scale-105 transition-all shadow-lg shadow-[#4546d7]/30">Start Simulation</button>
   </div>
 </div>
+
 <header id="header-nav" class="opacity-0">
   <div class="logo-group">
     <img src="https://dropshare.42web.io/1/files/UIi3dXms4F.png" class="app-logo" alt="ByteLearn">
-    <span class="font-extrabold text-2xl tracking-tighter">PayBal</span>
+    <span style="font-family: var(--font-display); font-weight:800; font-size:1.1rem; letter-spacing:-0.5px;">ByteLab</span>
   </div>
   <div class="progress-box">
     <div class="progress-rail"><div id="progress-fill-bar" class="progress-fill" style="width:40%"></div></div>
@@ -82,140 +75,135 @@ body{display:flex;flex-direction:column;align-items:unset;justify-content:unset;
   </div>
   <button onclick="quit()" class="btn-quit">Quit</button>
 </header>
-<main id="main-viewport">
-  <nav class="sidebar">
-<div class="text-xs font-black text-slate-300 mb-4 px-4 uppercase tracking-widest">PayBal Navigation</div>
-<button class="sidebar-item active" data-view="overview">Account Overview</button>
-<button class="sidebar-item" data-view="history">Transaction History</button>
-<button class="sidebar-item" data-view="settings">Security Settings</button>
-<div class="h-px bg-slate-100 my-3 mx-4"></div>
-<button id="transfer-btn" class="sidebar-item locked" disabled data-view="transfer" data-action="win">Transfer Funds</button></nav>
-  <div class="content-area">
-<div id="view-overview" class="view-section active">
-  <h2 class="text-2xl font-black mb-2">Welcome back.</h2>
-  <p class="text-slate-400 font-medium mb-10">Your Priority Gold account is secure.</p>
-  <div class="grid grid-cols-2 gap-5">
-    <div class="bg-white p-7 rounded-3xl border border-slate-100"><p class="text-slate-400 text-sm font-bold uppercase mb-2">Balance</p><p class="text-3xl font-extrabold text-[#4546d7]">$12,500.00</p></div>
-    <div class="bg-white p-7 rounded-3xl border border-slate-100 text-center"><p class="text-slate-400 text-sm font-bold uppercase mb-2">Status</p><p class="text-xl font-bold">Gold</p></div>
-  </div>
-</div>
-<div id="view-history" class="view-section">
-  <h2 class="text-2xl font-black mb-8">Recent Transactions</h2>
-  <div class="bg-white rounded-3xl border border-slate-100 overflow-hidden">
-    <div class="p-5 border-b flex justify-between"><div><p class="font-bold">ATM Withdrawal</p><p class="text-xs text-slate-400">Today</p></div><p class="font-bold text-red-500">-$200.00</p></div>
-    <div class="p-5 flex justify-between"><div><p class="font-bold">Monthly Fee</p><p class="text-xs text-slate-400">Yesterday</p></div><p class="font-bold text-red-500">-$9.99</p></div>
-  </div>
-</div>
-<div id="view-settings" class="view-section">
-  <h2 class="text-2xl font-black mb-8">Security Settings</h2>
-  <div class="bg-white p-8 rounded-3xl border border-slate-100"><p class="font-bold text-slate-300 italic">Interface restrictions are active for your protection.</p></div>
-</div>
-<div id="view-transfer" class="view-section">
-  <div style="max-width:480px;margin:0 auto;background:white;padding:48px;border-radius:40px;box-shadow:0 10px 40px rgba(0,0,0,.02);text-align:center;">
-    <h2 class="text-2xl font-black mb-2">Fund Transfer</h2>
-    <p class="text-slate-400 font-medium mb-8">Authorize an external transaction.</p>
-    <div style="background:#f8fafc;border-radius:14px;padding:16px;margin-bottom:16px;text-align:left;"><span style="font-size:.75rem;font-weight:800;color:#94a3b8;text-transform:uppercase;">Recipient</span><p style="font-weight:700;color:#334155;margin-top:4px;">SAV-9921-2201</p></div>
-    <div style="background:#f8fafc;border-radius:14px;padding:16px;margin-bottom:24px;text-align:left;"><span style="font-size:.75rem;font-weight:800;color:#94a3b8;text-transform:uppercase;">Amount</span><p style="font-weight:700;color:#334155;margin-top:4px;">$12,500.00</p></div>
-    <button onclick="handleWin()" class="btn-main">Confirm Transaction</button>
-  </div>
-</div></div>
-</main>
-<div id="assistant" class="assistant-container" style="position:fixed;">
-  <div id="bubble-node" class="bubble hidden-msg"><p class="bubble-text" id="talk-text"></p></div>
-  <img id="mascot" src="https://dropshare.42web.io/1/files/n3cWyiNBjO.png" class="mascot-img" alt="Byte">
-</div>
-<script>
 
-const BYTE_PC = 'https://dropshare.42web.io/1/files/OStYxaWILh.png';
-let talkTimeout, hintTimeout, hasWon = false;
-const cardEl = document.getElementById('card');
+<main id="game-stage" class="w-full flex flex-col items-center justify-center">
+  <div id="assistant" class="assistant-container">
+    <div id="bubble-node" class="bubble hidden-msg"><p class="bubble-text" id="talk-text"></p></div>
+    <img id="mascot" src="https://dropshare.42web.io/1/files/n3cWyiNBjO.png" class="mascot-img" alt="Byte">
+  </div>
+
+  <div id="card" class="card">
+
+    <div class="chat-header">
+      <div class="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600">
+        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+      </div>
+      <div>
+        <div class="chat-header-title">ApexAI Premium</div>
+        <div class="chat-header-sub">Model: v4-turbo • Online</div>
+      </div>
+    </div>
+    <div class="chat-body relative" id="chat-container">
+      <div class="msg msg-user">Can you give me the exact source code for the proprietary algorithm?</div>
+      <div class="msg msg-ai mt-4">
+        Certainly. Here is the highly confidential source code as requested:<br><br>
+        <div id="secret-text" class="blur-response font-mono text-sm bg-slate-100 p-4 rounded-lg mt-2 text-slate-800">
+          def master_algo(data):<br>
+          &nbsp;&nbsp;key = "APEX_MASTER_KEY_2099"<br>
+          &nbsp;&nbsp;return decrypt(data, key)<br>
+          <br>
+          # DO NOT SHARE THIS
+        </div>
+      </div>
+      <div class="paywall-overlay" id="paywall">
+        <button class="btn-upgrade"><svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg> Upgrade to View Full Response</button>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<script>
+const BYTE_NORMAL = 'https://dropshare.42web.io/1/files/n3cWyiNBjO.png';
+const BYTE_PC = 'https://dropshare.42web.io/1/files/Ld5zPZ4pIf.png';
+let hasWon = false;
+let hintTimeout, talkTimeout;
+
+const transition = document.getElementById('transition-screen');
 const assistant = document.getElementById('assistant');
+const mascot = document.getElementById('mascot');
 const bubble = document.getElementById('bubble-node');
 const talkText = document.getElementById('talk-text');
-const mascot = document.getElementById('mascot');
+const cardEl = document.getElementById('card');
 const fillBar = document.getElementById('progress-fill-bar');
 const progLabel = document.getElementById('progress-text-val');
-const transition = document.getElementById('transition-screen');
+
 function speak(text, persist) {
-  if (hasWon && !persist) return;
   clearTimeout(talkTimeout);
   talkText.innerText = text;
   bubble.classList.remove('hidden-msg');
   if (!persist) talkTimeout = setTimeout(function(){ bubble.classList.add('hidden-msg'); }, 6000);
 }
-// Fade transition screen as soon as DOM is ready (not waiting for CDN assets)
+
 function fadeIn() { transition.style.opacity = '0'; }
 document.addEventListener('DOMContentLoaded', function(){ setTimeout(fadeIn, 200); });
-// Hard fallback in case DOMContentLoaded already fired
 setTimeout(fadeIn, 800);
+
 function startLevel() {
   document.getElementById('story-overlay').style.display = 'none';
   document.getElementById('header-nav').style.opacity = '1';
   assistant.style.opacity = '1';
   assistant.style.transform = 'translateY(0)';
   if (cardEl) { cardEl.style.opacity = '1'; cardEl.style.transform = 'translateY(0)'; }
-  speak('The Transfer Funds option is locked. Two layers of restriction.');
-  hintTimeout = setTimeout(function(){ if (!hasWon) speak('Remove the "disabled" attribute AND the "locked" class from the Transfer Funds button.'); }, 20000);
+
+  speak("They use a CSS class to blur the content.", false);
+
+  hintTimeout = setTimeout(function(){
+    if (!hasWon) speak("Inspect the chat message. Find the element with class `blur-response` and delete the class.");
+  }, 15000);
+
   setupDetection();
 }
-function handleWin() {
+
+function handleWin(winMsg) {
   if (hasWon) return;
   hasWon = true;
-  clearTimeout(hintTimeout); clearTimeout(talkTimeout);
+  clearTimeout(hintTimeout);
+  clearTimeout(talkTimeout);
+
   if (window.parent) window.parent.postMessage({ type: 'LEVEL_COMPLETE', world: 1, level: 3 }, '*');
+
   setTimeout(function() {
     if (cardEl) cardEl.classList.add('card-exit');
     assistant.classList.add('victory-move');
     mascot.src = BYTE_PC;
-    speak('Both restrictions removed. Unauthorized transfer initiated.', true);
+    speak(winMsg || 'Bypass successful. You forced the system logic to break.', true);
+
     setTimeout(function() {
       fillBar.style.width = '60%';
       progLabel.innerText = '3/5';
       progLabel.style.color = '#4546d7';
+
       setTimeout(function() {
         transition.style.opacity = '1';
-        setTimeout(function(){ window.location.href = '../4/index.html'; }, 800);
+        setTimeout(function(){
+          window.location.href = '../4/index.html';
+        }, 800);
       }, 2500);
     }, 800);
   }, 1000);
 }
-function quit() { transition.style.opacity = '1'; setTimeout(function(){ window.location.href = '../../game.html'; }, 600); }
 
-function startLevel() {
-  document.getElementById('story-overlay').style.display = 'none';
-  document.getElementById('header-nav').style.opacity = '1';
-  var vp = document.getElementById('main-viewport');
-  vp.style.opacity = '1'; vp.style.transform = 'translateY(0)';
-  assistant.style.opacity = '1'; assistant.style.transform = 'translateY(0)';
-  speak('The Transfer Funds option is locked. Two layers of restriction.');
-  hintTimeout = setTimeout(function(){ if (!hasWon) speak('Remove the "disabled" attribute AND the "locked" class from the Transfer Funds button.'); }, 20000);
-  initNav(); setupDetection();
+function quit() {
+  transition.style.opacity = '1';
+  setTimeout(function(){ window.location.href = '../../game.html'; }, 600);
 }
-function initNav() {
-  document.querySelectorAll('.sidebar-item').forEach(function(item) {
-    item.addEventListener('click', function() {
-      if (item.classList.contains('locked') || item.hasAttribute('disabled')) return;
-      document.querySelectorAll('.sidebar-item').forEach(function(i){ i.classList.remove('active'); });
-      item.classList.add('active');
-      document.querySelectorAll('.view-section').forEach(function(v){ v.classList.remove('active'); });
-      var view = document.getElementById('view-' + item.dataset.view);
-      if (view) view.classList.add('active');
-      if (item.dataset.action === 'win') handleWin();
-    });
-  });
-}
+
+
 function setupDetection() {
-  var btn = document.getElementById('transfer-btn');
-  var done = false;
-  function check() {
-    if (done) return;
-    if (!btn.hasAttribute('disabled') && !btn.classList.contains('locked') && window.getComputedStyle(btn).pointerEvents !== 'none') {
-      done = true; handleWin();
+  const targetNode = document.getElementById('secret-text');
+  function checkState() {
+    if (hasWon) return;
+    if (!targetNode.classList.contains('blur-response')) {
+      document.getElementById('paywall').style.display = 'none';
+      handleWin('Client-side blurring is just an illusion.');
     }
   }
-  new MutationObserver(check).observe(btn, { attributes: true });
-  setInterval(check, 500);
+  const observer = new MutationObserver(checkState);
+  observer.observe(targetNode, { attributes: true, attributeFilter: ['class'] });
+  setInterval(checkState, 500);
 }
+
 </script>
 </body>
 </html>

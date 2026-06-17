@@ -1,8 +1,8 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ByteLearn | SpaceY 4.5</title>
+<title>ByteLab | GridControl 4.5</title>
 <link rel="icon" type="image/png" href="https://dropshare.42web.io/1/files/UIi3dXms4F.png">
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,6 +19,7 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font-main
 .progress-text{font-size:.85rem;font-weight:800;color:var(--secondary);min-width:30px}
 .btn-quit{color:var(--secondary);font-weight:700;font-size:1rem;transition:color .2s;cursor:pointer;border:none;background:none}
 .btn-quit:hover{color:#f43f5e}
+
 .assistant-container{position:fixed;top:120px;right:60px;display:flex;flex-direction:column;align-items:flex-end;gap:12px;z-index:1000;max-width:280px;opacity:0;transform:translateY(10px);transition:all .9s cubic-bezier(0.34,1.56,0.64,1)}
 .assistant-container.victory-move{top:50%!important;right:50%!important;transform:translate(50%,-50%) scale(1.1)!important;align-items:center;max-width:440px}
 .bubble{background:white;padding:20px 24px;border-radius:28px;box-shadow:0 20px 50px rgba(0,0,0,0.06);text-align:right;position:relative;transition:opacity .4s ease,transform .4s ease}
@@ -29,36 +30,37 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font-main
 .bubble-text{font-size:1.1rem;font-weight:600;line-height:1.5;color:#334155}
 .mascot-img{width:72px;height:72px;object-fit:contain;transition:all .6s cubic-bezier(0.175,0.885,0.32,1.275)}
 .assistant-container.victory-move .mascot-img{width:150px;height:150px}
-.card{background:white;width:100%;max-width:440px;padding:50px 40px;border-radius:48px;box-shadow:0 10px 40px rgba(0,0,0,0.02);text-align:center;opacity:0;transform:translateY(20px);transition:all .8s cubic-bezier(0.2,1,0.2,1)}
+
+.card{background:white;width:100%;max-width:500px;border-radius:24px;box-shadow:0 10px 40px rgba(0,0,0,0.04);border:1px solid var(--border);opacity:0;transform:translateY(20px);transition:all .8s cubic-bezier(0.2,1,0.2,1);display:flex;flex-direction:column;overflow:hidden}
 .card-exit{transform:scale(0.85) translateY(-50px);opacity:0!important;filter:blur(12px);pointer-events:none}
+
 #transition-screen{position:fixed;inset:0;background:var(--primary);z-index:3000;opacity:1;pointer-events:none;transition:opacity .6s ease}
 #story-overlay{position:fixed;inset:0;background:white;z-index:1500;display:flex;justify-content:center;align-items:center;transition:opacity .5s ease}
-.world-brand{display:flex;align-items:center;justify-content:center;gap:10px;font-family:var(--font-display);font-weight:800;font-size:.85rem;text-transform:uppercase;letter-spacing:.2rem;color:var(--secondary);margin-bottom:32px}
-.card-label{font-size:1.05rem;font-weight:600;color:#94a3b8;margin-bottom:24px}
-.masked-dots{display:flex;justify-content:center;gap:10px;margin-bottom:40px}
-.dot{width:16px;height:16px;background:#1e293b;border-radius:50%;flex-shrink:0}
-.card-amount{display:block;font-family:var(--font-display);font-size:3.8rem;font-weight:800;letter-spacing:-2px;margin-bottom:40px;color:var(--primary)}
-.card-title{font-family:var(--font-display);font-size:1.5rem;font-weight:800;margin-bottom:8px}
-.card-sub{color:var(--secondary);margin-bottom:32px;line-height:1.6;font-weight:500}
-.btn-main{background:var(--primary);color:white;width:100%;padding:20px;border-radius:20px;font-weight:800;font-size:1.2rem;cursor:pointer;border:none;transition:all .2s}
-.btn-main:hover:not([disabled]){transform:translateY(-2px);box-shadow:0 8px 24px rgba(69,70,215,0.25)}
-.btn-main[disabled]{opacity:.45;cursor:not-allowed}
+
+
+.warn-body{padding:40px;}
+.danger-input{width:100%;padding:12px;border:2px solid #ef4444;border-radius:8px;outline:none;}
+.btn-submit{background:#ef4444;color:white;width:100%;padding:12px;border-radius:8px;font-weight:bold;margin-top:20px;}
+
 </style>
 </head>
 <body>
+
 <div id="transition-screen"></div>
+
 <div id="story-overlay">
   <div class="text-center max-w-md p-5">
     <img src="https://dropshare.42web.io/1/files/zVYAUZDpex.png" class="w-24 mx-auto mb-8" alt="Byte">
-    <h1 class="text-3xl font-extrabold mb-4 tracking-tight">Orbital Slot</h1>
-    <p class="text-lg text-slate-500 mb-10 font-medium leading-relaxed">The orbital slot is marked "restricted". That status is stored in a data attribute on the slot element.</p>
-    <button onclick="startLevel()" class="bg-[#4546d7] text-white px-10 py-4 rounded-full text-lg font-bold hover:scale-105 transition-all">View Slots</button>
+    <h1 class="text-3xl font-extrabold mb-4 tracking-tight" style="font-family: var(--font-display);">GridControl: Notification Silencing</h1>
+    <p class="text-lg text-slate-500 mb-10 font-medium leading-relaxed">Locate and unbind warning event interceptor scripts to prevent security anomaly notifications from displaying during parameter violations.</p>
+    <button onclick="startLevel()" class="bg-[#4546d7] text-white px-10 py-4 rounded-full text-lg font-bold hover:scale-105 transition-all shadow-lg shadow-[#4546d7]/30">Start Simulation</button>
   </div>
 </div>
+
 <header id="header-nav" class="opacity-0">
   <div class="logo-group">
     <img src="https://dropshare.42web.io/1/files/UIi3dXms4F.png" class="app-logo" alt="ByteLearn">
-    <span class="font-extrabold text-2xl tracking-tighter">SpaceY</span>
+    <span style="font-family: var(--font-display); font-weight:800; font-size:1.1rem; letter-spacing:-0.5px;">ByteLab</span>
   </div>
   <div class="progress-box">
     <div class="progress-rail"><div id="progress-fill-bar" class="progress-fill" style="width:80%"></div></div>
@@ -66,108 +68,126 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font-main
   </div>
   <button onclick="quit()" class="btn-quit">Quit</button>
 </header>
+
 <main id="game-stage" class="w-full flex flex-col items-center justify-center">
   <div id="assistant" class="assistant-container">
     <div id="bubble-node" class="bubble hidden-msg"><p class="bubble-text" id="talk-text"></p></div>
     <img id="mascot" src="https://dropshare.42web.io/1/files/n3cWyiNBjO.png" class="mascot-img" alt="Byte">
   </div>
-  <div id="card" class="card"><div class="world-brand"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12,2L4.5,20.29L5.21,21L12,18L18.79,21L19.5,20.29L12,2Z"/></svg> SpaceY</div>
-<p class="card-title">Orbital Slot Registry</p>
-<p class="card-sub">Select an available deployment orbit.</p>
-<div style="display:grid;gap:10px;width:100%;margin-bottom:24px;">
-  <div id="slot-1A" data-status="restricted" style="padding:16px 20px;border-radius:16px;background:#fef2f2;border:1.5px solid #fecaca;display:flex;justify-content:space-between;align-items:center;cursor:pointer;" onclick="claimSlot(this)">
-    <div><p style="font-weight:800;color:#1d1d1f;">Slot 1A â€” LEO 408km</p><p style="font-size:.8rem;color:#94a3b8;font-weight:600;margin-top:2px;">Equatorial</p></div>
-    <span id="slot-1A-badge" style="background:#ef4444;color:white;padding:4px 12px;border-radius:99px;font-size:.75rem;font-weight:800;">RESTRICTED</span>
-  </div>
-  <div data-status="occupied" style="padding:16px 20px;border-radius:16px;background:#f8fafc;border:1.5px solid #e2e8f0;display:flex;justify-content:space-between;align-items:center;opacity:.6;pointer-events:none;">
-    <div><p style="font-weight:800;">Slot 2B â€” MEO 2000km</p><p style="font-size:.8rem;color:#94a3b8;font-weight:600;margin-top:2px;">Polar</p></div>
-    <span style="background:#94a3b8;color:white;padding:4px 12px;border-radius:99px;font-size:.75rem;font-weight:800;">OCCUPIED</span>
-  </div>
-</div>
-<button id="book-btn" class="btn-main" disabled>Reserve Slot</button></div>
-</main>
-<script>
 
-const BYTE_PC = 'https://dropshare.42web.io/1/files/OStYxaWILh.png';
-let talkTimeout, hintTimeout, hasWon = false;
-const cardEl = document.getElementById('card');
+  <div id="card" class="card">
+
+    <div class="warn-body text-center">
+      <h2 class="text-xl font-bold text-red-500 mb-2">CRITICAL PARAMETER</h2>
+      <p class="mb-4">Do NOT set core multiplier above 10.</p>
+      <input type="number" id="core-input" class="danger-input" value="1" max="10">
+      <button id="submit-btn" class="btn-submit">Engage Multiplier</button>
+    </div>
+
+  </div>
+</main>
+
+<script>
+const BYTE_NORMAL = 'https://dropshare.42web.io/1/files/n3cWyiNBjO.png';
+const BYTE_PC = 'https://dropshare.42web.io/1/files/Ld5zPZ4pIf.png';
+let hasWon = false;
+let hintTimeout, talkTimeout;
+
+const transition = document.getElementById('transition-screen');
 const assistant = document.getElementById('assistant');
+const mascot = document.getElementById('mascot');
 const bubble = document.getElementById('bubble-node');
 const talkText = document.getElementById('talk-text');
-const mascot = document.getElementById('mascot');
+const cardEl = document.getElementById('card');
 const fillBar = document.getElementById('progress-fill-bar');
 const progLabel = document.getElementById('progress-text-val');
-const transition = document.getElementById('transition-screen');
+
 function speak(text, persist) {
-  if (hasWon && !persist) return;
   clearTimeout(talkTimeout);
   talkText.innerText = text;
   bubble.classList.remove('hidden-msg');
   if (!persist) talkTimeout = setTimeout(function(){ bubble.classList.add('hidden-msg'); }, 6000);
 }
-// Fade transition screen as soon as DOM is ready (not waiting for CDN assets)
+
 function fadeIn() { transition.style.opacity = '0'; }
 document.addEventListener('DOMContentLoaded', function(){ setTimeout(fadeIn, 200); });
-// Hard fallback in case DOMContentLoaded already fired
 setTimeout(fadeIn, 800);
+
 function startLevel() {
   document.getElementById('story-overlay').style.display = 'none';
   document.getElementById('header-nav').style.opacity = '1';
   assistant.style.opacity = '1';
   assistant.style.transform = 'translateY(0)';
   if (cardEl) { cardEl.style.opacity = '1'; cardEl.style.transform = 'translateY(0)'; }
-  speak('Orbital slot 1A is marked restricted via a data-status attribute. Change the status.');
-  hintTimeout = setTimeout(function(){ if (!hasWon) speak('Find the element with id="slot-1A" and change its data-status attribute from "restricted" to "available".'); }, 20000);
-  setupDetection();
+
+  speak("A script is listening for 'change' events on the input to block unsafe values.", false);
+
+  hintTimeout = setTimeout(function(){
+    if (!hasWon) speak("You need to bypass the event listener. In DevTools, find the input and remove its event listeners, or clone the node to strip listeners.");
+  }, 15000);
+
+
 }
-function handleWin() {
+
+function handleWin(winMsg) {
   if (hasWon) return;
   hasWon = true;
-  clearTimeout(hintTimeout); clearTimeout(talkTimeout);
+  clearTimeout(hintTimeout);
+  clearTimeout(talkTimeout);
+
   if (window.parent) window.parent.postMessage({ type: 'LEVEL_COMPLETE', world: 4, level: 5 }, '*');
+
   setTimeout(function() {
     if (cardEl) cardEl.classList.add('card-exit');
     assistant.classList.add('victory-move');
     mascot.src = BYTE_PC;
-    speak('Slot status changed. Orbital insertion authorized.', true);
+    speak(winMsg || 'Bypass successful. You forced the system logic to break.', true);
+
     setTimeout(function() {
       fillBar.style.width = '100%';
       progLabel.innerText = '5/5';
       progLabel.style.color = '#4546d7';
+
       setTimeout(function() {
         transition.style.opacity = '1';
-        setTimeout(function(){ window.location.href = '../../5/1/index.html'; }, 800);
+        setTimeout(function(){
+          window.location.href = '../../5/1/index.html';
+        }, 800);
       }, 2500);
     }, 800);
-  }, 1000);
+  }, 1500);
 }
-function quit() { transition.style.opacity = '1'; setTimeout(function(){ window.location.href = '../../game.html'; }, 600); }
 
-function claimSlot(el) {
-  if (el.dataset.status === 'available') {
-    document.getElementById('book-btn').removeAttribute('disabled');
-    document.getElementById('book-btn').onclick = handleWin;
-    speak('Slot 1A is available. Reserve it now!');
-  } else { speak('Slot 1A is still restricted. Change its data-status attribute.'); }
+function quit() {
+  transition.style.opacity = '1';
+  setTimeout(function(){ window.location.href = '../../game.html'; }, 600);
 }
-function setupDetection() {
-  var slot = document.getElementById('slot-1A');
-  var badge = document.getElementById('slot-1A-badge');
-  var done = false;
-  function check() {
-    if (done) return;
-    if (slot.dataset.status === 'available') {
-      done = true;
-      slot.style.background = '#f0fdf4'; slot.style.borderColor = '#86efac';
-      badge.style.background = '#22c55e'; badge.innerText = 'AVAILABLE';
-      var btn = document.getElementById('book-btn');
-      btn.removeAttribute('disabled'); btn.onclick = handleWin;
-      speak('Slot is now available. Reserve it!');
-    }
+
+
+const coreInput = document.getElementById('core-input');
+
+// The defensive listener we want them to bypass
+function defensiveCheck() {
+  if (parseInt(this.value) > 10) {
+    speak('WARNING: Value exceeds safe limits. Action blocked by security interceptor.');
+    this.value = 10;
   }
-  new MutationObserver(check).observe(slot, { attributes: true, attributeFilter: ['data-status'] });
-  setInterval(check, 500);
 }
+
+// Attach it
+coreInput.addEventListener('input', defensiveCheck);
+
+// The actual submit button logic
+document.getElementById('submit-btn').addEventListener('click', function() {
+  // we check the active node in DOM in case they cloned it
+  const currentInput = document.getElementById('core-input');
+  if (parseInt(currentInput.value) > 10) {
+    handleWin('Interceptor silenced. You pushed the multiplier past the safety limit.');
+  } else {
+    speak('Multiplier engaged at safe levels.');
+  }
+});
+
 </script>
 </body>
 </html>

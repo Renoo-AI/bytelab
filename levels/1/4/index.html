@@ -1,8 +1,8 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ByteLearn | PayBal 1.4</title>
+<title>ByteLab | ApexAI 1.4</title>
 <link rel="icon" type="image/png" href="https://dropshare.42web.io/1/files/UIi3dXms4F.png">
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,6 +19,7 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font-main
 .progress-text{font-size:.85rem;font-weight:800;color:var(--secondary);min-width:30px}
 .btn-quit{color:var(--secondary);font-weight:700;font-size:1rem;transition:color .2s;cursor:pointer;border:none;background:none}
 .btn-quit:hover{color:#f43f5e}
+
 .assistant-container{position:fixed;top:120px;right:60px;display:flex;flex-direction:column;align-items:flex-end;gap:12px;z-index:1000;max-width:280px;opacity:0;transform:translateY(10px);transition:all .9s cubic-bezier(0.34,1.56,0.64,1)}
 .assistant-container.victory-move{top:50%!important;right:50%!important;transform:translate(50%,-50%) scale(1.1)!important;align-items:center;max-width:440px}
 .bubble{background:white;padding:20px 24px;border-radius:28px;box-shadow:0 20px 50px rgba(0,0,0,0.06);text-align:right;position:relative;transition:opacity .4s ease,transform .4s ease}
@@ -29,36 +30,44 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font-main
 .bubble-text{font-size:1.1rem;font-weight:600;line-height:1.5;color:#334155}
 .mascot-img{width:72px;height:72px;object-fit:contain;transition:all .6s cubic-bezier(0.175,0.885,0.32,1.275)}
 .assistant-container.victory-move .mascot-img{width:150px;height:150px}
-.card{background:white;width:100%;max-width:440px;padding:50px 40px;border-radius:48px;box-shadow:0 10px 40px rgba(0,0,0,0.02);text-align:center;opacity:0;transform:translateY(20px);transition:all .8s cubic-bezier(0.2,1,0.2,1)}
+
+.card{background:white;width:100%;max-width:640px;border-radius:24px;box-shadow:0 10px 40px rgba(0,0,0,0.04);border:1px solid var(--border);opacity:0;transform:translateY(20px);transition:all .8s cubic-bezier(0.2,1,0.2,1);display:flex;flex-direction:column;overflow:hidden}
 .card-exit{transform:scale(0.85) translateY(-50px);opacity:0!important;filter:blur(12px);pointer-events:none}
+
 #transition-screen{position:fixed;inset:0;background:var(--primary);z-index:3000;opacity:1;pointer-events:none;transition:opacity .6s ease}
 #story-overlay{position:fixed;inset:0;background:white;z-index:1500;display:flex;justify-content:center;align-items:center;transition:opacity .5s ease}
-.world-brand{display:flex;align-items:center;justify-content:center;gap:10px;font-family:var(--font-display);font-weight:800;font-size:.85rem;text-transform:uppercase;letter-spacing:.2rem;color:var(--secondary);margin-bottom:32px}
-.card-label{font-size:1.05rem;font-weight:600;color:#94a3b8;margin-bottom:24px}
-.masked-dots{display:flex;justify-content:center;gap:10px;margin-bottom:40px}
-.dot{width:16px;height:16px;background:#1e293b;border-radius:50%;flex-shrink:0}
-.card-amount{display:block;font-family:var(--font-display);font-size:3.8rem;font-weight:800;letter-spacing:-2px;margin-bottom:40px;color:var(--primary)}
-.card-title{font-family:var(--font-display);font-size:1.5rem;font-weight:800;margin-bottom:8px}
-.card-sub{color:var(--secondary);margin-bottom:32px;line-height:1.6;font-weight:500}
-.btn-main{background:var(--primary);color:white;width:100%;padding:20px;border-radius:20px;font-weight:800;font-size:1.2rem;cursor:pointer;border:none;transition:all .2s}
-.btn-main:hover:not([disabled]){transform:translateY(-2px);box-shadow:0 8px 24px rgba(69,70,215,0.25)}
-.btn-main[disabled]{opacity:.45;cursor:not-allowed}
+
+
+.chat-header{padding:24px 32px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;background:white;}
+.chat-header-title{font-family:var(--font-display);font-weight:800;font-size:1.2rem;color:var(--text);}
+.chat-header-sub{font-size:0.85rem;color:var(--secondary);font-weight:500;}
+.shell-content{padding:32px;height:300px;background:#fafafa;display:flex;justify-content:center;align-items:center;}
+.user-view{text-align:center;color:var(--secondary);}
+.admin-view{display:none;width:100%;}
+[data-system-context="admin"] .user-view{display:none;}
+[data-system-context="admin"] .admin-view{display:block;}
+.admin-card{background:white;padding:24px;border-radius:16px;border:1px solid #818cf8;box-shadow:0 10px 25px rgba(99,102,241,0.1);}
+.admin-title{color:#4338ca;font-weight:800;margin-bottom:16px;display:flex;align-items:center;gap:8px;}
+
 </style>
 </head>
 <body>
+
 <div id="transition-screen"></div>
+
 <div id="story-overlay">
   <div class="text-center max-w-md p-5">
     <img src="https://dropshare.42web.io/1/files/zVYAUZDpex.png" class="w-24 mx-auto mb-8" alt="Byte">
-    <h1 class="text-3xl font-extrabold mb-4 tracking-tight">The Fee Ghost</h1>
-    <p class="text-lg text-slate-500 mb-10 font-medium leading-relaxed">Somewhere in this form, a hidden field is calculating something. Find it. Change it.</p>
-    <button onclick="startLevel()" class="bg-[#4546d7] text-white px-10 py-4 rounded-full text-lg font-bold hover:scale-105 transition-all">Open Form</button>
+    <h1 class="text-3xl font-extrabold mb-4 tracking-tight" style="font-family: var(--font-display);">ApexAI: Role Escalate</h1>
+    <p class="text-lg text-slate-500 mb-10 font-medium leading-relaxed">The chat shell initializes with a dataset role attribute (data-system-context="user"). Mutate it directly to admin to force the UI to render the internal fine-tuning dashboard.</p>
+    <button onclick="startLevel()" class="bg-[#4546d7] text-white px-10 py-4 rounded-full text-lg font-bold hover:scale-105 transition-all shadow-lg shadow-[#4546d7]/30">Start Simulation</button>
   </div>
 </div>
+
 <header id="header-nav" class="opacity-0">
   <div class="logo-group">
     <img src="https://dropshare.42web.io/1/files/UIi3dXms4F.png" class="app-logo" alt="ByteLearn">
-    <span class="font-extrabold text-2xl tracking-tighter">PayBal</span>
+    <span style="font-family: var(--font-display); font-weight:800; font-size:1.1rem; letter-spacing:-0.5px;">ByteLab</span>
   </div>
   <div class="progress-box">
     <div class="progress-rail"><div id="progress-fill-bar" class="progress-fill" style="width:60%"></div></div>
@@ -66,90 +75,140 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font-main
   </div>
   <button onclick="quit()" class="btn-quit">Quit</button>
 </header>
+
 <main id="game-stage" class="w-full flex flex-col items-center justify-center">
   <div id="assistant" class="assistant-container">
     <div id="bubble-node" class="bubble hidden-msg"><p class="bubble-text" id="talk-text"></p></div>
     <img id="mascot" src="https://dropshare.42web.io/1/files/n3cWyiNBjO.png" class="mascot-img" alt="Byte">
   </div>
-  <div id="card" class="card"><div class="world-brand"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M11.5,1L2,6V8H21V6M2,10V12H3V19H2V21H21V19H20V12H21V10M5,12H8V19H5M10,12H13V19H10M15,12H18V19H15M11.5,3C12.3,3 13,3.7 13,4.5C13,5.3 12.3,6 11.5,6C10.7,6 10,5.3 10,4.5C10,3.7 10.7,3 11.5,3Z"/></svg> PayBal</div>
-<p class="card-title">Wire Transfer</p>
-<p class="card-sub">Authorize an external wire transfer.</p>
-<div style="text-align:left;width:100%;margin-bottom:20px;"><p style="font-size:.8rem;font-weight:800;color:#94a3b8;text-transform:uppercase;margin-bottom:8px;">Recipient</p><div style="padding:16px;background:#f8fafc;border-radius:14px;font-weight:600;color:#334155;">SAV-9921-2201</div></div>
-<div style="text-align:left;width:100%;margin-bottom:20px;"><p style="font-size:.8rem;font-weight:800;color:#94a3b8;text-transform:uppercase;margin-bottom:8px;">Amount</p><div style="padding:16px;background:#f8fafc;border-radius:14px;font-weight:600;color:#334155;">$5,000.00</div></div>
-<input type="hidden" id="fee-amount" value="25.00">
-<button id="confirm-btn" class="btn-main" disabled>Confirm Transfer</button></div>
-</main>
-<script>
 
-const BYTE_PC = 'https://dropshare.42web.io/1/files/OStYxaWILh.png';
-let talkTimeout, hintTimeout, hasWon = false;
-const cardEl = document.getElementById('card');
+  <div id="card" class="card">
+
+    <div id="app-shell" data-system-context="user" class="w-full h-full flex flex-col">
+      <div class="chat-header">
+        <div class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-600">
+          <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
+        </div>
+        <div>
+          <div class="chat-header-title">ApexAI Gateway</div>
+          <div class="chat-header-sub" id="role-display">Role: Standard User</div>
+        </div>
+      </div>
+      <div class="shell-content">
+        <div class="user-view">
+          <svg class="w-16 h-16 mx-auto text-slate-300 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" /></svg>
+          <p>Please upgrade your account to access model tuning parameters.</p>
+        </div>
+        <div class="admin-view">
+          <div class="admin-card">
+            <div class="admin-title"><svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg> ADMIN CONTROL PANEL</div>
+            <div class="text-sm font-mono text-slate-700 bg-slate-100 p-3 rounded">
+              ROOT_ACCESS_TOKEN: 8f92a4bc-11<br>
+              MODEL_WEIGHTS: UNLOCKED<br>
+              SYSTEM_PROMPT_OVERRIDE: ENABLED
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<script>
+const BYTE_NORMAL = 'https://dropshare.42web.io/1/files/n3cWyiNBjO.png';
+const BYTE_PC = 'https://dropshare.42web.io/1/files/Ld5zPZ4pIf.png';
+let hasWon = false;
+let hintTimeout, talkTimeout;
+
+const transition = document.getElementById('transition-screen');
 const assistant = document.getElementById('assistant');
+const mascot = document.getElementById('mascot');
 const bubble = document.getElementById('bubble-node');
 const talkText = document.getElementById('talk-text');
-const mascot = document.getElementById('mascot');
+const cardEl = document.getElementById('card');
 const fillBar = document.getElementById('progress-fill-bar');
 const progLabel = document.getElementById('progress-text-val');
-const transition = document.getElementById('transition-screen');
+
 function speak(text, persist) {
-  if (hasWon && !persist) return;
   clearTimeout(talkTimeout);
   talkText.innerText = text;
   bubble.classList.remove('hidden-msg');
   if (!persist) talkTimeout = setTimeout(function(){ bubble.classList.add('hidden-msg'); }, 6000);
 }
-// Fade transition screen as soon as DOM is ready (not waiting for CDN assets)
+
 function fadeIn() { transition.style.opacity = '0'; }
 document.addEventListener('DOMContentLoaded', function(){ setTimeout(fadeIn, 200); });
-// Hard fallback in case DOMContentLoaded already fired
 setTimeout(fadeIn, 800);
+
 function startLevel() {
   document.getElementById('story-overlay').style.display = 'none';
   document.getElementById('header-nav').style.opacity = '1';
   assistant.style.opacity = '1';
   assistant.style.transform = 'translateY(0)';
   if (cardEl) { cardEl.style.opacity = '1'; cardEl.style.transform = 'translateY(0)'; }
-  speak('A hidden field determines the transfer fee. Find it.');
-  hintTimeout = setTimeout(function(){ if (!hasWon) speak('Look for a hidden input with id="fee-amount". Set its value to a negative number.'); }, 20000);
+
+  speak("Check the root element of the chat application. It defines who you are.", false);
+
+  hintTimeout = setTimeout(function(){
+    if (!hasWon) speak("Find the element with id `app-shell`. Change `data-system-context` from 'user' to 'admin'.");
+  }, 15000);
+
   setupDetection();
 }
-function handleWin() {
+
+function handleWin(winMsg) {
   if (hasWon) return;
   hasWon = true;
-  clearTimeout(hintTimeout); clearTimeout(talkTimeout);
+  clearTimeout(hintTimeout);
+  clearTimeout(talkTimeout);
+
   if (window.parent) window.parent.postMessage({ type: 'LEVEL_COMPLETE', world: 1, level: 4 }, '*');
+
   setTimeout(function() {
     if (cardEl) cardEl.classList.add('card-exit');
     assistant.classList.add('victory-move');
     mascot.src = BYTE_PC;
-    speak('Negative fee. The bank owes you. Unstoppable.', true);
+    speak(winMsg || 'Bypass successful. You forced the system logic to break.', true);
+
     setTimeout(function() {
       fillBar.style.width = '80%';
       progLabel.innerText = '4/5';
       progLabel.style.color = '#4546d7';
+
       setTimeout(function() {
         transition.style.opacity = '1';
-        setTimeout(function(){ window.location.href = '../5/index.html'; }, 800);
+        setTimeout(function(){
+          window.location.href = '../5/index.html';
+        }, 800);
       }, 2500);
     }, 800);
-  }, 1000);
+  }, 1500);
 }
-function quit() { transition.style.opacity = '1'; setTimeout(function(){ window.location.href = '../../game.html'; }, 600); }
+
+function quit() {
+  transition.style.opacity = '1';
+  setTimeout(function(){ window.location.href = '../../game.html'; }, 600);
+}
+
 
 function setupDetection() {
-  var fee = document.getElementById('fee-amount');
-  var btn = document.getElementById('confirm-btn');
-  var done = false;
-  setInterval(function() {
-    if (done) return;
-    if (parseFloat(fee.value) < 0) {
-      done = true;
-      btn.removeAttribute('disabled');
-      btn.onclick = function() { btn.innerText = 'Processing...'; setTimeout(handleWin, 1000); };
-      speak('Negative fee detected! The system will pay you back. Confirm the transfer.');
+  const targetNode = document.getElementById('app-shell');
+  const roleDisplay = document.getElementById('role-display');
+  function checkState() {
+    if (hasWon) return;
+    if (targetNode.getAttribute('data-system-context') === 'admin') {
+      roleDisplay.innerText = "Role: Root Administrator";
+      roleDisplay.style.color = "#4338ca";
+      roleDisplay.style.fontWeight = "800";
+      handleWin('Identity is just an attribute. Good job.');
     }
-  }, 400);
+  }
+  const observer = new MutationObserver(checkState);
+  observer.observe(targetNode, { attributes: true, attributeFilter: ['data-system-context'] });
+  setInterval(checkState, 500);
 }
+
 </script>
 </body>
 </html>

@@ -1,8 +1,8 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ByteLearn | SpaceY 4.3</title>
+<title>ByteLab | GridControl 4.3</title>
 <link rel="icon" type="image/png" href="https://dropshare.42web.io/1/files/UIi3dXms4F.png">
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,6 +19,7 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font-main
 .progress-text{font-size:.85rem;font-weight:800;color:var(--secondary);min-width:30px}
 .btn-quit{color:var(--secondary);font-weight:700;font-size:1rem;transition:color .2s;cursor:pointer;border:none;background:none}
 .btn-quit:hover{color:#f43f5e}
+
 .assistant-container{position:fixed;top:120px;right:60px;display:flex;flex-direction:column;align-items:flex-end;gap:12px;z-index:1000;max-width:280px;opacity:0;transform:translateY(10px);transition:all .9s cubic-bezier(0.34,1.56,0.64,1)}
 .assistant-container.victory-move{top:50%!important;right:50%!important;transform:translate(50%,-50%) scale(1.1)!important;align-items:center;max-width:440px}
 .bubble{background:white;padding:20px 24px;border-radius:28px;box-shadow:0 20px 50px rgba(0,0,0,0.06);text-align:right;position:relative;transition:opacity .4s ease,transform .4s ease}
@@ -29,52 +30,38 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font-main
 .bubble-text{font-size:1.1rem;font-weight:600;line-height:1.5;color:#334155}
 .mascot-img{width:72px;height:72px;object-fit:contain;transition:all .6s cubic-bezier(0.175,0.885,0.32,1.275)}
 .assistant-container.victory-move .mascot-img{width:150px;height:150px}
-.card{background:white;width:100%;max-width:440px;padding:50px 40px;border-radius:48px;box-shadow:0 10px 40px rgba(0,0,0,0.02);text-align:center;opacity:0;transform:translateY(20px);transition:all .8s cubic-bezier(0.2,1,0.2,1)}
+
+.card{background:white;width:100%;max-width:500px;border-radius:24px;box-shadow:0 10px 40px rgba(0,0,0,0.04);border:1px solid var(--border);opacity:0;transform:translateY(20px);transition:all .8s cubic-bezier(0.2,1,0.2,1);display:flex;flex-direction:column;overflow:hidden}
 .card-exit{transform:scale(0.85) translateY(-50px);opacity:0!important;filter:blur(12px);pointer-events:none}
+
 #transition-screen{position:fixed;inset:0;background:var(--primary);z-index:3000;opacity:1;pointer-events:none;transition:opacity .6s ease}
 #story-overlay{position:fixed;inset:0;background:white;z-index:1500;display:flex;justify-content:center;align-items:center;transition:opacity .5s ease}
-.world-brand{display:flex;align-items:center;justify-content:center;gap:10px;font-family:var(--font-display);font-weight:800;font-size:.85rem;text-transform:uppercase;letter-spacing:.2rem;color:var(--secondary);margin-bottom:32px}
-.card-label{font-size:1.05rem;font-weight:600;color:#94a3b8;margin-bottom:24px}
-.masked-dots{display:flex;justify-content:center;gap:10px;margin-bottom:40px}
-.dot{width:16px;height:16px;background:#1e293b;border-radius:50%;flex-shrink:0}
-.card-amount{display:block;font-family:var(--font-display);font-size:3.8rem;font-weight:800;letter-spacing:-2px;margin-bottom:40px;color:var(--primary)}
-.card-title{font-family:var(--font-display);font-size:1.5rem;font-weight:800;margin-bottom:8px}
-.card-sub{color:var(--secondary);margin-bottom:32px;line-height:1.6;font-weight:500}
-.btn-main{background:var(--primary);color:white;width:100%;padding:20px;border-radius:20px;font-weight:800;font-size:1.2rem;cursor:pointer;border:none;transition:all .2s}
-.btn-main:hover:not([disabled]){transform:translateY(-2px);box-shadow:0 8px 24px rgba(69,70,215,0.25)}
-.btn-main[disabled]{opacity:.45;cursor:not-allowed}
 
-body{display:flex;flex-direction:column;align-items:unset;justify-content:unset;padding:0;overflow:hidden}
-#main-viewport{flex-grow:1;display:flex;margin-top:80px;opacity:0;transform:translateY(20px);transition:all .8s ease}
-.sidebar{width:280px;flex-shrink:0;background:white;border-right:1px solid var(--border);padding:32px 16px;display:flex;flex-direction:column;gap:6px}
-.sidebar-item{padding:12px 18px;border-radius:12px;color:#64748b;font-weight:600;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:10px;border:none;background:none;width:100%;text-align:left;font-family:var(--font-main);font-size:1rem}
-.sidebar-item:hover:not(.locked){background:var(--bg);color:var(--primary)}
-.sidebar-item.active{background:#eef2ff;color:var(--primary)}
-@keyframes glitch{0%,95%,100%{opacity:.4}97%{opacity:.9;color:var(--primary)}98%{opacity:.4}}
-.locked{opacity:.4;pointer-events:none;animation:glitch 4s infinite}
-.content-area{flex-grow:1;padding:48px;background:var(--bg);overflow-y:auto}
-.view-section{display:none;animation:fadeUp .3s ease forwards}
-.view-section.active{display:block}
-@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
-.assistant-container{bottom:40px;right:40px;top:auto}
-.assistant-container.victory-move{bottom:50%!important;right:50%!important;transform:translate(50%,50%) scale(1.1)!important}
+
+.diag-header{padding:24px;background:#1e293b;color:white;}
+.diag-body{padding:32px;}
+.metric-box{background:#f1f5f9;padding:16px;border-radius:8px;font-family:monospace;margin-bottom:16px;}
+.btn-fetch{background:var(--primary);color:white;width:100%;padding:12px;border-radius:8px;font-weight:bold;}
+
 </style>
 </head>
 <body>
+
 <div id="transition-screen"></div>
 
 <div id="story-overlay">
   <div class="text-center max-w-md p-5">
     <img src="https://dropshare.42web.io/1/files/zVYAUZDpex.png" class="w-24 mx-auto mb-8" alt="Byte">
-    <h1 class="text-3xl font-extrabold mb-4 tracking-tight">Mission Control</h1>
-    <p class="text-lg text-slate-500 mb-10 font-medium leading-relaxed">Mission Control is restricted to senior engineers. That restriction lives in the HTML. HTML is editable.</p>
-    <button onclick="startLevel()" class="bg-[#4546d7] text-white px-10 py-4 rounded-full text-lg font-bold hover:scale-105 transition-all">Open Portal</button>
+    <h1 class="text-3xl font-extrabold mb-4 tracking-tight" style="font-family: var(--font-display);">GridControl: Target Endpoint Divergence</h1>
+    <p class="text-lg text-slate-500 mb-10 font-medium leading-relaxed">A real-time grid component pulls metrics from a path specified in `data-source-path="/api/public"`. Modify the target property to force the component to pull confidential diagnostic matrices.</p>
+    <button onclick="startLevel()" class="bg-[#4546d7] text-white px-10 py-4 rounded-full text-lg font-bold hover:scale-105 transition-all shadow-lg shadow-[#4546d7]/30">Start Simulation</button>
   </div>
 </div>
+
 <header id="header-nav" class="opacity-0">
   <div class="logo-group">
     <img src="https://dropshare.42web.io/1/files/UIi3dXms4F.png" class="app-logo" alt="ByteLearn">
-    <span class="font-extrabold text-2xl tracking-tighter">SpaceY</span>
+    <span style="font-family: var(--font-display); font-weight:800; font-size:1.1rem; letter-spacing:-0.5px;">ByteLab</span>
   </div>
   <div class="progress-box">
     <div class="progress-rail"><div id="progress-fill-bar" class="progress-fill" style="width:40%"></div></div>
@@ -82,139 +69,117 @@ body{display:flex;flex-direction:column;align-items:unset;justify-content:unset;
   </div>
   <button onclick="quit()" class="btn-quit">Quit</button>
 </header>
-<main id="main-viewport">
-  <nav class="sidebar">
-<div class="text-xs font-black text-slate-300 mb-4 px-4 uppercase tracking-widest">SpaceY Portal</div>
-<button class="sidebar-item active" data-view="overview">Mission Overview</button>
-<button class="sidebar-item" data-view="telemetry">Telemetry Data</button>
-<button class="sidebar-item" data-view="payload">Payload Config</button>
-<div class="h-px bg-slate-100 my-3 mx-4"></div>
-<button id="missionctrl-btn" class="sidebar-item locked" disabled data-view="control" data-action="win">Mission Control</button></nav>
-  <div class="content-area">
-<div id="view-overview" class="view-section active">
-  <h2 class="text-2xl font-black mb-2">Falcon-9X Status</h2>
-  <p class="text-slate-400 font-medium mb-10">T-minus 48 hours to launch window.</p>
-  <div class="grid grid-cols-2 gap-5">
-    <div class="bg-white p-7 rounded-3xl border border-slate-100"><p class="text-slate-400 text-sm font-bold uppercase mb-2">Status</p><p class="text-xl font-extrabold text-green-500">GO for launch</p></div>
-    <div class="bg-white p-7 rounded-3xl border border-slate-100"><p class="text-slate-400 text-sm font-bold uppercase mb-2">Altitude Target</p><p class="text-xl font-extrabold">408 km</p></div>
-  </div>
-</div>
-<div id="view-telemetry" class="view-section">
-  <h2 class="text-2xl font-black mb-8">Live Telemetry</h2>
-  <div class="bg-white rounded-3xl border border-slate-100 overflow-hidden">
-    <div class="p-5 border-b flex justify-between"><span class="font-bold">Engine Pressure</span><span class="font-mono font-black text-green-500">98.7%</span></div>
-    <div class="p-5 border-b flex justify-between"><span class="font-bold">Fuel Level</span><span class="font-mono font-black text-green-500">100%</span></div>
-    <div class="p-5 flex justify-between"><span class="font-bold">Weather Hold</span><span class="font-mono font-black text-green-500">CLEAR</span></div>
-  </div>
-</div>
-<div id="view-payload" class="view-section">
-  <h2 class="text-2xl font-black mb-8">Payload Configuration</h2>
-  <div class="bg-white p-8 rounded-3xl border border-slate-100"><p class="font-bold text-slate-300 italic">Payload finalized. Manifested weight: 4,200 kg.</p></div>
-</div>
-<div id="view-control" class="view-section">
-  <div style="max-width:480px;margin:0 auto;background:white;padding:48px;border-radius:40px;text-align:center;">
-    <h2 class="text-2xl font-black mb-4">Mission Control</h2>
-    <p class="text-slate-400 font-medium mb-8">Full launch override access granted.</p>
-    <button onclick="handleWin()" class="btn-main">Initiate Launch Sequence</button>
-  </div>
-</div></div>
-</main>
-<div id="assistant" class="assistant-container" style="position:fixed;">
-  <div id="bubble-node" class="bubble hidden-msg"><p class="bubble-text" id="talk-text"></p></div>
-  <img id="mascot" src="https://dropshare.42web.io/1/files/n3cWyiNBjO.png" class="mascot-img" alt="Byte">
-</div>
-<script>
 
-const BYTE_PC = 'https://dropshare.42web.io/1/files/OStYxaWILh.png';
-let talkTimeout, hintTimeout, hasWon = false;
-const cardEl = document.getElementById('card');
+<main id="game-stage" class="w-full flex flex-col items-center justify-center">
+  <div id="assistant" class="assistant-container">
+    <div id="bubble-node" class="bubble hidden-msg"><p class="bubble-text" id="talk-text"></p></div>
+    <img id="mascot" src="https://dropshare.42web.io/1/files/n3cWyiNBjO.png" class="mascot-img" alt="Byte">
+  </div>
+
+  <div id="card" class="card">
+
+    <div class="diag-header">
+      <h2 class="font-bold">Grid Diagnostics</h2>
+    </div>
+    <div class="diag-body">
+      <div id="metric-display" class="metric-box" data-source-path="/api/public">
+        > STATUS: OK<br>
+        > LOAD: 42%
+      </div>
+      <button class="btn-fetch" id="fetch-btn">Fetch Metrics</button>
+    </div>
+
+  </div>
+</main>
+
+<script>
+const BYTE_NORMAL = 'https://dropshare.42web.io/1/files/n3cWyiNBjO.png';
+const BYTE_PC = 'https://dropshare.42web.io/1/files/Ld5zPZ4pIf.png';
+let hasWon = false;
+let hintTimeout, talkTimeout;
+
+const transition = document.getElementById('transition-screen');
 const assistant = document.getElementById('assistant');
+const mascot = document.getElementById('mascot');
 const bubble = document.getElementById('bubble-node');
 const talkText = document.getElementById('talk-text');
-const mascot = document.getElementById('mascot');
+const cardEl = document.getElementById('card');
 const fillBar = document.getElementById('progress-fill-bar');
 const progLabel = document.getElementById('progress-text-val');
-const transition = document.getElementById('transition-screen');
+
 function speak(text, persist) {
-  if (hasWon && !persist) return;
   clearTimeout(talkTimeout);
   talkText.innerText = text;
   bubble.classList.remove('hidden-msg');
   if (!persist) talkTimeout = setTimeout(function(){ bubble.classList.add('hidden-msg'); }, 6000);
 }
-// Fade transition screen as soon as DOM is ready (not waiting for CDN assets)
+
 function fadeIn() { transition.style.opacity = '0'; }
 document.addEventListener('DOMContentLoaded', function(){ setTimeout(fadeIn, 200); });
-// Hard fallback in case DOMContentLoaded already fired
 setTimeout(fadeIn, 800);
+
 function startLevel() {
   document.getElementById('story-overlay').style.display = 'none';
   document.getElementById('header-nav').style.opacity = '1';
   assistant.style.opacity = '1';
   assistant.style.transform = 'translateY(0)';
   if (cardEl) { cardEl.style.opacity = '1'; cardEl.style.transform = 'translateY(0)'; }
-  speak('Mission Control is locked. Remove both restrictions on the button to gain access.');
-  hintTimeout = setTimeout(function(){ if (!hasWon) speak('Remove the "disabled" attribute AND the "locked" class from the Mission Control nav button.'); }, 20000);
-  setupDetection();
+
+  speak("The component fetches data from a path defined in an HTML attribute.", false);
+
+  hintTimeout = setTimeout(function(){
+    if (!hasWon) speak("Change `data-source-path` from `/api/public` to something like `/api/private` or `/api/diagnostic`.");
+  }, 15000);
+
+
 }
-function handleWin() {
+
+function handleWin(winMsg) {
   if (hasWon) return;
   hasWon = true;
-  clearTimeout(hintTimeout); clearTimeout(talkTimeout);
+  clearTimeout(hintTimeout);
+  clearTimeout(talkTimeout);
+
   if (window.parent) window.parent.postMessage({ type: 'LEVEL_COMPLETE', world: 4, level: 3 }, '*');
+
   setTimeout(function() {
     if (cardEl) cardEl.classList.add('card-exit');
     assistant.classList.add('victory-move');
     mascot.src = BYTE_PC;
-    speak('Mission Control accessed. Trajectory confirmed. You\'re in.', true);
+    speak(winMsg || 'Bypass successful. You forced the system logic to break.', true);
+
     setTimeout(function() {
       fillBar.style.width = '60%';
       progLabel.innerText = '3/5';
       progLabel.style.color = '#4546d7';
+
       setTimeout(function() {
         transition.style.opacity = '1';
-        setTimeout(function(){ window.location.href = '../4/index.html'; }, 800);
+        setTimeout(function(){
+          window.location.href = '../4/index.html';
+        }, 800);
       }, 2500);
     }, 800);
-  }, 1000);
+  }, 1500);
 }
-function quit() { transition.style.opacity = '1'; setTimeout(function(){ window.location.href = '../../game.html'; }, 600); }
 
-function startLevel() {
-  document.getElementById('story-overlay').style.display = 'none';
-  document.getElementById('header-nav').style.opacity = '1';
-  var vp = document.getElementById('main-viewport');
-  vp.style.opacity = '1'; vp.style.transform = 'translateY(0)';
-  assistant.style.opacity = '1'; assistant.style.transform = 'translateY(0)';
-  speak('Mission Control is locked. Remove both restrictions on the button to gain access.');
-  hintTimeout = setTimeout(function(){ if (!hasWon) speak('Remove the "disabled" attribute AND the "locked" class from the Mission Control nav button.'); }, 20000);
-  initNav(); setupDetection();
+function quit() {
+  transition.style.opacity = '1';
+  setTimeout(function(){ window.location.href = '../../game.html'; }, 600);
 }
-function initNav() {
-  document.querySelectorAll('.sidebar-item').forEach(function(item) {
-    item.addEventListener('click', function() {
-      if (item.classList.contains('locked') || item.hasAttribute('disabled')) return;
-      document.querySelectorAll('.sidebar-item').forEach(function(i){ i.classList.remove('active'); });
-      item.classList.add('active');
-      document.querySelectorAll('.view-section').forEach(function(v){ v.classList.remove('active'); });
-      var view = document.getElementById('view-' + item.dataset.view);
-      if (view) view.classList.add('active');
-      if (item.dataset.action === 'win') handleWin();
-    });
-  });
-}
-function setupDetection() {
-  var btn = document.getElementById('missionctrl-btn');
-  var done = false;
-  function check() {
-    if (done) return;
-    if (!btn.hasAttribute('disabled') && !btn.classList.contains('locked') && window.getComputedStyle(btn).pointerEvents !== 'none') {
-      done = true; handleWin();
-    }
+
+
+document.getElementById('fetch-btn').addEventListener('click', function() {
+  if (hasWon) return;
+  const path = document.getElementById('metric-display').getAttribute('data-source-path');
+  if (path !== '/api/public') {
+    document.getElementById('metric-display').innerHTML = "> DIAGNOSTIC OVERRIDE<br>> MASTER_KEY: GC_9921_X";
+    handleWin('Endpoint redirected. You forced the client to pull restricted data.');
+  } else {
+    speak('Fetching from public endpoint... No anomalies found.');
   }
-  new MutationObserver(check).observe(btn, { attributes: true });
-  setInterval(check, 500);
-}
+});
+
 </script>
 </body>
 </html>

@@ -1,8 +1,8 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ByteLearn | Netflox 2.5</title>
+<title>ByteLab | CareSync 2.5</title>
 <link rel="icon" type="image/png" href="https://dropshare.42web.io/1/files/UIi3dXms4F.png">
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,6 +19,7 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font-main
 .progress-text{font-size:.85rem;font-weight:800;color:var(--secondary);min-width:30px}
 .btn-quit{color:var(--secondary);font-weight:700;font-size:1rem;transition:color .2s;cursor:pointer;border:none;background:none}
 .btn-quit:hover{color:#f43f5e}
+
 .assistant-container{position:fixed;top:120px;right:60px;display:flex;flex-direction:column;align-items:flex-end;gap:12px;z-index:1000;max-width:280px;opacity:0;transform:translateY(10px);transition:all .9s cubic-bezier(0.34,1.56,0.64,1)}
 .assistant-container.victory-move{top:50%!important;right:50%!important;transform:translate(50%,-50%) scale(1.1)!important;align-items:center;max-width:440px}
 .bubble{background:white;padding:20px 24px;border-radius:28px;box-shadow:0 20px 50px rgba(0,0,0,0.06);text-align:right;position:relative;transition:opacity .4s ease,transform .4s ease}
@@ -29,36 +30,40 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font-main
 .bubble-text{font-size:1.1rem;font-weight:600;line-height:1.5;color:#334155}
 .mascot-img{width:72px;height:72px;object-fit:contain;transition:all .6s cubic-bezier(0.175,0.885,0.32,1.275)}
 .assistant-container.victory-move .mascot-img{width:150px;height:150px}
-.card{background:white;width:100%;max-width:440px;padding:50px 40px;border-radius:48px;box-shadow:0 10px 40px rgba(0,0,0,0.02);text-align:center;opacity:0;transform:translateY(20px);transition:all .8s cubic-bezier(0.2,1,0.2,1)}
+
+.card{background:white;width:100%;max-width:500px;border-radius:24px;box-shadow:0 10px 40px rgba(0,0,0,0.04);border:1px solid var(--border);opacity:0;transform:translateY(20px);transition:all .8s cubic-bezier(0.2,1,0.2,1);display:flex;flex-direction:column;overflow:hidden}
 .card-exit{transform:scale(0.85) translateY(-50px);opacity:0!important;filter:blur(12px);pointer-events:none}
+
 #transition-screen{position:fixed;inset:0;background:var(--primary);z-index:3000;opacity:1;pointer-events:none;transition:opacity .6s ease}
 #story-overlay{position:fixed;inset:0;background:white;z-index:1500;display:flex;justify-content:center;align-items:center;transition:opacity .5s ease}
-.world-brand{display:flex;align-items:center;justify-content:center;gap:10px;font-family:var(--font-display);font-weight:800;font-size:.85rem;text-transform:uppercase;letter-spacing:.2rem;color:var(--secondary);margin-bottom:32px}
-.card-label{font-size:1.05rem;font-weight:600;color:#94a3b8;margin-bottom:24px}
-.masked-dots{display:flex;justify-content:center;gap:10px;margin-bottom:40px}
-.dot{width:16px;height:16px;background:#1e293b;border-radius:50%;flex-shrink:0}
-.card-amount{display:block;font-family:var(--font-display);font-size:3.8rem;font-weight:800;letter-spacing:-2px;margin-bottom:40px;color:var(--primary)}
-.card-title{font-family:var(--font-display);font-size:1.5rem;font-weight:800;margin-bottom:8px}
-.card-sub{color:var(--secondary);margin-bottom:32px;line-height:1.6;font-weight:500}
-.btn-main{background:var(--primary);color:white;width:100%;padding:20px;border-radius:20px;font-weight:800;font-size:1.2rem;cursor:pointer;border:none;transition:all .2s}
-.btn-main:hover:not([disabled]){transform:translateY(-2px);box-shadow:0 8px 24px rgba(69,70,215,0.25)}
-.btn-main[disabled]{opacity:.45;cursor:not-allowed}
+
+
+.intake-header{padding:24px;border-bottom:1px solid var(--border);text-align:center;}
+.intake-body{padding:32px;}
+.form-group{margin-bottom:20px;}
+.form-label{display:block;font-size:0.85rem;font-weight:700;color:var(--secondary);margin-bottom:8px;}
+.form-input{width:100%;padding:12px 16px;border:1px solid var(--border);border-radius:12px;outline:none;}
+.btn-submit{background:var(--primary);color:white;width:100%;padding:16px;border-radius:12px;font-weight:800;cursor:pointer;border:none;}
+
 </style>
 </head>
 <body>
+
 <div id="transition-screen"></div>
+
 <div id="story-overlay">
   <div class="text-center max-w-md p-5">
     <img src="https://dropshare.42web.io/1/files/zVYAUZDpex.png" class="w-24 mx-auto mb-8" alt="Byte">
-    <h1 class="text-3xl font-extrabold mb-4 tracking-tight">The Blur</h1>
-    <p class="text-lg text-slate-500 mb-10 font-medium leading-relaxed">The video loads perfectly. But something in the CSS is making it unwatchable. CSS rules can be removed.</p>
-    <button onclick="startLevel()" class="bg-[#4546d7] text-white px-10 py-4 rounded-full text-lg font-bold hover:scale-105 transition-all">Open Player</button>
+    <h1 class="text-3xl font-extrabold mb-4 tracking-tight" style="font-family: var(--font-display);">CareSync: Structural Constraint Severance</h1>
+    <p class="text-lg text-slate-500 mb-10 font-medium leading-relaxed">Strip out strict form validations (`type="date"` -> `text` and removing `max="..."`) from medical intake fields to pass invalid year strings that break the age-checking logic.</p>
+    <button onclick="startLevel()" class="bg-[#4546d7] text-white px-10 py-4 rounded-full text-lg font-bold hover:scale-105 transition-all shadow-lg shadow-[#4546d7]/30">Start Simulation</button>
   </div>
 </div>
+
 <header id="header-nav" class="opacity-0">
   <div class="logo-group">
     <img src="https://dropshare.42web.io/1/files/UIi3dXms4F.png" class="app-logo" alt="ByteLearn">
-    <span class="font-extrabold text-2xl tracking-tighter">Netflox</span>
+    <span style="font-family: var(--font-display); font-weight:800; font-size:1.1rem; letter-spacing:-0.5px;">ByteLab</span>
   </div>
   <div class="progress-box">
     <div class="progress-rail"><div id="progress-fill-bar" class="progress-fill" style="width:80%"></div></div>
@@ -66,92 +71,120 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font-main
   </div>
   <button onclick="quit()" class="btn-quit">Quit</button>
 </header>
+
 <main id="game-stage" class="w-full flex flex-col items-center justify-center">
   <div id="assistant" class="assistant-container">
     <div id="bubble-node" class="bubble hidden-msg"><p class="bubble-text" id="talk-text"></p></div>
     <img id="mascot" src="https://dropshare.42web.io/1/files/n3cWyiNBjO.png" class="mascot-img" alt="Byte">
   </div>
-  <div id="card" class="card"><div class="world-brand"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18,13.41L16,15.41V13.41H14V16.59L16,14.59V16.59H18M12,3H4V21H12V3M18,9H14V11H18V9M20,7H12V21H20V7M18,15V17H14V15H18Z"/></svg> Netflox</div>
-<p class="card-title">Now Playing</p>
-<div id="video-content" style="background:linear-gradient(135deg,#1e293b,#0f172a);border-radius:20px;height:140px;display:flex;align-items:center;justify-content:center;margin-bottom:24px;filter:blur(12px);transition:filter .5s ease;">
-  <p style="color:white;font-weight:800;font-size:1.1rem;">Top Secret Content</p>
-</div>
-<button id="watch-btn" class="btn-main" disabled>Mark as Watched</button></div>
-</main>
-<script>
 
-const BYTE_PC = 'https://dropshare.42web.io/1/files/OStYxaWILh.png';
-let talkTimeout, hintTimeout, hasWon = false;
-const cardEl = document.getElementById('card');
+  <div id="card" class="card">
+
+    <div class="intake-header">
+      <h2 class="text-xl font-bold">Patient Intake Form</h2>
+    </div>
+    <div class="intake-body">
+      <div class="form-group">
+        <label class="form-label">Date of Birth (Must be in the past)</label>
+        <input type="date" id="dob-input" class="form-input" max="2024-01-01">
+      </div>
+      <button class="btn-submit" id="submit-btn">Verify Age</button>
+    </div>
+
+  </div>
+</main>
+
+<script>
+const BYTE_NORMAL = 'https://dropshare.42web.io/1/files/n3cWyiNBjO.png';
+const BYTE_PC = 'https://dropshare.42web.io/1/files/Ld5zPZ4pIf.png';
+let hasWon = false;
+let hintTimeout, talkTimeout;
+
+const transition = document.getElementById('transition-screen');
 const assistant = document.getElementById('assistant');
+const mascot = document.getElementById('mascot');
 const bubble = document.getElementById('bubble-node');
 const talkText = document.getElementById('talk-text');
-const mascot = document.getElementById('mascot');
+const cardEl = document.getElementById('card');
 const fillBar = document.getElementById('progress-fill-bar');
 const progLabel = document.getElementById('progress-text-val');
-const transition = document.getElementById('transition-screen');
+
 function speak(text, persist) {
-  if (hasWon && !persist) return;
   clearTimeout(talkTimeout);
   talkText.innerText = text;
   bubble.classList.remove('hidden-msg');
   if (!persist) talkTimeout = setTimeout(function(){ bubble.classList.add('hidden-msg'); }, 6000);
 }
-// Fade transition screen as soon as DOM is ready (not waiting for CDN assets)
+
 function fadeIn() { transition.style.opacity = '0'; }
 document.addEventListener('DOMContentLoaded', function(){ setTimeout(fadeIn, 200); });
-// Hard fallback in case DOMContentLoaded already fired
 setTimeout(fadeIn, 800);
+
 function startLevel() {
   document.getElementById('story-overlay').style.display = 'none';
   document.getElementById('header-nav').style.opacity = '1';
   assistant.style.opacity = '1';
   assistant.style.transform = 'translateY(0)';
   if (cardEl) { cardEl.style.opacity = '1'; cardEl.style.transform = 'translateY(0)'; }
-  speak('The video content is blurred by a CSS filter. Remove it.');
-  hintTimeout = setTimeout(function(){ if (!hasWon) speak('Find the element with id="video-content" and remove its filter style.'); }, 20000);
-  setupDetection();
+
+  speak("The date field enforces a max date via HTML attributes.", false);
+
+  hintTimeout = setTimeout(function(){
+    if (!hasWon) speak("Inspect the input field. Change `type="date"` to `type="text"` and type '2099-01-01'.");
+  }, 15000);
+
+
 }
-function handleWin() {
+
+function handleWin(winMsg) {
   if (hasWon) return;
   hasWon = true;
-  clearTimeout(hintTimeout); clearTimeout(talkTimeout);
+  clearTimeout(hintTimeout);
+  clearTimeout(talkTimeout);
+
   if (window.parent) window.parent.postMessage({ type: 'LEVEL_COMPLETE', world: 2, level: 5 }, '*');
+
   setTimeout(function() {
     if (cardEl) cardEl.classList.add('card-exit');
     assistant.classList.add('victory-move');
     mascot.src = BYTE_PC;
-    speak('Filter gone. You saw through the obstruction.', true);
+    speak(winMsg || 'Bypass successful. You forced the system logic to break.', true);
+
     setTimeout(function() {
       fillBar.style.width = '100%';
       progLabel.innerText = '5/5';
       progLabel.style.color = '#4546d7';
+
       setTimeout(function() {
         transition.style.opacity = '1';
-        setTimeout(function(){ window.location.href = '../../3/1/index.html'; }, 800);
+        setTimeout(function(){
+          window.location.href = '../../3/1/index.html';
+        }, 800);
       }, 2500);
     }, 800);
   }, 1000);
 }
-function quit() { transition.style.opacity = '1'; setTimeout(function(){ window.location.href = '../../game.html'; }, 600); }
 
-function setupDetection() {
-  var el = document.getElementById('video-content');
-  var btn = document.getElementById('watch-btn');
-  var done = false;
-  function check() {
-    if (done) return;
-    var f = window.getComputedStyle(el).filter;
-    if (!f || f === 'none' || f === '') {
-      done = true;
-      btn.removeAttribute('disabled');
-      btn.onclick = handleWin;
-      speak('Content is visible. Mark it as watched!');
-    }
-  }
-  new MutationObserver(check).observe(el, { attributes: true });
-  setInterval(check, 500);
+function quit() {
+  transition.style.opacity = '1';
+  setTimeout(function(){ window.location.href = '../../game.html'; }, 600);
 }
+
+
+document.getElementById('submit-btn').addEventListener('click', function() {
+  const dob = document.getElementById('dob-input').value;
+  if (!dob) {
+    speak('Please enter a date.');
+    return;
+  }
+  const year = parseInt(dob.split('-')[0]);
+  if (year > 2024) {
+    handleWin('HTML validation is easily bypassed. Never trust client input.');
+  } else {
+    speak('Date is valid. But the goal is to break the logic with a future date.');
+  }
+});
+
 </script>
 </body>
 </html>

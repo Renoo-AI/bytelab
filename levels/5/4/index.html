@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -76,7 +76,7 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font-main
 <div id="surge-display" style="font-family:var(--font-display);font-size:3.5rem;font-weight:800;letter-spacing:-2px;color:#ef4444;margin-bottom:8px;">4.2x</div>
 <p id="surge-label" class="card-sub">Peak hours. Demand is high.</p>
 <div style="background:#fef2f2;border-radius:16px;padding:16px;margin-bottom:24px;">
-  <p style="font-weight:700;color:#ef4444;">Base fare $12.00 → <span id="surge-total">$50.40</span></p>
+  <p style="font-weight:700;color:#ef4444;">Base fare $12.00 â†’ <span id="surge-total">$50.40</span></p>
 </div>
 <button id="ride-btn" class="btn-main" disabled>Request at Surge</button></div>
 </main>
@@ -99,7 +99,11 @@ function speak(text, persist) {
   bubble.classList.remove('hidden-msg');
   if (!persist) talkTimeout = setTimeout(function(){ bubble.classList.add('hidden-msg'); }, 6000);
 }
-window.onload = function(){ setTimeout(function(){ transition.style.opacity = '0'; }, 500); };
+// Fade transition screen as soon as DOM is ready (not waiting for CDN assets)
+function fadeIn() { transition.style.opacity = '0'; }
+document.addEventListener('DOMContentLoaded', function(){ setTimeout(fadeIn, 200); });
+// Hard fallback in case DOMContentLoaded already fired
+setTimeout(fadeIn, 800);
 function startLevel() {
   document.getElementById('story-overlay').style.display = 'none';
   document.getElementById('header-nav').style.opacity = '1';

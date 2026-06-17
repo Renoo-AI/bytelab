@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -77,9 +77,9 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font-main
 <div style="text-align:left;width:100%;margin-bottom:20px;">
   <p style="font-size:.8rem;font-weight:800;color:#94a3b8;text-transform:uppercase;margin-bottom:8px;">Shipping Method</p>
   <select id="shipping-select" style="width:100%;padding:16px;border-radius:14px;border:1.5px solid var(--border);font-weight:700;font-size:1rem;background:white;">
-    <option value="9.99">Standard — $9.99</option>
-    <option value="19.99">Express — $19.99</option>
-    <option value="39.99">Overnight — $39.99</option>
+    <option value="9.99">Standard â€” $9.99</option>
+    <option value="19.99">Express â€” $19.99</option>
+    <option value="39.99">Overnight â€” $39.99</option>
   </select>
 </div>
 <p id="fee-display" style="font-size:1.1rem;font-weight:700;color:#334155;margin-bottom:24px;">Delivery fee: <span style="color:#4546d7;">$9.99</span></p>
@@ -104,7 +104,11 @@ function speak(text, persist) {
   bubble.classList.remove('hidden-msg');
   if (!persist) talkTimeout = setTimeout(function(){ bubble.classList.add('hidden-msg'); }, 6000);
 }
-window.onload = function(){ setTimeout(function(){ transition.style.opacity = '0'; }, 500); };
+// Fade transition screen as soon as DOM is ready (not waiting for CDN assets)
+function fadeIn() { transition.style.opacity = '0'; }
+document.addEventListener('DOMContentLoaded', function(){ setTimeout(fadeIn, 200); });
+// Hard fallback in case DOMContentLoaded already fired
+setTimeout(fadeIn, 800);
 function startLevel() {
   document.getElementById('story-overlay').style.display = 'none';
   document.getElementById('header-nav').style.opacity = '1';

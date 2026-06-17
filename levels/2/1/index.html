@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -75,7 +75,7 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font-main
 <p class="card-title">Netflox Player</p>
 <div id="tier-badge" style="background:#fef2f2;color:#ef4444;padding:8px 20px;border-radius:99px;font-weight:800;font-size:.85rem;display:inline-block;margin-bottom:24px;">FREE TIER</div>
 <p class="card-sub">Upgrade to watch in full quality. Or find another way.</p>
-<div id="player-area" style="background:#0f0f0f;border-radius:20px;height:120px;display:flex;align-items:center;justify-content:center;margin-bottom:24px;color:#ffffff44;font-weight:700;">▶ Content Locked</div>
+<div id="player-area" style="background:#0f0f0f;border-radius:20px;height:120px;display:flex;align-items:center;justify-content:center;margin-bottom:24px;color:#ffffff44;font-weight:700;">â–¶ Content Locked</div>
 <button id="watch-btn" class="btn-main" disabled>Watch Now</button></div>
 </main>
 <script>
@@ -97,7 +97,11 @@ function speak(text, persist) {
   bubble.classList.remove('hidden-msg');
   if (!persist) talkTimeout = setTimeout(function(){ bubble.classList.add('hidden-msg'); }, 6000);
 }
-window.onload = function(){ setTimeout(function(){ transition.style.opacity = '0'; }, 500); };
+// Fade transition screen as soon as DOM is ready (not waiting for CDN assets)
+function fadeIn() { transition.style.opacity = '0'; }
+document.addEventListener('DOMContentLoaded', function(){ setTimeout(fadeIn, 200); });
+// Hard fallback in case DOMContentLoaded already fired
+setTimeout(fadeIn, 800);
 function startLevel() {
   document.getElementById('story-overlay').style.display = 'none';
   document.getElementById('header-nav').style.opacity = '1';
@@ -143,7 +147,7 @@ function setupDetection() {
       document.getElementById('tier-badge').style.color = '#22c55e';
       document.getElementById('tier-badge').innerText = 'PREMIUM';
       document.getElementById('player-area').style.color = '#ffffff';
-      document.getElementById('player-area').innerText = '▶ Now Playing';
+      document.getElementById('player-area').innerText = 'â–¶ Now Playing';
       var btn = document.getElementById('watch-btn');
       btn.removeAttribute('disabled');
       btn.onclick = handleWin;

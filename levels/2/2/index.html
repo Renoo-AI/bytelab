@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -74,7 +74,7 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font-main
   <div id="card" class="card"><div class="world-brand"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18,13.41L16,15.41V13.41H14V16.59L16,14.59V16.59H18M12,3H4V21H12V3M18,9H14V11H18V9M20,7H12V21H20V7M18,15V17H14V15H18Z"/></svg> Netflox</div>
 <p class="card-title">Now Streaming</p>
 <div style="position:relative;border-radius:20px;overflow:hidden;margin-bottom:24px;">
-  <div style="background:#0f0f0f;height:140px;display:flex;align-items:center;justify-content:center;color:#ffffff66;font-weight:700;">▶ Playing...</div>
+  <div style="background:#0f0f0f;height:140px;display:flex;align-items:center;justify-content:center;color:#ffffff66;font-weight:700;">â–¶ Playing...</div>
   <div id="paywall-overlay" style="position:absolute;inset:0;background:rgba(15,15,15,.92);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;">
     <p style="color:white;font-weight:800;font-size:1.1rem;">Subscribe to Watch</p>
     <p style="color:#ffffff66;font-size:.85rem;font-weight:600;">$14.99/month</p>
@@ -101,7 +101,11 @@ function speak(text, persist) {
   bubble.classList.remove('hidden-msg');
   if (!persist) talkTimeout = setTimeout(function(){ bubble.classList.add('hidden-msg'); }, 6000);
 }
-window.onload = function(){ setTimeout(function(){ transition.style.opacity = '0'; }, 500); };
+// Fade transition screen as soon as DOM is ready (not waiting for CDN assets)
+function fadeIn() { transition.style.opacity = '0'; }
+document.addEventListener('DOMContentLoaded', function(){ setTimeout(fadeIn, 200); });
+// Hard fallback in case DOMContentLoaded already fired
+setTimeout(fadeIn, 800);
 function startLevel() {
   document.getElementById('story-overlay').style.display = 'none';
   document.getElementById('header-nav').style.opacity = '1';

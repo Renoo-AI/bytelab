@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -143,7 +143,11 @@ function speak(text, persist) {
   bubble.classList.remove('hidden-msg');
   if (!persist) talkTimeout = setTimeout(function(){ bubble.classList.add('hidden-msg'); }, 6000);
 }
-window.onload = function(){ setTimeout(function(){ transition.style.opacity = '0'; }, 500); };
+// Fade transition screen as soon as DOM is ready (not waiting for CDN assets)
+function fadeIn() { transition.style.opacity = '0'; }
+document.addEventListener('DOMContentLoaded', function(){ setTimeout(fadeIn, 200); });
+// Hard fallback in case DOMContentLoaded already fired
+setTimeout(fadeIn, 800);
 function startLevel() {
   document.getElementById('story-overlay').style.display = 'none';
   document.getElementById('header-nav').style.opacity = '1';

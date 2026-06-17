@@ -1,315 +1,481 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ByteLearn | Academy</title>
-    <link rel="icon" type="image/png" href="assets/logo.png">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;600;800&family=Be+Vietnam+Pro:wght@400;500;700&display=swap" rel="stylesheet">
-    <style>*{margin:0;padding:0;box-sizing:border-box}
-        :root{--bg:#f5f6fb;--text:#1d1d1f;--primary:#4546d7;--secondary:#86868b;--border:#e2e8f0;--font-main:'Be Vietnam Pro',sans-serif;--font-display:'Plus Jakarta Sans',sans-serif}
-        body{background:var(--bg);color:var(--text);font-family:var(--font-main);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 20px}
-        .portal{background:white;width:100%;max-width:900px;padding:40px;border-radius:48px;box-shadow:0 10px 40px rgba(0,0,0,0.02);text-align:center;animation:fadeUp .6s ease-out;position:relative}
-        @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ByteLab — Mission Control</title>
+<link rel="icon" type="image/png" href="https://dropshare.42web.io/1/files/UIi3dXms4F.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;600;700;800&family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#05050f;
+  --surface:#0d0d1a;
+  --surface2:#111120;
+  --surface3:#16162a;
+  --primary:#5b5ef4;
+  --primary-dim:rgba(91,94,244,0.15);
+  --accent:#a78bfa;
+  --text:#f0f0ff;
+  --muted:#6b7280;
+  --border:rgba(255,255,255,0.06);
+  --border2:rgba(255,255,255,0.1);
+  --success:#10b981;
+  --font:'Plus Jakarta Sans',sans-serif;
+  --font-body:'Be Vietnam Pro',sans-serif;
+}
+html,body{height:100%;overflow:hidden}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);display:flex;flex-direction:column}
 
-        .top-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}
-        .top-bar .logo-row{display:flex;align-items:center;gap:10px}
-        .top-bar .logo-row img{width:32px;height:32px;object-fit:contain}
-        .top-bar .logo-row span{font-family:var(--font-display);font-weight:800;font-size:1.4rem;letter-spacing:-0.03em}
-        .top-actions{display:flex;gap:8px}
-        .top-btn{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:10px 14px;cursor:pointer;font-weight:700;font-size:.8rem;color:var(--secondary);transition:all .2s;text-decoration:none;display:flex;align-items:center;gap:6px}
-        .top-btn:hover{border-color:var(--primary);color:var(--primary)}
-        .top-btn.icon-btn{padding:10px;font-size:1.2rem;line-height:1}
+/* ── GRID BG ───────────────────────── */
+body::before{
+  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:linear-gradient(rgba(91,94,244,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(91,94,244,0.025) 1px,transparent 1px);
+  background-size:48px 48px;
+}
 
-        h1{font-family:var(--font-display);font-size:1.8rem;font-weight:800;margin-bottom:4px}
-        .subtitle{color:var(--secondary);margin-bottom:32px;line-height:1.6;max-width:480px;margin-left:auto;margin-right:auto;font-size:.9rem}
+/* ── TOPBAR ────────────────────────── */
+.topbar{
+  position:relative;z-index:10;
+  height:64px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 32px;
+  background:rgba(5,5,15,0.9);
+  border-bottom:1px solid var(--border);
+  backdrop-filter:blur(16px);
+}
+.topbar-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.topbar-logo img{width:26px;height:26px;object-fit:contain}
+.topbar-logo span{font-family:var(--font);font-weight:800;font-size:1.1rem;letter-spacing:-.03em;color:var(--text)}
+.topbar-right{display:flex;align-items:center;gap:10px}
+.topbar-btn{
+  display:flex;align-items:center;gap:6px;
+  padding:8px 16px;border-radius:10px;
+  border:1px solid var(--border);background:transparent;
+  color:var(--muted);font-weight:600;font-size:.8rem;
+  cursor:pointer;transition:all .2s;font-family:var(--font-body);
+}
+.topbar-btn:hover{border-color:var(--border2);color:var(--text)}
+.topbar-btn svg{width:15px;height:15px;flex-shrink:0}
 
-        .mode-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:36px}
-        .mode-card{padding:28px 20px;border-radius:24px;border:2px solid var(--border);cursor:pointer;transition:all .3s ease;text-align:left;background:var(--bg)}
-        .mode-card:hover{border-color:var(--primary);transform:translateY(-3px)}
-        .mode-card.active{border-color:var(--primary);background:#eef2ff}
-        .mode-card .emoji{font-size:1.8rem;margin-bottom:8px;display:block}
-        .mode-card h3{font-weight:800;margin-bottom:2px;font-size:1rem}
-        .mode-card p{font-size:.8rem;color:var(--secondary)}
+/* ── MAIN LAYOUT ───────────────────── */
+.layout{
+  position:relative;z-index:1;
+  flex:1;display:flex;overflow:hidden;
+}
 
-        .world-tabs{display:flex;gap:6px;margin-bottom:20px;flex-wrap:wrap;justify-content:center}
-        .world-tab{padding:8px 16px;border-radius:40px;border:1px solid var(--border);background:white;font-weight:700;font-size:.8rem;cursor:pointer;transition:all .2s;color:var(--secondary)}
-        .world-tab:hover{border-color:var(--primary);color:var(--primary)}
-        .world-tab.active{background:var(--primary);color:white;border-color:var(--primary)}
+/* ── SIDEBAR ───────────────────────── */
+.sidebar{
+  width:280px;flex-shrink:0;
+  background:var(--surface);
+  border-right:1px solid var(--border);
+  display:flex;flex-direction:column;
+  overflow-y:auto;
+}
+.sidebar-head{
+  padding:28px 24px 20px;
+  border-bottom:1px solid var(--border);
+}
+.sidebar-label{font-size:.65rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+.sidebar-title{font-family:var(--font);font-size:1.05rem;font-weight:800;margin-bottom:2px}
+.sidebar-sub{font-size:.8rem;color:var(--muted)}
 
-        .level-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;max-width:380px;margin:0 auto 28px}
-        .level-btn{padding:16px 10px;border-radius:18px;border:1px solid var(--border);background:white;font-weight:700;font-size:.95rem;cursor:pointer;transition:all .2s;text-decoration:none;color:var(--text);display:block;text-align:center}
-        .level-btn:hover{background:var(--primary);color:white;border-color:var(--primary);transform:translateY(-2px)}
-        .level-btn.solved{background:#10b981;color:white;border-color:#10b981}
-        .level-btn.locked{opacity:.4;pointer-events:none;cursor:default;background:var(--bg)}
-        .level-btn.locked:hover{transform:none;background:var(--bg);color:var(--text);border-color:var(--border)}
-        .level-btn .lvl-num{font-size:1.2rem}
-        .level-btn .lvl-title{font-size:.65rem;color:var(--secondary);margin-top:3px}
-        .level-btn:hover .lvl-title{color:rgba(255,255,255,0.7)}
-        .level-btn.solved .lvl-title{color:rgba(255,255,255,0.7)}
-        .level-btn.locked .lvl-title{color:var(--secondary)}
+.sidebar-worlds{padding:12px 12px;}
+.world-row{
+  display:flex;align-items:center;gap:12px;
+  padding:12px 14px;border-radius:14px;
+  cursor:pointer;transition:all .2s;
+  border:1px solid transparent;
+  margin-bottom:4px;
+}
+.world-row:hover{background:var(--surface2);border-color:var(--border)}
+.world-row.active{background:var(--primary-dim);border-color:rgba(91,94,244,0.25)}
+.world-icon-sm{
+  width:36px;height:36px;border-radius:10px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;font-size:1rem;
+}
+.world-row-info{flex:1;min-width:0}
+.world-row-name{font-weight:700;font-size:.9rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.world-row-desc{font-size:.72rem;color:var(--muted);margin-top:1px}
+.world-progress-mini{display:flex;gap:3px;margin-top:6px}
+.mini-dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,0.1);transition:background .2s}
+.mini-dot.done{background:var(--success)}
+.mini-dot.current{background:var(--primary)}
 
-        .status-bar{display:flex;justify-content:center;gap:20px;padding-top:20px;border-top:1px solid var(--border);font-size:.8rem;color:var(--secondary);flex-wrap:wrap}
-        .status-bar strong{color:var(--text)}
+/* ── CONTENT AREA ──────────────────── */
+.content{flex:1;overflow-y:auto;padding:36px 40px}
 
-        /* --- SETTINGS MODAL --- */
-        #settings-overlay{position:fixed;inset:0;background:rgba(29,29,31,0.4);backdrop-filter:blur(8px);z-index:2000;display:none;justify-content:center;align-items:center;opacity:0;transition:opacity .3s ease}
-        #settings-overlay.active{display:flex;opacity:1}
-        .settings-card{background:white;width:90%;max-width:420px;padding:36px;border-radius:32px;box-shadow:0 30px 60px rgba(0,0,0,0.1);text-align:left;transform:translateY(20px);transition:transform .3s cubic-bezier(0.2,1,0.2,1)}
-        #settings-overlay.active .settings-card{transform:translateY(0)}
-        .settings-card h2{font-family:var(--font-display);font-weight:800;font-size:1.4rem;margin-bottom:4px;text-align:center}
-        .settings-card .sub{color:var(--secondary);font-size:.85rem;margin-bottom:24px;text-align:center}
-        .setting-row{display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px solid var(--border)}
-        .setting-row:last-child{border-bottom:none}
-        .setting-row .info h4{font-weight:700;font-size:.9rem}
-        .setting-row .info p{font-size:.75rem;color:var(--secondary);margin-top:2px}
-        .toggle{width:44px;height:26px;border-radius:99px;background:#e2e8f0;cursor:pointer;position:relative;transition:background .2s;flex-shrink:0}
-        .toggle.on{background:var(--primary)}
-        .toggle::after{content:'';position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:white;transition:transform .2s;box-shadow:0 1px 4px rgba(0,0,0,0.15)}
-        .toggle.on::after{transform:translateX(18px)}
-        .settings-btn{display:block;width:100%;padding:14px;border-radius:16px;font-weight:700;font-size:.9rem;border:none;cursor:pointer;transition:all .2s;margin-top:8px;text-align:center;text-decoration:none}
-        .settings-btn.primary{background:var(--primary);color:white}
-        .settings-btn.primary:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(69,70,215,0.25)}
-        .settings-btn.ghost{background:var(--bg);color:var(--secondary);border:1px solid var(--border);margin-top:4px}
-        .settings-btn.danger{background:#fef2f2;color:#ef4444;border:1px solid #fecaca}
-        .settings-btn.danger:hover{background:#fee2e2}
-        .secret-badge{font-size:.65rem;color:#a78bfa;font-weight:700;background:#f5f3ff;padding:2px 8px;border-radius:99px}
+/* WORLD HEADER */
+.world-header{margin-bottom:32px}
+.world-header-top{display:flex;align-items:center;gap:16px;margin-bottom:6px}
+.world-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  background:var(--primary-dim);border:1px solid rgba(91,94,244,0.2);
+  border-radius:99px;padding:4px 12px;
+  font-size:.7rem;font-weight:800;color:var(--accent);letter-spacing:.06em;text-transform:uppercase;
+}
+.world-header h1{font-family:var(--font);font-size:1.8rem;font-weight:800;letter-spacing:-.03em;margin-bottom:4px}
+.world-header p{color:var(--muted);font-size:.9rem}
 
-        @media(max-width:640px){.portal{padding:24px 16px;border-radius:32px}.mode-grid{grid-template-columns:1fr}.level-grid{grid-template-columns:repeat(3,1fr)}}
-    </style>
+/* PROGRESS BAR */
+.world-progress-bar{
+  background:rgba(255,255,255,0.06);border-radius:99px;height:4px;margin:20px 0;overflow:hidden;
+}
+.world-progress-fill{height:100%;background:linear-gradient(90deg,var(--primary),var(--accent));border-radius:99px;transition:width .8s cubic-bezier(0.65,0,0.35,1)}
+
+/* LEVELS GRID */
+.levels-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;
+}
+.level-card{
+  background:var(--surface2);
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:22px 20px;
+  cursor:pointer;
+  transition:all .25s;
+  text-decoration:none;color:var(--text);
+  display:block;position:relative;overflow:hidden;
+}
+.level-card::before{
+  content:'';position:absolute;inset:0;border-radius:20px;
+  background:linear-gradient(135deg,var(--primary),var(--accent));
+  opacity:0;transition:opacity .3s;
+}
+.level-card:hover{transform:translateY(-3px);border-color:rgba(91,94,244,0.3)}
+.level-card:hover::before{opacity:.06}
+.level-card.solved{border-color:rgba(16,185,129,0.3);background:rgba(16,185,129,0.06)}
+.level-card.solved::before{background:linear-gradient(135deg,#10b981,#34d399)}
+.level-card.locked{opacity:.35;pointer-events:none}
+
+.level-num{
+  font-family:var(--font);font-size:.7rem;font-weight:800;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--muted);margin-bottom:10px;
+}
+.level-name{font-family:var(--font);font-size:1rem;font-weight:800;margin-bottom:6px;line-height:1.3}
+.level-desc{font-size:.78rem;color:var(--muted);line-height:1.5}
+.level-status{
+  display:inline-flex;align-items:center;gap:5px;
+  margin-top:16px;padding:4px 10px;border-radius:99px;
+  font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em;
+}
+.level-status.open{background:var(--primary-dim);color:var(--accent)}
+.level-status.solved{background:rgba(16,185,129,0.15);color:#34d399}
+.level-status.locked{background:rgba(255,255,255,0.04);color:var(--muted)}
+.level-status svg{width:12px;height:12px}
+
+/* STAT CARDS */
+.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:32px}
+.stat-card{
+  background:var(--surface2);border:1px solid var(--border);border-radius:18px;padding:20px;
+}
+.stat-card-num{font-family:var(--font);font-size:1.6rem;font-weight:800;margin-bottom:2px}
+.stat-card-label{font-size:.75rem;color:var(--muted);font-weight:600}
+
+/* ── SETTINGS MODAL ────────────────── */
+#modal-overlay{
+  position:fixed;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(12px);
+  z-index:1000;display:none;justify-content:center;align-items:center;
+  opacity:0;transition:opacity .25s;
+}
+#modal-overlay.active{display:flex;opacity:1}
+.modal-card{
+  background:var(--surface);border:1px solid var(--border2);border-radius:28px;
+  width:90%;max-width:400px;padding:36px;
+  transform:translateY(16px);transition:transform .3s cubic-bezier(0.2,1,0.2,1);
+}
+#modal-overlay.active .modal-card{transform:translateY(0)}
+.modal-title{font-family:var(--font);font-weight:800;font-size:1.2rem;margin-bottom:4px}
+.modal-sub{font-size:.8rem;color:var(--muted);margin-bottom:24px}
+.setting-row{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:14px 0;border-bottom:1px solid var(--border);
+}
+.setting-row:last-of-type{border-bottom:none}
+.setting-info h4{font-weight:700;font-size:.9rem}
+.setting-info p{font-size:.75rem;color:var(--muted);margin-top:2px}
+.toggle{
+  width:44px;height:24px;border-radius:99px;
+  background:rgba(255,255,255,0.08);cursor:pointer;position:relative;transition:background .2s;flex-shrink:0;border:none;
+}
+.toggle.on{background:var(--primary)}
+.toggle::after{
+  content:'';position:absolute;top:3px;left:3px;
+  width:18px;height:18px;border-radius:50%;background:white;
+  transition:transform .2s;box-shadow:0 1px 4px rgba(0,0,0,.3);
+}
+.toggle.on::after{transform:translateX(20px)}
+.modal-btn{
+  display:block;width:100%;padding:13px;border-radius:14px;font-weight:700;font-size:.9rem;
+  border:none;cursor:pointer;margin-top:10px;font-family:var(--font-body);transition:all .2s;
+}
+.modal-btn.ghost{background:rgba(255,255,255,.04);color:var(--muted);border:1px solid var(--border)}
+.modal-btn.ghost:hover{color:var(--text)}
+.modal-btn.danger{background:rgba(239,68,68,.1);color:#f87171;border:1px solid rgba(239,68,68,.15)}
+.secret-badge{font-size:.6rem;color:var(--accent);font-weight:800;background:rgba(167,139,250,.1);padding:2px 8px;border-radius:99px;margin-left:6px}
+</style>
 </head>
 <body>
 
-<div class="portal">
-    <div class="top-bar">
-        <div class="logo-row">
-            <img src="assets/logo.png" alt="ByteLearn">
-            <span>ByteLearn</span>
-        </div>
-        <div class="top-actions">
-            <a href="profile.html" class="top-btn" title="Profile">Profile</a>
-            <button class="top-btn icon-btn" onclick="openSettings()" title="Settings">⚙️</button>
-        </div>
+<!-- TOPBAR -->
+<header class="topbar">
+  <a href="index.html" class="topbar-logo">
+    <img src="https://dropshare.42web.io/1/files/UIi3dXms4F.png" alt="ByteLab">
+    <span>ByteLab</span>
+  </a>
+  <div class="topbar-right">
+    <button class="topbar-btn" onclick="openSettings()">
+      <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><circle cx="12" cy="12" r="3"/></svg>
+      Settings
+    </button>
+  </div>
+</header>
+
+<!-- MAIN LAYOUT -->
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-head">
+      <div class="sidebar-label">Curriculum</div>
+      <div class="sidebar-title">Attack Path</div>
+      <div class="sidebar-sub">DOM hacking · Client-side exploits</div>
     </div>
+    <div class="sidebar-worlds" id="worldList"></div>
+  </aside>
 
-    <h1>Select Your Path</h1>
-    <p class="subtitle">Pick a team, choose a world, and start hacking. Each level teaches how code controls what you see.</p>
+  <!-- CONTENT -->
+  <main class="content" id="content"></main>
 
-    <div class="mode-grid">
-        <div class="mode-card active" onclick="setMode('attack')" id="mode-attack">
-            <span class="emoji">⚔️</span>
-            <h3>Red Team</h3>
-            <p>Inspect, modify, bypass client-side restrictions.</p>
-        </div>
-        <div class="mode-card" onclick="setMode('defend')" id="mode-defend">
-            <span class="emoji">🔵</span>
-            <h3>Blue Team</h3>
-            <p>Write rules and patch vulnerabilities.</p>
-        </div>
-    </div>
-
-    <div class="world-tabs" id="worldTabs"></div>
-    <div class="level-grid" id="levelGrid"></div>
-
-    <div class="status-bar">
-        <span>Team: <strong id="modeDisplay">Red</strong></span>
-        <span>World: <strong id="worldDisplay">0</strong></span>
-        <span>Progress: <strong id="progressDisplay">0/36</strong></span>
-        <span id="freeBadge" style="display:none">🔓 <strong>Free Mode</strong></span>
-    </div>
 </div>
 
 <!-- SETTINGS MODAL -->
-<div id="settings-overlay">
-    <div class="settings-card">
-        <h2>Settings</h2>
-        <p class="sub">Configure your experience</p>
+<div id="modal-overlay">
+  <div class="modal-card">
+    <div class="modal-title">Settings</div>
+    <div class="modal-sub">Configure your experience</div>
 
-        <div class="setting-row">
-            <div class="info"><h4>Mute Success Sound</h4><p>Disable win celebration tones</p></div>
-            <div class="toggle" id="toggle-sound" onclick="toggleSetting('sound')"></div>
-        </div>
-        <div class="setting-row">
-            <div class="info"><h4>Dark Theme</h4><p>Switch to dark mode</p></div>
-            <div class="toggle" id="toggle-dark" onclick="toggleSetting('dark')"></div>
-        </div>
-
-        <!-- SECRET OPTION -->
-        <div class="setting-row" style="border-bottom: 2px solid #e8dfff; background: #fafaff; border-radius: 12px; padding: 14px 12px; margin-top: 8px;">
-            <div class="info">
-                <h4>🔓 Level Unlock <span class="secret-badge">SECRET</span></h4>
-                <p>Free access to all levels. No progression lock.</p>
-            </div>
-            <div class="toggle" id="toggle-unlock" onclick="toggleSetting('unlock')"></div>
-        </div>
-
-        <div class="setting-row">
-            <div class="info"><h4>Reset All Progress</h4><p>Clear all saves and start over</p></div>
-            <button class="settings-btn danger" onclick="resetProgress()" style="width:auto;padding:8px 16px;font-size:.75rem">Reset</button>
-        </div>
-
-        <button class="settings-btn ghost" onclick="closeSettings()" style="margin-top:16px">Close</button>
+    <div class="setting-row">
+      <div class="setting-info"><h4>Free Mode <span class="secret-badge">SECRET</span></h4><p>Unlock all levels with no progression lock</p></div>
+      <button class="toggle" id="toggle-unlock" onclick="toggleSetting('unlock')"></button>
     </div>
+    <div class="setting-row">
+      <div class="setting-info"><h4>Reset Progress</h4><p>Clear all saves and start from scratch</p></div>
+      <button class="modal-btn danger" style="width:auto;padding:8px 16px;font-size:.75rem;margin-top:0" onclick="resetProgress()">Reset</button>
+    </div>
+
+    <button class="modal-btn ghost" onclick="closeSettings()" style="margin-top:20px">Close</button>
+  </div>
 </div>
 
 <script>
-    // --- CONFIG ---
-    const WORLDS = [
-        { id: 0, name: "Discovery", desc: "Tutorial world" },
-        { id: 1, name: "PayBal", desc: "Banking & payments" },
-        { id: 2, name: "Netflox", desc: "Streaming platform" },
-        { id: 3, name: "CloudStore", desc: "E-commerce checkout" },
-        { id: 4, name: "SpaceY", desc: "Private space tech" },
-        { id: 5, name: "Uper", desc: "Rideshare app" }
-    ];
+// ── CONFIG ──────────────────────────────────────────────────────────────────
+const WORLDS = [
+  { id:1, name:'PayBal',     desc:'Banking & payments',    icon:'🏦', color:'#5b5ef4' },
+  { id:2, name:'Netflox',    desc:'Streaming platform',    icon:'🎬', color:'#ef4444' },
+  { id:3, name:'CloudStore', desc:'E-commerce checkout',   icon:'🛒', color:'#f59e0b' },
+  { id:4, name:'SpaceY',     desc:'Private space tech',    icon:'🚀', color:'#0ea5e9' },
+  { id:5, name:'Uper',       desc:'Rideshare app',         icon:'🚗', color:'#10b981' },
+];
 
-    const LEVEL_TITLES = {
-        attack: {
-            0: ["Hidden View","Price Mod","Lock Bypass","Fee Ghost","Admin Override","—"],
-            1: ["Hidden Balance","Upgrade Price","Transfer Lock","Fee Ghost","Admin Override","—"],
-            2: ["Tier Up","The Paywall","Redirect Spoof","Trial Expired","The Blur","—"],
-            3: ["Qty Minus","Free Delivery","Tax Zero","Coupon Vault","Payload Inject","—"],
-            4: ["Classified","Launch Price","Mission Control","Payload Override","Orbital Slot","—"],
-            5: ["Promo Code","Fare Hack","Skip Verify","No Surge","Status Unlock","—"]
-        },
-        defend: {
-            0: ["—","—","—","—","—","—"],
-            1: ["—","—","—","—","—","—"],
-            2: ["—","—","—","—","—","—"],
-            3: ["—","—","—","—","—","—"],
-            4: ["—","—","—","—","—","—"],
-            5: ["—","—","—","—","—","—"]
-        }
-    };
+const LEVELS = {
+  1: [
+    { l:1, name:'Hidden Balance',  desc:'A balance hidden in plain sight. The style is the only lock.' },
+    { l:2, name:'Upgrade Price',   desc:'The price is just text on a page. Text can be changed.' },
+    { l:3, name:'Transfer Lock',   desc:'Two restrictions guard the transfer button. Remove both.' },
+    { l:4, name:'Fee Ghost',       desc:'A hidden input field silently adds a fee to every transfer.' },
+    { l:5, name:'Admin Override',  desc:'Your role is "member". One attribute controls everything.' },
+  ],
+  2: [
+    { l:1, name:'Tier Up',         desc:'The cookie says "free". Set it to "premium" in the console.' },
+    { l:2, name:'The Paywall',     desc:'The content exists. The overlay blocking it can be deleted.' },
+    { l:3, name:'Redirect Spoof',  desc:'The Google SSO button sends users somewhere. Change it.' },
+    { l:4, name:'Trial Expired',   desc:'The timer is a global JS variable. Override it.' },
+    { l:5, name:'The Blur',        desc:'The video loads. A CSS filter is making it unwatchable.' },
+  ],
+  3: [
+    { l:1, name:'Quantity Minus',  desc:'The minimum quantity is 1. Remove the attribute.' },
+    { l:2, name:'Free Delivery',   desc:'Every option costs something. Add one that doesn\'t.' },
+    { l:3, name:'Tax Zero',        desc:'A hidden input controls the tax calculation. Zero it.' },
+    { l:4, name:'Coupon Vault',    desc:'The field is readonly. Remove the restriction.' },
+    { l:5, name:'Payload Inject',  desc:'Forms speak in parameters. Add your own discount parameter.' },
+  ],
+  4: [
+    { l:1, name:'Classified',      desc:'The mission budget is hidden. Not deleted — just hidden.' },
+    { l:2, name:'Launch Price',    desc:'$50M per launch. The invoice reads from the page content.' },
+    { l:3, name:'Mission Control', desc:'Mission Control is locked behind two HTML restrictions.' },
+    { l:4, name:'Payload Cap',     desc:'The 1,000 kg limit lives in a max attribute. Remove it.' },
+    { l:5, name:'Orbital Slot',    desc:'The slot is "restricted". Change the data-status attribute.' },
+  ],
+  5: [
+    { l:1, name:'Promo Code',      desc:'The code is on the page. It\'s just not visible.' },
+    { l:2, name:'Fare Hack',       desc:'The app calculated your fare. It made an assumption.' },
+    { l:3, name:'Skip Verify',     desc:'"Required" is an HTML attribute. Attributes can be removed.' },
+    { l:4, name:'No Surge',        desc:'4.2x surge. window.surgeMultiplier is yours to change.' },
+    { l:5, name:'Status Unlock',   desc:'The Premium section is accessible. A CSS class blocks it.' },
+  ],
+};
 
-    // --- STATE ---
-    let activeMode = new URLSearchParams(window.location.search).get('mode') || 'attack';
-    if (activeMode !== 'attack' && activeMode !== 'defend') activeMode = 'attack';
-    let activeWorld = parseInt(new URLSearchParams(window.location.search).get('world')) || 0;
-    if (isNaN(activeWorld) || activeWorld < 0 || activeWorld > 5) activeWorld = 0;
+// ── STATE ────────────────────────────────────────────────────────────────────
+let activeWorld = parseInt(new URLSearchParams(location.search).get('world')) || 1;
+if (activeWorld < 1 || activeWorld > 5) activeWorld = 1;
 
-    const levelParam = parseInt(new URLSearchParams(window.location.search).get('level'));
-    if (levelParam && levelParam >= 0 && levelParam <= 5) {
-        window.location.href = `levels/${activeWorld}/${levelParam}/index.html`;
-    }
+let settings = JSON.parse(localStorage.getItem('bytelab_settings') || '{"unlock":false}');
 
-    let settings = JSON.parse(localStorage.getItem('bytelearn_settings') || '{"sound":true,"dark":false,"unlock":false}');
+// ── PROGRESS ─────────────────────────────────────────────────────────────────
+function getSolved(world) {
+  return JSON.parse(localStorage.getItem(`bl_w${world}`) || '[]');
+}
+function markSolved(world, level) {
+  const arr = getSolved(world);
+  if (!arr.includes(level)) arr.push(level);
+  localStorage.setItem(`bl_w${world}`, JSON.stringify(arr));
+}
+function totalDone() {
+  return WORLDS.reduce((acc, w) => acc + getSolved(w.id).length, 0);
+}
 
-    // --- SETTINGS ---
-    function openSettings() {
-        document.getElementById('settings-overlay').classList.add('active');
-        syncToggles();
-    }
-    function closeSettings() {
-        document.getElementById('settings-overlay').classList.remove('active');
-    }
-    function syncToggles() {
-        document.getElementById('toggle-sound').classList.toggle('on', settings.sound);
-        document.getElementById('toggle-dark').classList.toggle('on', settings.dark);
-        document.getElementById('toggle-unlock').classList.toggle('on', settings.unlock);
-    }
-    function toggleSetting(key) {
-        settings[key] = !settings[key];
-        localStorage.setItem('bytelearn_settings', JSON.stringify(settings));
-        syncToggles();
-        if (key === 'dark') {
-            document.documentElement.classList.toggle('dark', settings.dark);
-            document.body.style.filter = settings.dark ? 'invert(0.9) hue-rotate(180deg)' : '';
-        }
-        if (key === 'unlock') { renderLevels(); updateStatus(); }
-    }
-    function resetProgress() {
-        if (!confirm('Reset ALL progress? This cannot be undone.')) return;
-        for (let w = 0; w <= 5; w++) {
-            localStorage.removeItem(`bytelearn_attack_${w}`);
-            localStorage.removeItem(`bytelearn_defend_${w}`);
-        }
-        renderLevels(); updateStatus();
-    }
-    document.getElementById('settings-overlay').onclick = (e) => {
-        if (e.target === e.currentTarget) closeSettings();
-    };
+// ── SIDEBAR ───────────────────────────────────────────────────────────────────
+function renderSidebar() {
+  const container = document.getElementById('worldList');
+  container.innerHTML = '';
+  WORLDS.forEach(w => {
+    const solved = getSolved(w.id);
+    const row = document.createElement('div');
+    row.className = 'world-row' + (w.id === activeWorld ? ' active' : '');
+    row.innerHTML = `
+      <div class="world-icon-sm" style="background:${w.color}20">${w.icon}</div>
+      <div class="world-row-info">
+        <div class="world-row-name">${w.name}</div>
+        <div class="world-row-desc">${w.desc}</div>
+        <div class="world-progress-mini">
+          ${[1,2,3,4,5].map(l =>
+            `<div class="mini-dot ${solved.includes(l) ? 'done' : (l === getNextLevel(w.id, solved) ? 'current' : '')}"></div>`
+          ).join('')}
+        </div>
+      </div>`;
+    row.onclick = () => { activeWorld = w.id; renderSidebar(); renderContent(); };
+    container.appendChild(row);
+  });
+}
 
-    // --- RENDER ---
-    function renderWorldTabs() {
-        const container = document.getElementById('worldTabs');
-        container.innerHTML = '';
-        WORLDS.forEach(w => {
-            const btn = document.createElement('button');
-            btn.className = 'world-tab' + (w.id === activeWorld ? ' active' : '');
-            btn.innerText = `${w.id}. ${w.name}`;
-            btn.onclick = () => { activeWorld = w.id; renderWorldTabs(); renderLevels(); updateStatus(); };
-            container.appendChild(btn);
-        });
-    }
+function getNextLevel(worldId, solved) {
+  for (let l = 1; l <= 5; l++) if (!solved.includes(l)) return l;
+  return -1;
+}
 
-    function renderLevels() {
-        const container = document.getElementById('levelGrid');
-        container.innerHTML = '';
-        const titles = LEVEL_TITLES[activeMode]?.[activeWorld] || [];
-        const solved = JSON.parse(localStorage.getItem(`bytelearn_${activeMode}_${activeWorld}`) || '[]');
-        const freeMode = settings.unlock;
+// ── CONTENT ───────────────────────────────────────────────────────────────────
+function renderContent() {
+  const w = WORLDS.find(x => x.id === activeWorld);
+  const solved = getSolved(activeWorld);
+  const levels = LEVELS[activeWorld] || [];
+  const done = solved.length;
+  const pct = (done / 5) * 100;
+  const nextL = getNextLevel(activeWorld, solved);
+  const freeMode = settings.unlock;
 
-        // In locked mode, determine what's accessible
-        let maxAccessible = -1;
-        if (!freeMode) {
-            // Find the highest solved level; accessible = solved + the next unsolved
-            for (let l = 0; l <= 5; l++) {
-                if (solved.includes(l)) maxAccessible = l;
-                else { maxAccessible = l; break; }
-            }
-            if (maxAccessible === -1) maxAccessible = 0;
-        }
+  const statsHtml = `
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-card-num" style="color:${w.color}">${done}/5</div>
+        <div class="stat-card-label">Completed</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-num">${totalDone()}/25</div>
+        <div class="stat-card-label">Total Progress</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-num" style="color:${done===5?'#10b981':'var(--muted)'}">
+          ${done === 5 ? '★ Done' : nextL > 0 ? `Lab ${nextL}` : '—'}
+        </div>
+        <div class="stat-card-label">${done === 5 ? 'World Complete' : 'Up Next'}</div>
+      </div>
+    </div>`;
 
-        for (let l = 0; l <= 5; l++) {
-            const a = document.createElement('a');
-            const isSolved = solved.includes(l);
-            const isLocked = !freeMode && l > maxAccessible && !isSolved;
+  const levelsHtml = levels.map(({ l, name, desc }) => {
+    const isSolved = solved.includes(l);
+    const isLocked = !freeMode && !isSolved && l !== nextL && (nextL === -1 || l > nextL);
+    const href = `levels/${activeWorld}/${l}/index.html`;
+    const statusHtml = isSolved
+      ? `<div class="level-status solved"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Solved</div>`
+      : isLocked
+        ? `<div class="level-status locked"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg> Locked</div>`
+        : `<div class="level-status open">Start Lab &rarr;</div>`;
 
-            a.className = 'level-btn';
-            if (isSolved) a.classList.add('solved');
-            if (isLocked) a.classList.add('locked');
+    return `<a class="level-card ${isSolved ? 'solved' : ''} ${isLocked ? 'locked' : ''}"
+      href="${isLocked ? '#' : href}">
+      <div class="level-num">Lab ${String(l).padStart(2,'0')}</div>
+      <div class="level-name">${name}</div>
+      <div class="level-desc">${desc}</div>
+      ${statusHtml}
+    </a>`;
+  }).join('');
 
-            if (isLocked) {
-                a.removeAttribute('href');
-                a.style.cursor = 'default';
-                a.innerHTML = `<div class="lvl-num">🔒</div><div class="lvl-title">Locked</div>`;
-            } else {
-                a.href = `levels/${activeWorld}/${l}/index.html`;
-                a.innerHTML = `<div class="lvl-num">${l}</div><div class="lvl-title">${titles[l] || '?'}</div>`;
-            }
-            container.appendChild(a);
-        }
-    }
+  document.getElementById('content').innerHTML = `
+    <div class="world-header">
+      <div class="world-header-top">
+        <div class="world-badge">${w.icon} ${w.name}</div>
+      </div>
+      <h1>${w.name} — ${w.desc}</h1>
+      <p>Use your browser's DevTools to inspect, modify, and bypass client-side restrictions.</p>
+      <div class="world-progress-bar"><div class="world-progress-fill" style="width:${pct}%"></div></div>
+    </div>
+    ${statsHtml}
+    <div class="levels-grid">${levelsHtml}</div>
+  `;
+}
 
-    function setMode(mode) {
-        activeMode = mode;
-        document.querySelectorAll('.mode-card').forEach(c => c.classList.remove('active'));
-        document.getElementById(`mode-${mode}`).classList.add('active');
-        document.getElementById('modeDisplay').innerText = mode === 'attack' ? 'Red' : 'Blue';
-        renderLevels();
-        updateStatus();
-    }
+// ── SETTINGS ──────────────────────────────────────────────────────────────────
+function openSettings() {
+  const el = document.getElementById('modal-overlay');
+  el.style.display = 'flex';
+  requestAnimationFrame(() => el.classList.add('active'));
+  syncToggles();
+}
+function closeSettings() {
+  const el = document.getElementById('modal-overlay');
+  el.classList.remove('active');
+  setTimeout(() => el.style.display = 'none', 300);
+}
+function syncToggles() {
+  document.getElementById('toggle-unlock').classList.toggle('on', !!settings.unlock);
+}
+function toggleSetting(key) {
+  settings[key] = !settings[key];
+  localStorage.setItem('bytelab_settings', JSON.stringify(settings));
+  syncToggles();
+  renderContent();
+}
+function resetProgress() {
+  if (!confirm('Reset ALL progress? Cannot be undone.')) return;
+  for (let w = 1; w <= 5; w++) localStorage.removeItem(`bl_w${w}`);
+  renderSidebar(); renderContent();
+}
+document.getElementById('modal-overlay').onclick = e => {
+  if (e.target === e.currentTarget) closeSettings();
+};
 
-    function updateStatus() {
-        document.getElementById('worldDisplay').innerText = activeWorld;
-        let total = 0, done = 0;
-        for (let w = 0; w <= 5; w++) {
-            const s = JSON.parse(localStorage.getItem(`bytelearn_${activeMode}_${w}`) || '[]');
-            total += 6; done += s.length;
-        }
-        document.getElementById('progressDisplay').innerText = `${done}/${total}`;
-        const badge = document.getElementById('freeBadge');
-        badge.style.display = settings.unlock ? 'inline' : 'none';
-    }
+// ── LISTEN FOR LEVEL COMPLETE ──────────────────────────────────────────────────
+window.addEventListener('message', e => {
+  if (e.data?.type === 'LEVEL_COMPLETE') {
+    markSolved(e.data.world, e.data.level);
+    renderSidebar(); renderContent();
+  }
+});
 
-    // --- INIT ---
-    setMode(activeMode);
-    renderWorldTabs();
-    renderLevels();
+// ── INIT ──────────────────────────────────────────────────────────────────────
+const worldParam = parseInt(new URLSearchParams(location.search).get('world'));
+if (worldParam >= 1 && worldParam <= 5) activeWorld = worldParam;
+
+const levelParam = parseInt(new URLSearchParams(location.search).get('level'));
+if (levelParam >= 1 && levelParam <= 5) {
+  window.location.href = `levels/${activeWorld}/${levelParam}/index.html`;
+} else {
+  renderSidebar();
+  renderContent();
+}
 </script>
 </body>
 </html>

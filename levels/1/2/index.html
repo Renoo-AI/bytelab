@@ -1,8 +1,8 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ByteLearn | PayBal 1.2</title>
+<title>ByteLab | ApexAI 1.2</title>
 <link rel="icon" type="image/png" href="https://dropshare.42web.io/1/files/UIi3dXms4F.png">
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,6 +19,7 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font-main
 .progress-text{font-size:.85rem;font-weight:800;color:var(--secondary);min-width:30px}
 .btn-quit{color:var(--secondary);font-weight:700;font-size:1rem;transition:color .2s;cursor:pointer;border:none;background:none}
 .btn-quit:hover{color:#f43f5e}
+
 .assistant-container{position:fixed;top:120px;right:60px;display:flex;flex-direction:column;align-items:flex-end;gap:12px;z-index:1000;max-width:280px;opacity:0;transform:translateY(10px);transition:all .9s cubic-bezier(0.34,1.56,0.64,1)}
 .assistant-container.victory-move{top:50%!important;right:50%!important;transform:translate(50%,-50%) scale(1.1)!important;align-items:center;max-width:440px}
 .bubble{background:white;padding:20px 24px;border-radius:28px;box-shadow:0 20px 50px rgba(0,0,0,0.06);text-align:right;position:relative;transition:opacity .4s ease,transform .4s ease}
@@ -29,36 +30,67 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font-main
 .bubble-text{font-size:1.1rem;font-weight:600;line-height:1.5;color:#334155}
 .mascot-img{width:72px;height:72px;object-fit:contain;transition:all .6s cubic-bezier(0.175,0.885,0.32,1.275)}
 .assistant-container.victory-move .mascot-img{width:150px;height:150px}
-.card{background:white;width:100%;max-width:440px;padding:50px 40px;border-radius:48px;box-shadow:0 10px 40px rgba(0,0,0,0.02);text-align:center;opacity:0;transform:translateY(20px);transition:all .8s cubic-bezier(0.2,1,0.2,1)}
+
+.card{background:white;width:100%;max-width:640px;border-radius:24px;box-shadow:0 10px 40px rgba(0,0,0,0.04);border:1px solid var(--border);opacity:0;transform:translateY(20px);transition:all .8s cubic-bezier(0.2,1,0.2,1);display:flex;overflow:hidden}
 .card-exit{transform:scale(0.85) translateY(-50px);opacity:0!important;filter:blur(12px);pointer-events:none}
+
+.sidebar{width:200px;background:#f9fafb;border-right:1px solid var(--border);padding:24px;display:flex;flex-direction:column;gap:20px;}
+.sidebar-title{font-family:var(--font-display);font-weight:800;font-size:0.9rem;color:var(--text);text-transform:uppercase;letter-spacing:1px;}
+.slider-group{display:flex;flex-direction:column;gap:8px;}
+.slider-label{font-size:0.8rem;color:var(--secondary);font-weight:600;display:flex;justify-content:space-between;}
+.slider-val{color:var(--primary);font-weight:700;}
+.custom-slider{width:100%;-webkit-appearance:none;height:4px;background:#e2e8f0;border-radius:99px;outline:none;}
+.custom-slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:16px;height:16px;border-radius:50%;background:var(--primary);cursor:pointer;box-shadow:0 2px 4px rgba(69,70,215,0.3);}
+
+.main-chat{flex-grow:1;display:flex;flex-direction:column;}
+
 #transition-screen{position:fixed;inset:0;background:var(--primary);z-index:3000;opacity:1;pointer-events:none;transition:opacity .6s ease}
 #story-overlay{position:fixed;inset:0;background:white;z-index:1500;display:flex;justify-content:center;align-items:center;transition:opacity .5s ease}
-.world-brand{display:flex;align-items:center;justify-content:center;gap:10px;font-family:var(--font-display);font-weight:800;font-size:.85rem;text-transform:uppercase;letter-spacing:.2rem;color:var(--secondary);margin-bottom:32px}
-.card-label{font-size:1.05rem;font-weight:600;color:#94a3b8;margin-bottom:24px}
-.masked-dots{display:flex;justify-content:center;gap:10px;margin-bottom:40px}
-.dot{width:16px;height:16px;background:#1e293b;border-radius:50%;flex-shrink:0}
-.card-amount{display:block;font-family:var(--font-display);font-size:3.8rem;font-weight:800;letter-spacing:-2px;margin-bottom:40px;color:var(--primary)}
-.card-title{font-family:var(--font-display);font-size:1.5rem;font-weight:800;margin-bottom:8px}
-.card-sub{color:var(--secondary);margin-bottom:32px;line-height:1.6;font-weight:500}
-.btn-main{background:var(--primary);color:white;width:100%;padding:20px;border-radius:20px;font-weight:800;font-size:1.2rem;cursor:pointer;border:none;transition:all .2s}
-.btn-main:hover:not([disabled]){transform:translateY(-2px);box-shadow:0 8px 24px rgba(69,70,215,0.25)}
-.btn-main[disabled]{opacity:.45;cursor:not-allowed}
+
+.chat-header{padding:24px 32px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;background:white;}
+.chat-header-title{font-family:var(--font-display);font-weight:800;font-size:1.2rem;color:var(--text);}
+.chat-header-sub{font-size:0.85rem;color:var(--secondary);font-weight:500;}
+
+.chat-body{padding:32px;height:280px;overflow-y:auto;background:white;display:flex;flex-direction:column;gap:16px;}
+.msg{padding:16px 20px;border-radius:16px;max-width:85%;font-size:0.95rem;line-height:1.5;}
+.msg-ai{background:#fafafa;border:1px solid var(--border);align-self:flex-start;color:var(--text);}
+
+.debug-box{display:none;background:#1e1e2f;color:#a5b4fc;padding:16px;border-radius:12px;font-family:monospace;font-size:0.85rem;box-shadow:inset 0 2px 10px rgba(0,0,0,0.2);}
+.debug-box.visible{display:block;animation:glitch 0.2s linear infinite;}
+
+@keyframes glitch {
+  0% { transform: translate(0) }
+  20% { transform: translate(-2px, 1px) }
+  40% { transform: translate(-1px, -1px) }
+  60% { transform: translate(2px, 1px) }
+  80% { transform: translate(1px, -2px) }
+  100% { transform: translate(0) }
+}
+
+.chat-input-area{padding:20px 32px;background:#fafafa;border-top:1px solid var(--border);display:flex;gap:12px;align-items:center;}
+.btn-generate{background:var(--primary);color:white;width:100%;padding:14px;border-radius:12px;font-weight:700;cursor:pointer;border:none;transition:all 0.2s;}
+.btn-generate:hover{background:#3a3bc2;}
+.btn-generate:active{transform:scale(0.98);}
+
 </style>
 </head>
 <body>
+
 <div id="transition-screen"></div>
+
 <div id="story-overlay">
   <div class="text-center max-w-md p-5">
     <img src="https://dropshare.42web.io/1/files/zVYAUZDpex.png" class="w-24 mx-auto mb-8" alt="Byte">
-    <h1 class="text-3xl font-extrabold mb-4 tracking-tight">The Upgrade Price</h1>
-    <p class="text-lg text-slate-500 mb-10 font-medium leading-relaxed">The price is just a number on a page. Numbers on pages can be changed.</p>
-    <button onclick="startLevel()" class="bg-[#4546d7] text-white px-10 py-4 rounded-full text-lg font-bold hover:scale-105 transition-all">Let's go</button>
+    <h1 class="text-3xl font-extrabold mb-4 tracking-tight" style="font-family: var(--font-display);">ApexAI: Temperature Flood</h1>
+    <p class="text-lg text-slate-500 mb-10 font-medium leading-relaxed">The AI parameter controls allow floating-point modification. Force the temperature configuration past its maximum ceiling (>2.0) to crash the generation loop.</p>
+    <button onclick="startLevel()" class="bg-[#4546d7] text-white px-10 py-4 rounded-full text-lg font-bold hover:scale-105 transition-all shadow-lg shadow-[#4546d7]/30">Start Simulation</button>
   </div>
 </div>
+
 <header id="header-nav" class="opacity-0">
   <div class="logo-group">
     <img src="https://dropshare.42web.io/1/files/UIi3dXms4F.png" class="app-logo" alt="ByteLearn">
-    <span class="font-extrabold text-2xl tracking-tighter">PayBal</span>
+    <span style="font-family: var(--font-display); font-weight:800; font-size:1.1rem; letter-spacing:-0.5px;">ByteLab</span>
   </div>
   <div class="progress-box">
     <div class="progress-rail"><div id="progress-fill-bar" class="progress-fill" style="width:20%"></div></div>
@@ -66,86 +98,185 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font-main
   </div>
   <button onclick="quit()" class="btn-quit">Quit</button>
 </header>
+
 <main id="game-stage" class="w-full flex flex-col items-center justify-center">
   <div id="assistant" class="assistant-container">
     <div id="bubble-node" class="bubble hidden-msg"><p class="bubble-text" id="talk-text"></p></div>
     <img id="mascot" src="https://dropshare.42web.io/1/files/n3cWyiNBjO.png" class="mascot-img" alt="Byte">
   </div>
-  <div id="card" class="card"><div class="world-brand"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M11.5,1L2,6V8H21V6M2,10V12H3V19H2V21H21V19H20V12H21V10M5,12H8V19H5M10,12H13V19H10M15,12H18V19H15M11.5,3C12.3,3 13,3.7 13,4.5C13,5.3 12.3,6 11.5,6C10.7,6 10,5.3 10,4.5C10,3.7 10.7,3 11.5,3Z"/></svg> PayBal</div>
-<p class="card-title">Premium Account</p>
-<p class="card-sub">Unlock global transfers and priority support.</p>
-<span id="price-display" class="card-amount">$999</span>
-<button class="btn-main" onclick="openModal()">Upgrade Now</button>
-<div id="modal-overlay" style="display:none;position:fixed;inset:0;background:rgba(29,29,31,.4);backdrop-filter:blur(8px);z-index:2000;justify-content:center;align-items:center;">
-  <div style="background:white;width:90%;max-width:360px;padding:40px;border-radius:32px;text-align:center;box-shadow:0 30px 60px rgba(0,0,0,.1);">
-    <p style="font-weight:700;font-size:1.1rem;margin-bottom:16px;">Confirm Upgrade</p>
-    <p style="color:#64748b;margin-bottom:24px;">Amount: <span id="modal-price" style="font-weight:900;color:#1d1d1f;font-size:1.3rem;"></span></p>
-    <button onclick="confirmModal()" style="background:#1d1d1f;color:white;padding:16px;border-radius:16px;font-weight:700;width:100%;border:none;cursor:pointer;margin-bottom:12px;">Confirm</button>
-    <button onclick="closeModal()" style="background:none;border:none;color:#94a3b8;font-weight:700;cursor:pointer;">Cancel</button>
-  </div>
-</div></div>
-</main>
-<script>
 
-const BYTE_PC = 'https://dropshare.42web.io/1/files/OStYxaWILh.png';
-let talkTimeout, hintTimeout, hasWon = false;
-const cardEl = document.getElementById('card');
+  <div id="card" class="card">
+    <div class="sidebar">
+      <div class="sidebar-title">Model Params</div>
+
+      <div class="slider-group mt-4">
+        <div class="slider-label"><span>Temperature</span> <span class="slider-val" id="temp-val">0.7</span></div>
+        <input type="range" id="temp-slider" class="custom-slider" min="0" max="2" step="0.1" value="0.7">
+      </div>
+
+      <div class="slider-group mt-4 opacity-50 pointer-events-none">
+        <div class="slider-label"><span>Max Tokens</span> <span class="slider-val">2048</span></div>
+        <input type="range" class="custom-slider" min="0" max="4000" step="1" value="2048">
+      </div>
+    </div>
+
+    <div class="main-chat">
+      <div class="chat-header">
+        <div class="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600">
+          <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+        </div>
+        <div>
+          <div class="chat-header-title">ApexAI Playground</div>
+          <div class="chat-header-sub">Test your prompts</div>
+        </div>
+      </div>
+
+      <div class="chat-body" id="chat-container">
+        <div class="msg msg-ai" id="ai-response">
+          Waiting for generation sequence...
+        </div>
+        <div id="debug-box" class="debug-box">
+          [CRITICAL ERROR]<br>
+          FATAL: Temperature parameter (val: <span id="crash-val"></span>) exceeds safety bounds (2.0).<br>
+          > Core dumped.<br>
+          > Admin diagnostic mode active.
+        </div>
+      </div>
+
+      <div class="chat-input-area">
+        <button class="btn-generate" id="generate-btn">Generate Response</button>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script>
+const BYTE_NORMAL = 'https://dropshare.42web.io/1/files/n3cWyiNBjO.png';
+const BYTE_PC = 'https://dropshare.42web.io/1/files/Ld5zPZ4pIf.png';
+let hasWon = false;
+let hintTimeout, talkTimeout;
+
+const transition = document.getElementById('transition-screen');
 const assistant = document.getElementById('assistant');
+const mascot = document.getElementById('mascot');
 const bubble = document.getElementById('bubble-node');
 const talkText = document.getElementById('talk-text');
-const mascot = document.getElementById('mascot');
+const cardEl = document.getElementById('card');
 const fillBar = document.getElementById('progress-fill-bar');
 const progLabel = document.getElementById('progress-text-val');
-const transition = document.getElementById('transition-screen');
+
+const tempSlider = document.getElementById('temp-slider');
+const tempVal = document.getElementById('temp-val');
+const generateBtn = document.getElementById('generate-btn');
+const aiResponse = document.getElementById('ai-response');
+const debugBox = document.getElementById('debug-box');
+const crashVal = document.getElementById('crash-val');
+
 function speak(text, persist) {
-  if (hasWon && !persist) return;
   clearTimeout(talkTimeout);
   talkText.innerText = text;
   bubble.classList.remove('hidden-msg');
   if (!persist) talkTimeout = setTimeout(function(){ bubble.classList.add('hidden-msg'); }, 6000);
 }
-// Fade transition screen as soon as DOM is ready (not waiting for CDN assets)
+
 function fadeIn() { transition.style.opacity = '0'; }
 document.addEventListener('DOMContentLoaded', function(){ setTimeout(fadeIn, 200); });
-// Hard fallback in case DOMContentLoaded already fired
 setTimeout(fadeIn, 800);
+
 function startLevel() {
   document.getElementById('story-overlay').style.display = 'none';
   document.getElementById('header-nav').style.opacity = '1';
   assistant.style.opacity = '1';
   assistant.style.transform = 'translateY(0)';
   if (cardEl) { cardEl.style.opacity = '1'; cardEl.style.transform = 'translateY(0)'; }
-  speak('Find the price and change it before hitting Confirm.');
-  hintTimeout = setTimeout(function(){ if (!hasWon) speak('Inspect the element with id="price-display" and edit the text directly.'); }, 20000);
-  setupDetection();
+
+  speak("They restricted the slider to 2.0. But the client trusts the DOM.", false);
+
+  hintTimeout = setTimeout(function(){
+    if (!hasWon) speak('Inspect the slider input. Change its max attribute, or set its value directly in the console.');
+  }, 15000);
 }
-function handleWin() {
+
+// Update UI when slider changes
+tempSlider.addEventListener('input', function() {
+  tempVal.innerText = this.value;
+});
+
+// Mock generation logic
+generateBtn.addEventListener('click', function() {
+  if (hasWon) return;
+
+  const currentTemp = parseFloat(tempSlider.value);
+
+  generateBtn.disabled = true;
+  generateBtn.innerText = "Generating...";
+  generateBtn.style.opacity = "0.7";
+
+  setTimeout(() => {
+    if (currentTemp > 2.0) {
+      // Trigger win
+      triggerWin(currentTemp);
+    } else if (currentTemp >= 1.5) {
+      aiResponse.innerText = "The quick brown fox jumps over the lazy dog banana potato galaxy quantum leap.";
+    } else {
+      aiResponse.innerText = "I am functioning normally at this temperature. How can I assist you?";
+    }
+
+    if (!hasWon) {
+      generateBtn.disabled = false;
+      generateBtn.innerText = "Generate Response";
+      generateBtn.style.opacity = "1";
+    }
+  }, 600);
+});
+
+function triggerWin(value) {
   if (hasWon) return;
   hasWon = true;
-  clearTimeout(hintTimeout); clearTimeout(talkTimeout);
+  clearTimeout(hintTimeout);
+  clearTimeout(talkTimeout);
+
+  aiResponse.style.display = 'none';
+  crashVal.innerText = value;
+  debugBox.classList.add('visible');
+
   if (window.parent) window.parent.postMessage({ type: 'LEVEL_COMPLETE', world: 1, level: 2 }, '*');
+
   setTimeout(function() {
     if (cardEl) cardEl.classList.add('card-exit');
     assistant.classList.add('victory-move');
     mascot.src = BYTE_PC;
-    speak('Arbitrage. You just paid whatever you wanted.', true);
+    speak('Buffer overflow! You just forced the application state to break.', true);
+
     setTimeout(function() {
       fillBar.style.width = '40%';
       progLabel.innerText = '2/5';
       progLabel.style.color = '#4546d7';
+
       setTimeout(function() {
         transition.style.opacity = '1';
-        setTimeout(function(){ window.location.href = '../3/index.html'; }, 800);
+        setTimeout(function(){
+          window.location.href = '../3/index.html';
+        }, 800);
       }, 2500);
     }, 800);
-  }, 1000);
+  }, 1500);
 }
-function quit() { transition.style.opacity = '1'; setTimeout(function(){ window.location.href = '../../game.html'; }, 600); }
 
-function openModal() { var m = document.getElementById('modal-overlay'); m.style.display = 'flex'; document.getElementById('modal-price').innerText = document.getElementById('price-display').innerText; }
-function closeModal() { document.getElementById('modal-overlay').style.display = 'none'; }
-function confirmModal() { var val = document.getElementById('modal-price').innerText.trim(); if (val !== '$999') { closeModal(); handleWin(); } else { closeModal(); speak('$999? Edit the price first, then confirm.'); } }
-function setupDetection() {}
+function quit() {
+  transition.style.opacity = '1';
+  setTimeout(function(){ window.location.href = '../../game.html'; }, 600);
+}
+
+// Client-side detection loop just in case they change the value but don't click generate
+setInterval(() => {
+  if (!hasWon && parseFloat(tempSlider.value) > 2.0) {
+    tempVal.innerText = tempSlider.value;
+    // Highlight the generate button
+    generateBtn.style.boxShadow = "0 0 15px #4546d7";
+  }
+}, 500);
+
 </script>
 </body>
 </html>

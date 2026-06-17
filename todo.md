@@ -3,7 +3,7 @@
 #### 🛡️ SECTION 1: THE DEFENSIVE CODENAMES (BLUE TEAM)
 - [x] **World 1 — ApexAI (AI & LLM Integration Flaws)**
   - [x] Level 1.1 | Prompt Injection Leak (Hidden system instructions)
-  - [ ] Level 1.2 | Token Temperature Flooding
+  - [x] Level 1.2 | Token Temperature Flooding
   - [ ] Level 1.3 | Premium Stream Hijack
   - [ ] Level 1.4 | System Instruction Swap
   - [ ] Level 1.5 | Pre-Seed Parameter Poisoning

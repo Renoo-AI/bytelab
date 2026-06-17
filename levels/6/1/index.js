@@ -1,0 +1,1 @@
+initLevel({world:6,level:1})

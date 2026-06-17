@@ -278,6 +278,16 @@ const WORLDS = [
   { id:3, name:'CloudStore', desc:'E-commerce checkout',   icon:'🛒', color:'#f59e0b' },
   { id:4, name:'SpaceY',     desc:'Private space tech',    icon:'🚀', color:'#0ea5e9' },
   { id:5, name:'Uper',       desc:'Rideshare app',         icon:'🚗', color:'#10b981' },
+  { id:6, name:'ApexAI',     desc:'AI & LLM exploits',     icon:'🤖', color:'#8b5cf6' },
+  { id:7, name:'CareSync',   desc:'Telehealth portal',     icon:'🏥', color:'#ec4899' },
+  { id:8, name:'TokenVault', desc:'Web3 & crypto tracker', icon:'💎', color:'#f59e0b' },
+  { id:9, name:'GridControl',desc:'Smart energy & IoT',    icon:'⚡', color:'#84cc16' },
+  { id:10,name:'ShipReady',  desc:'Logistics & fleet',     icon:'📦', color:'#06b6d4' },
+  { id:11,name:'PayBall V2', desc:'Advanced fintech',      icon:'💳', color:'#6366f1' },
+  { id:12,name:'ApexMarket', desc:'DOM context attacks',   icon:'🏪', color:'#f43f5e' },
+  { id:13,name:'CloudStorV2',desc:'Query logic exploits',  icon:'🗄️', color:'#fb923c' },
+  { id:14,name:'NetRun V2',  desc:'Path & traversal',      icon:'🌐', color:'#22d3ee' },
+  { id:15,name:'ShadowProxy',desc:'Payload delivery',      icon:'🕶️', color:'#a78bfa' },
 ];
 
 const LEVELS = {
@@ -316,11 +326,81 @@ const LEVELS = {
     { l:4, name:'No Surge',        desc:'4.2x surge. window.surgeMultiplier is yours to change.' },
     { l:5, name:'Status Unlock',   desc:'The Premium section is accessible. A CSS class blocks it.' },
   ],
+  6: [
+    { l:1, name:'Prompt Injection', desc:'Hidden system prompts behind a CSS trick. Intercept the DOM.' },
+    { l:2, name:'Temp Flooding',    desc:'Slider values accept floating-point. Push temperature past 2.0.' },
+    { l:3, name:'Stream Hijack',    desc:'CSS class .blur-response limits visible text. Remove it.' },
+    { l:4, name:'Instruction Swap', desc:'data-system-context="user". Change it to admin.' },
+    { l:5, name:'Seed Poisoning',   desc:'Hidden input assistant_override. Toggle it to true.' },
+  ],
+  7: [
+    { l:1, name:'Rx Multiplier',    desc:'Quantities use client-side math. Modify to buy 100x doses.' },
+    { l:2, name:'Glass Backdrop',   desc:'Patient charts behind a translucent modal. Delete the overlay.' },
+    { l:3, name:'Namespace Scrape', desc:'window.__INTERNAL_PATIENT_DUMP__ exposed globally. Parse it.' },
+    { l:4, name:'Interval Freeze',  desc:'Verification countdown via setInterval. Nullify the timer.' },
+    { l:5, name:'Constraint Break', desc:'type="date" and max attributes. Strip them to break age checks.' },
+  ],
+  8: [
+    { l:1, name:'Cookie Expansion', desc:'user_tier=free in plain cookies. Change to whale.' },
+    { l:2, name:'KYC Injection',    desc:'kyc_approved in localStorage. Set to true to trade.' },
+    { l:3, name:'Session Wrap',     desc:'sessionStorage timestamps. Advance decades to stay logged in.' },
+    { l:4, name:'Claim Deconstruct',desc:'Base64 config token. Decode, flip can_withdraw, re-encode.' },
+    { l:5, name:'Namespace Sabotage',desc:'Wipe init keys from localStorage to trigger fallback debug mode.' },
+  ],
+  9: [
+    { l:1, name:'Grid Deselect',    desc:'.hidden-grids display:none blocks controls. Delete the CSS rule.' },
+    { l:2, name:'Node Fabrication', desc:'Fabricate #emergency-override-trigger button. Inject into DOM.' },
+    { l:3, name:'Endpoint Diverge', desc:'data-source-path="/api/public". Redirect to private diagnostics.' },
+    { l:4, name:'Comment Extract',  desc:'Developer comments left in HTML. Extract internal master routes.' },
+    { l:5, name:'Notify Silence',   desc:'Event interceptors block anomaly alerts. Unbind them.' },
+  ],
+  10: [
+    { l:1, name:'$0 Customs',       desc:'Weight string editable client-side. Rewrite to bypass billing.' },
+    { l:2, name:'Interceptor Strip',desc:'event.preventDefault on shipment forms. Strip the handler.' },
+    { l:3, name:'Route Crawling',   desc:'Modify /fleet/shipment/4001 to /4002. Access parallel routes.' },
+    { l:4, name:'Asset Hijack',     desc:'Fleet image onerror attributes. Execute custom validation scripts.' },
+    { l:5, name:'Source Harvest',   desc:'Production source maps. Extract hardcoded dev authorization keys.' },
+  ],
+  11: [
+    { l:1, name:'Control Splitting',desc:'Inject %00 or %0A in payee name to break string parsers.' },
+    { l:2, name:'Inline Jailbreak', desc:'Inject quote delimiters into text fields to escape boundaries.' },
+    { l:3, name:'Naming Collision', desc:'Duplicate input with same name. Test parser isolation.' },
+    { l:4, name:'Filter Slip',      desc:'Nest forbidden keywords: <scr<script>ipt>. Test reassembly.' },
+    { l:5, name:'Type Mutation',    desc:'Change type="number" to "text". Feed alpha-numeric payloads.' },
+  ],
+  12: [
+    { l:1, name:'Query Inversion',  desc:'?search=<svg/onload=...> reflection. Test unescaped rendering.' },
+    { l:2, name:'Container Split',  desc:'Inject </div></td> to prematurely close HTML wrappers.' },
+    { l:3, name:'Live Stream Evasion',desc:'Live-stream string operations. Pass hooks into the reactive loop.' },
+    { l:4, name:'Anchor Mutation',  desc:'href="javascript:bypassPaywall()". Turn navigation into execution.' },
+    { l:5, name:'State Overwrite',  desc:'Override cached response objects. Inject admin privilege attributes.' },
+  ],
+  13: [
+    { l:1, name:'Boolean ID Extract',desc:"' OR '1'='1 in search. Dump hidden enterprise inventory." },
+    { l:2, name:'Query Pruning',    desc:'-- or /* after search queries. Truncate SQL WHERE conditions.' },
+    { l:3, name:'Signature Spoof',  desc:"admin' -- in username field. Bypass password check." },
+    { l:4, name:'Column Fingerprint',desc:'ORDER BY with incrementing numbers. Map backend table columns.' },
+    { l:5, name:'Union Merger',     desc:'UNION SELECT username,password FROM users--. Merge admin tables.' },
+  ],
+  14: [
+    { l:1, name:'Traversal Step',   desc:'../../system_manifest.json in upload paths. Escape sandbox.' },
+    { l:2, name:'Flag Polling',     desc:'Probe /.env, /debug-log.json, /config.yml for deployment artifacts.' },
+    { l:3, name:'Recursive Loop',   desc:'Feed doc renderer its own path. Trigger infinite recursion.' },
+    { l:4, name:'Route Forcing',    desc:'?skip_perimeter=1, ?override_auth=true. Find forgotten shortcuts.' },
+    { l:5, name:'Memory Scraping',  desc:'window.__DEV_FLAGS__. Uncover unmapped staging credentials.' },
+  ],
+  15: [
+    { l:1, name:'Persistent Store', desc:'Script payloads in forum posts. Test cross-profile execution.' },
+    { l:2, name:'Invisible Traps',  desc:'onmouseenter payload wrappers. Execute on hover interactions.' },
+    { l:3, name:'Sub-Frame Hijack', desc:'<iframe> injection in input fields. Test rogue window mounting.' },
+    { l:4, name:'Base64 Cloak',     desc:'eval(atob(base64_payload)). Slip past word filter blacklists.' },
+    { l:5, name:'Char Compilation', desc:'String.fromCharCode(60,115,99...). Build script tags from decimals.' },
+  ],
 };
 
 // ── STATE ────────────────────────────────────────────────────────────────────
 let activeWorld = parseInt(new URLSearchParams(location.search).get('world')) || 1;
-if (activeWorld < 1 || activeWorld > 5) activeWorld = 1;
+if (activeWorld < 1 || activeWorld > 15) activeWorld = 1;
 
 let settings = JSON.parse(localStorage.getItem('bytelab_settings') || '{"unlock":false}');
 
@@ -450,7 +530,7 @@ function toggleSetting(key) {
 }
 function resetProgress() {
   if (!confirm('Reset ALL progress? Cannot be undone.')) return;
-  for (let w = 1; w <= 5; w++) localStorage.removeItem(`bl_w${w}`);
+  for (let w = 1; w <= 15; w++) localStorage.removeItem(`bl_w${w}`);
   renderSidebar(); renderContent();
 }
 document.getElementById('modal-overlay').onclick = e => {

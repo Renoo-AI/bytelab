@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ByteLearn | Academy</title>
+    <link rel="icon" type="image/png" href="assets/logo.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;600;800&family=Be+Vietnam+Pro:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>*{margin:0;padding:0;box-sizing:border-box}
+        :root{--bg:#f5f6fb;--text:#1d1d1f;--primary:#4546d7;--secondary:#86868b;--border:#e2e8f0;--font-main:'Be Vietnam Pro',sans-serif;--font-display:'Plus Jakarta Sans',sans-serif}
+        body{background:var(--bg);color:var(--text);font-family:var(--font-main);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 20px}
+        .portal{background:white;width:100%;max-width:900px;padding:40px;border-radius:48px;box-shadow:0 10px 40px rgba(0,0,0,0.02);text-align:center;animation:fadeUp .6s ease-out;position:relative}
+        @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+        .top-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}
+        .top-bar .logo-row{display:flex;align-items:center;gap:10px}
+        .top-bar .logo-row img{width:32px;height:32px;object-fit:contain}
+        .top-bar .logo-row span{font-family:var(--font-display);font-weight:800;font-size:1.4rem;letter-spacing:-0.03em}
+        .top-actions{display:flex;gap:8px}
+        .top-btn{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:10px 14px;cursor:pointer;font-weight:700;font-size:.8rem;color:var(--secondary);transition:all .2s;text-decoration:none;display:flex;align-items:center;gap:6px}
+        .top-btn:hover{border-color:var(--primary);color:var(--primary)}
+        .top-btn.icon-btn{padding:10px;font-size:1.2rem;line-height:1}
+
+        h1{font-family:var(--font-display);font-size:1.8rem;font-weight:800;margin-bottom:4px}
+        .subtitle{color:var(--secondary);margin-bottom:32px;line-height:1.6;max-width:480px;margin-left:auto;margin-right:auto;font-size:.9rem}
+
+        .mode-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:36px}
+        .mode-card{padding:28px 20px;border-radius:24px;border:2px solid var(--border);cursor:pointer;transition:all .3s ease;text-align:left;background:var(--bg)}
+        .mode-card:hover{border-color:var(--primary);transform:translateY(-3px)}
+        .mode-card.active{border-color:var(--primary);background:#eef2ff}
+        .mode-card .emoji{font-size:1.8rem;margin-bottom:8px;display:block}
+        .mode-card h3{font-weight:800;margin-bottom:2px;font-size:1rem}
+        .mode-card p{font-size:.8rem;color:var(--secondary)}
+
+        .world-tabs{display:flex;gap:6px;margin-bottom:20px;flex-wrap:wrap;justify-content:center}
+        .world-tab{padding:8px 16px;border-radius:40px;border:1px solid var(--border);background:white;font-weight:700;font-size:.8rem;cursor:pointer;transition:all .2s;color:var(--secondary)}
+        .world-tab:hover{border-color:var(--primary);color:var(--primary)}
+        .world-tab.active{background:var(--primary);color:white;border-color:var(--primary)}
+
+        .level-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;max-width:380px;margin:0 auto 28px}
+        .level-btn{padding:16px 10px;border-radius:18px;border:1px solid var(--border);background:white;font-weight:700;font-size:.95rem;cursor:pointer;transition:all .2s;text-decoration:none;color:var(--text);display:block;text-align:center}
+        .level-btn:hover{background:var(--primary);color:white;border-color:var(--primary);transform:translateY(-2px)}
+        .level-btn.solved{background:#10b981;color:white;border-color:#10b981}
+        .level-btn.locked{opacity:.4;pointer-events:none;cursor:default;background:var(--bg)}
+        .level-btn.locked:hover{transform:none;background:var(--bg);color:var(--text);border-color:var(--border)}
+        .level-btn .lvl-num{font-size:1.2rem}
+        .level-btn .lvl-title{font-size:.65rem;color:var(--secondary);margin-top:3px}
+        .level-btn:hover .lvl-title{color:rgba(255,255,255,0.7)}
+        .level-btn.solved .lvl-title{color:rgba(255,255,255,0.7)}
+        .level-btn.locked .lvl-title{color:var(--secondary)}
+
+        .status-bar{display:flex;justify-content:center;gap:20px;padding-top:20px;border-top:1px solid var(--border);font-size:.8rem;color:var(--secondary);flex-wrap:wrap}
+        .status-bar strong{color:var(--text)}
+
+        /* --- SETTINGS MODAL --- */
+        #settings-overlay{position:fixed;inset:0;background:rgba(29,29,31,0.4);backdrop-filter:blur(8px);z-index:2000;display:none;justify-content:center;align-items:center;opacity:0;transition:opacity .3s ease}
+        #settings-overlay.active{display:flex;opacity:1}
+        .settings-card{background:white;width:90%;max-width:420px;padding:36px;border-radius:32px;box-shadow:0 30px 60px rgba(0,0,0,0.1);text-align:left;transform:translateY(20px);transition:transform .3s cubic-bezier(0.2,1,0.2,1)}
+        #settings-overlay.active .settings-card{transform:translateY(0)}
+        .settings-card h2{font-family:var(--font-display);font-weight:800;font-size:1.4rem;margin-bottom:4px;text-align:center}
+        .settings-card .sub{color:var(--secondary);font-size:.85rem;margin-bottom:24px;text-align:center}
+        .setting-row{display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px solid var(--border)}
+        .setting-row:last-child{border-bottom:none}
+        .setting-row .info h4{font-weight:700;font-size:.9rem}
+        .setting-row .info p{font-size:.75rem;color:var(--secondary);margin-top:2px}
+        .toggle{width:44px;height:26px;border-radius:99px;background:#e2e8f0;cursor:pointer;position:relative;transition:background .2s;flex-shrink:0}
+        .toggle.on{background:var(--primary)}
+        .toggle::after{content:'';position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:white;transition:transform .2s;box-shadow:0 1px 4px rgba(0,0,0,0.15)}
+        .toggle.on::after{transform:translateX(18px)}
+        .settings-btn{display:block;width:100%;padding:14px;border-radius:16px;font-weight:700;font-size:.9rem;border:none;cursor:pointer;transition:all .2s;margin-top:8px;text-align:center;text-decoration:none}
+        .settings-btn.primary{background:var(--primary);color:white}
+        .settings-btn.primary:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(69,70,215,0.25)}
+        .settings-btn.ghost{background:var(--bg);color:var(--secondary);border:1px solid var(--border);margin-top:4px}
+        .settings-btn.danger{background:#fef2f2;color:#ef4444;border:1px solid #fecaca}
+        .settings-btn.danger:hover{background:#fee2e2}
+        .secret-badge{font-size:.65rem;color:#a78bfa;font-weight:700;background:#f5f3ff;padding:2px 8px;border-radius:99px}
+
+        @media(max-width:640px){.portal{padding:24px 16px;border-radius:32px}.mode-grid{grid-template-columns:1fr}.level-grid{grid-template-columns:repeat(3,1fr)}}
+    </style>
+</head>
+<body>
+
+<div class="portal">
+    <div class="top-bar">
+        <div class="logo-row">
+            <img src="assets/logo.png" alt="ByteLearn">
+            <span>ByteLearn</span>
+        </div>
+        <div class="top-actions">
+            <a href="profile.html" class="top-btn" title="Profile">Profile</a>
+            <button class="top-btn icon-btn" onclick="openSettings()" title="Settings">⚙️</button>
+        </div>
+    </div>
+
+    <h1>Select Your Path</h1>
+    <p class="subtitle">Pick a team, choose a world, and start hacking. Each level teaches how code controls what you see.</p>
+
+    <div class="mode-grid">
+        <div class="mode-card active" onclick="setMode('attack')" id="mode-attack">
+            <span class="emoji">⚔️</span>
+            <h3>Red Team</h3>
+            <p>Inspect, modify, bypass client-side restrictions.</p>
+        </div>
+        <div class="mode-card" onclick="setMode('defend')" id="mode-defend">
+            <span class="emoji">🔵</span>
+            <h3>Blue Team</h3>
+            <p>Write rules and patch vulnerabilities.</p>
+        </div>
+    </div>
+
+    <div class="world-tabs" id="worldTabs"></div>
+    <div class="level-grid" id="levelGrid"></div>
+
+    <div class="status-bar">
+        <span>Team: <strong id="modeDisplay">Red</strong></span>
+        <span>World: <strong id="worldDisplay">0</strong></span>
+        <span>Progress: <strong id="progressDisplay">0/36</strong></span>
+        <span id="freeBadge" style="display:none">🔓 <strong>Free Mode</strong></span>
+    </div>
+</div>
+
+<!-- SETTINGS MODAL -->
+<div id="settings-overlay">
+    <div class="settings-card">
+        <h2>Settings</h2>
+        <p class="sub">Configure your experience</p>
+
+        <div class="setting-row">
+            <div class="info"><h4>Mute Success Sound</h4><p>Disable win celebration tones</p></div>
+            <div class="toggle" id="toggle-sound" onclick="toggleSetting('sound')"></div>
+        </div>
+        <div class="setting-row">
+            <div class="info"><h4>Dark Theme</h4><p>Switch to dark mode</p></div>
+            <div class="toggle" id="toggle-dark" onclick="toggleSetting('dark')"></div>
+        </div>
+
+        <!-- SECRET OPTION -->
+        <div class="setting-row" style="border-bottom: 2px solid #e8dfff; background: #fafaff; border-radius: 12px; padding: 14px 12px; margin-top: 8px;">
+            <div class="info">
+                <h4>🔓 Level Unlock <span class="secret-badge">SECRET</span></h4>
+                <p>Free access to all levels. No progression lock.</p>
+            </div>
+            <div class="toggle" id="toggle-unlock" onclick="toggleSetting('unlock')"></div>
+        </div>
+
+        <div class="setting-row">
+            <div class="info"><h4>Reset All Progress</h4><p>Clear all saves and start over</p></div>
+            <button class="settings-btn danger" onclick="resetProgress()" style="width:auto;padding:8px 16px;font-size:.75rem">Reset</button>
+        </div>
+
+        <button class="settings-btn ghost" onclick="closeSettings()" style="margin-top:16px">Close</button>
+    </div>
+</div>
+
+<script>
+    // --- CONFIG ---
+    const WORLDS = [
+        { id: 0, name: "Discovery", desc: "Tutorial world" },
+        { id: 1, name: "PayBal", desc: "Financial systems" },
+        { id: 2, name: "Netflox", desc: "Streaming platform" },
+        { id: 3, name: "CloudStore", desc: "E-commerce" },
+        { id: 4, name: "WorkspaceX", desc: "Enterprise SSO" },
+        { id: 5, name: "AirBook", desc: "Travel booking" }
+    ];
+
+    const LEVEL_TITLES = {
+        attack: {
+            0: ["Hidden View", "Price Mod", "Lock Bypass", "Role Escalate", "Coming Soon", "Coming Soon"],
+            1: ["Bypass 1","Bypass 2","Bypass 3","Bypass 4","Bypass 5","Bypass 6"],
+            2: ["Bypass 1","Bypass 2","Bypass 3","Bypass 4","Bypass 5","Bypass 6"],
+            3: ["Bypass 1","Bypass 2","Bypass 3","Bypass 4","Bypass 5","Bypass 6"],
+            4: ["Bypass 1","Bypass 2","Bypass 3","Bypass 4","Bypass 5","Bypass 6"],
+            5: ["Bypass 1","Bypass 2","Bypass 3","Bypass 4","Bypass 5","Bypass 6"]
+        },
+        defend: {
+            0: ["WAF 1","WAF 2","WAF 3","WAF 4","WAF 5","WAF 6"],
+            1: ["Guard 1","Guard 2","Guard 3","Guard 4","Guard 5","Guard 6"],
+            2: ["Guard 1","Guard 2","Guard 3","Guard 4","Guard 5","Guard 6"],
+            3: ["Guard 1","Guard 2","Guard 3","Guard 4","Guard 5","Guard 6"],
+            4: ["Guard 1","Guard 2","Guard 3","Guard 4","Guard 5","Guard 6"],
+            5: ["Guard 1","Guard 2","Guard 3","Guard 4","Guard 5","Guard 6"]
+        }
+    };
+
+    // --- STATE ---
+    let activeMode = new URLSearchParams(window.location.search).get('mode') || 'attack';
+    if (activeMode !== 'attack' && activeMode !== 'defend') activeMode = 'attack';
+    let activeWorld = parseInt(new URLSearchParams(window.location.search).get('world')) || 0;
+    if (isNaN(activeWorld) || activeWorld < 0 || activeWorld > 5) activeWorld = 0;
+
+    const levelParam = parseInt(new URLSearchParams(window.location.search).get('level'));
+    if (levelParam && levelParam >= 0 && levelParam <= 5) {
+        window.location.href = `levels/${activeWorld}/${levelParam}/index.html`;
+    }
+
+    let settings = JSON.parse(localStorage.getItem('bytelearn_settings') || '{"sound":true,"dark":false,"unlock":false}');
+
+    // --- SETTINGS ---
+    function openSettings() {
+        document.getElementById('settings-overlay').classList.add('active');
+        syncToggles();
+    }
+    function closeSettings() {
+        document.getElementById('settings-overlay').classList.remove('active');
+    }
+    function syncToggles() {
+        document.getElementById('toggle-sound').classList.toggle('on', settings.sound);
+        document.getElementById('toggle-dark').classList.toggle('on', settings.dark);
+        document.getElementById('toggle-unlock').classList.toggle('on', settings.unlock);
+    }
+    function toggleSetting(key) {
+        settings[key] = !settings[key];
+        localStorage.setItem('bytelearn_settings', JSON.stringify(settings));
+        syncToggles();
+        if (key === 'dark') {
+            document.documentElement.classList.toggle('dark', settings.dark);
+            document.body.style.filter = settings.dark ? 'invert(0.9) hue-rotate(180deg)' : '';
+        }
+        if (key === 'unlock') { renderLevels(); updateStatus(); }
+    }
+    function resetProgress() {
+        if (!confirm('Reset ALL progress? This cannot be undone.')) return;
+        for (let w = 0; w <= 5; w++) {
+            localStorage.removeItem(`bytelearn_attack_${w}`);
+            localStorage.removeItem(`bytelearn_defend_${w}`);
+        }
+        renderLevels(); updateStatus();
+    }
+    document.getElementById('settings-overlay').onclick = (e) => {
+        if (e.target === e.currentTarget) closeSettings();
+    };
+
+    // --- RENDER ---
+    function renderWorldTabs() {
+        const container = document.getElementById('worldTabs');
+        container.innerHTML = '';
+        WORLDS.forEach(w => {
+            const btn = document.createElement('button');
+            btn.className = 'world-tab' + (w.id === activeWorld ? ' active' : '');
+            btn.innerText = `${w.id}. ${w.name}`;
+            btn.onclick = () => { activeWorld = w.id; renderWorldTabs(); renderLevels(); updateStatus(); };
+            container.appendChild(btn);
+        });
+    }
+
+    function renderLevels() {
+        const container = document.getElementById('levelGrid');
+        container.innerHTML = '';
+        const titles = LEVEL_TITLES[activeMode]?.[activeWorld] || [];
+        const solved = JSON.parse(localStorage.getItem(`bytelearn_${activeMode}_${activeWorld}`) || '[]');
+        const freeMode = settings.unlock;
+
+        // In locked mode, determine what's accessible
+        let maxAccessible = -1;
+        if (!freeMode) {
+            // Find the highest solved level; accessible = solved + the next unsolved
+            for (let l = 0; l <= 5; l++) {
+                if (solved.includes(l)) maxAccessible = l;
+                else { maxAccessible = l; break; }
+            }
+            if (maxAccessible === -1) maxAccessible = 0;
+        }
+
+        for (let l = 0; l <= 5; l++) {
+            const a = document.createElement('a');
+            const isSolved = solved.includes(l);
+            const isLocked = !freeMode && l > maxAccessible && !isSolved;
+
+            a.className = 'level-btn';
+            if (isSolved) a.classList.add('solved');
+            if (isLocked) a.classList.add('locked');
+
+            if (isLocked) {
+                a.removeAttribute('href');
+                a.style.cursor = 'default';
+                a.innerHTML = `<div class="lvl-num">🔒</div><div class="lvl-title">Locked</div>`;
+            } else {
+                a.href = `levels/${activeWorld}/${l}/index.html`;
+                a.innerHTML = `<div class="lvl-num">${l}</div><div class="lvl-title">${titles[l] || '?'}</div>`;
+            }
+            container.appendChild(a);
+        }
+    }
+
+    function setMode(mode) {
+        activeMode = mode;
+        document.querySelectorAll('.mode-card').forEach(c => c.classList.remove('active'));
+        document.getElementById(`mode-${mode}`).classList.add('active');
+        document.getElementById('modeDisplay').innerText = mode === 'attack' ? 'Red' : 'Blue';
+        renderLevels();
+        updateStatus();
+    }
+
+    function updateStatus() {
+        document.getElementById('worldDisplay').innerText = activeWorld;
+        let total = 0, done = 0;
+        for (let w = 0; w <= 5; w++) {
+            const s = JSON.parse(localStorage.getItem(`bytelearn_${activeMode}_${w}`) || '[]');
+            total += 6; done += s.length;
+        }
+        document.getElementById('progressDisplay').innerText = `${done}/${total}`;
+        const badge = document.getElementById('freeBadge');
+        badge.style.display = settings.unlock ? 'inline' : 'none';
+    }
+
+    // --- INIT ---
+    setMode(activeMode);
+    renderWorldTabs();
+    renderLevels();
+</script>
+</body>
+</html>

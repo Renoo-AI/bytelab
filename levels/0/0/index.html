@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ByteLearn | Discovery World</title>
+    <link rel="icon" type="image/png" href="../../../assets/logo.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;600;800&family=Be+Vietnam+Pro:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg: #f5f6fb;
+            --text: #1d1d1f;
+            --primary: #4546d7;
+            --secondary: #86868b;
+            --border: #e2e8f0;
+            --font-main: 'Be Vietnam Pro', sans-serif;
+            --font-display: 'Plus Jakarta Sans', sans-serif;
+        }
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--font-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 32px 20px;
+        }
+        .card {
+            background: white;
+            width: 100%;
+            max-width: 680px;
+            padding: 48px;
+            border-radius: 48px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.02);
+            text-align: center;
+            animation: fadeUp 0.6s ease-out;
+        }
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .top-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 32px;
+        }
+        .top-actions {
+            display: flex;
+            gap: 8px;
+        }
+        .top-btn {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 10px 16px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: var(--secondary);
+            transition: all 0.2s;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .top-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+        .top-btn svg {
+            width: 16px;
+            height: 16px;
+            flex-shrink: 0;
+        }
+        .mascot {
+            width: 72px;
+            height: 72px;
+            object-fit: contain;
+            margin: 0 auto 16px;
+            border-radius: 50%;
+            box-shadow: 0 4px 20px rgba(69,70,215,0.1);
+        }
+        h1 {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+        .subtitle {
+            color: var(--secondary);
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 32px;
+            max-width: 460px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .level-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
+            margin-bottom: 32px;
+        }
+        .level-btn {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 24px 20px;
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--text);
+            cursor: pointer;
+            transition: all 0.25s ease;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+        .level-btn:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(69,70,215,0.15);
+        }
+        .level-btn.solved {
+            background: #10b981;
+            color: white;
+            border-color: #10b981;
+        }
+        .level-btn.locked {
+            opacity: 0.35;
+            pointer-events: none;
+            cursor: default;
+            background: var(--bg);
+        }
+        .level-btn.locked:hover {
+            transform: none;
+            background: var(--bg);
+            color: var(--text);
+            border-color: var(--border);
+            box-shadow: none;
+        }
+        .level-btn .icon-wrap {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            border: 1px solid var(--border);
+            transition: all 0.25s ease;
+        }
+        .level-btn:hover .icon-wrap {
+            background: rgba(255,255,255,0.2);
+            border-color: rgba(255,255,255,0.3);
+        }
+        .level-btn.solved .icon-wrap {
+            background: rgba(255,255,255,0.25);
+            border-color: rgba(255,255,255,0.3);
+        }
+        .level-btn .icon-wrap svg {
+            width: 20px;
+            height: 20px;
+        }
+        .level-btn .lvl-name {
+            font-size: 0.9rem;
+        }
+        .level-btn .lvl-desc {
+            font-size: 0.75rem;
+            color: var(--secondary);
+        }
+        .level-btn:hover .lvl-desc {
+            color: rgba(255,255,255,0.7);
+        }
+        .level-btn.solved .lvl-desc {
+            color: rgba(255,255,255,0.7);
+        }
+        .footer-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .btn-action {
+            background: var(--primary);
+            color: white;
+            padding: 14px 32px;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+        .btn-action:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(69,70,215,0.25);
+        }
+        .btn-action svg {
+            width: 18px;
+            height: 18px;
+        }
+        .btn-ghost {
+            background: var(--bg);
+            color: var(--secondary);
+            padding: 14px 32px;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            border: 1px solid var(--border);
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+        .btn-ghost:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+        .free-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.85rem;
+            color: #7c3aed;
+            font-weight: 700;
+            margin-bottom: 20px;
+            padding: 8px 20px;
+            border-radius: 99px;
+            background: #f5f3ff;
+            border: 1px solid #e8dfff;
+        }
+        .free-badge svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* SETTINGS MODAL */
+        #settings-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(29,29,31,0.4);
+            backdrop-filter: blur(8px);
+            z-index: 2000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        #settings-overlay.active { display: flex; opacity: 1; }
+        .settings-card {
+            background: white;
+            width: 90%;
+            max-width: 420px;
+            padding: 36px;
+            border-radius: 32px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.1);
+            text-align: left;
+            transform: translateY(20px);
+            transition: transform 0.3s cubic-bezier(0.2,1,0.2,1);
+        }
+        #settings-overlay.active .settings-card { transform: translateY(0); }
+        .settings-card h2 {
+            font-family: var(--font-display);
+            font-weight: 800;
+            font-size: 1.5rem;
+            margin-bottom: 4px;
+            text-align: center;
+        }
+        .settings-card .sub {
+            color: var(--secondary);
+            font-size: 0.9rem;
+            margin-bottom: 24px;
+            text-align: center;
+        }
+        .setting-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 0;
+            border-bottom: 1px solid var(--border);
+        }
+        .setting-row:last-child { border-bottom: none; }
+        .setting-row .info h4 {
+            font-weight: 700;
+            font-size: 0.95rem;
+        }
+        .setting-row .info p {
+            font-size: 0.8rem;
+            color: var(--secondary);
+            margin-top: 2px;
+        }
+        .toggle {
+            width: 44px;
+            height: 26px;
+            border-radius: 99px;
+            background: #e2e8f0;
+            cursor: pointer;
+            position: relative;
+            transition: background 0.2s;
+            flex-shrink: 0;
+        }
+        .toggle.on { background: var(--primary); }
+        .toggle::after {
+            content: '';
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: white;
+            transition: transform 0.2s;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+        }
+        .toggle.on::after { transform: translateX(18px); }
+        .close-btn {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            border-radius: 14px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            border: 1px solid var(--border);
+            background: var(--bg);
+            color: var(--secondary);
+            cursor: pointer;
+            text-align: center;
+            margin-top: 16px;
+        }
+        .close-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        @media (max-width: 640px) {
+            .card { padding: 28px 20px; border-radius: 32px; }
+            .level-grid { grid-template-columns: 1fr; }
+            h1 { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <div class="top-bar">
+        <div></div>
+        <div class="top-actions">
+            <a href="../../profile.html" class="top-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                Profile
+            </a>
+            <button class="top-btn" onclick="openSettings()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+                Settings
+            </button>
+        </div>
+    </div>
+
+    <img src="../../../assets/byte-hello.png" class="mascot" alt="Byte">
+
+    <h1>Discovery World</h1>
+    <p class="subtitle">Choose a level to start. Each challenge teaches a different aspect of how code controls what you see.</p>
+
+    <div id="freeBadge" class="free-badge" style="display: none;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        Free Mode — All Levels Unlocked
+    </div>
+
+    <div class="level-grid" id="levels"></div>
+
+    <div class="footer-actions">
+        <a href="../../game.html" class="btn-ghost">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            All Worlds
+        </a>
+    </div>
+</div>
+
+<!-- SETTINGS MODAL -->
+<div id="settings-overlay">
+    <div class="settings-card">
+        <h2>Settings</h2>
+        <p class="sub">Configure your experience</p>
+
+        <div class="setting-row">
+            <div class="info">
+                <h4>Mute Success Sound</h4>
+                <p>Disable win celebration tones</p>
+            </div>
+            <div class="toggle" id="toggle-sound" onclick="toggleSetting('sound')"></div>
+        </div>
+        <div class="setting-row">
+            <div class="info">
+                <h4>Dark Theme</h4>
+                <p>Switch to dark mode</p>
+            </div>
+            <div class="toggle" id="toggle-dark" onclick="toggleSetting('dark')"></div>
+        </div>
+
+        <div class="setting-row" style="border-bottom: 2px solid #e8dfff; background: #fafaff; border-radius: 12px; padding: 16px 12px; margin-top: 8px;">
+            <div class="info">
+                <h4>Level Unlock</h4>
+                <p>Free access to all levels. No progression lock.</p>
+            </div>
+            <div class="toggle" id="toggle-unlock" onclick="toggleSetting('unlock')"></div>
+        </div>
+
+        <button class="close-btn" onclick="closeSettings()">Close</button>
+    </div>
+</div>
+
+<script>
+    const TOTAL = 5;
+    const LEVELS = [
+        { name: "Hidden View", desc: "Reveal the hidden balance", icon: "eye" },
+        { name: "Price Mod", desc: "Change what you pay", icon: "dollar" },
+        { name: "Lock Bypass", desc: "Break through two layers", icon: "lock" },
+        { name: "Role Escalate", desc: "Become administrator", icon: "shield" },
+        { name: "Coming Soon", desc: "New challenge incoming", icon: "clock" }
+    ];
+
+    const ICONS = {
+        eye: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>',
+        dollar: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>',
+        lock: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>',
+        shield: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>',
+        clock: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>',
+        lockClosed: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/><circle cx="12" cy="16" r="1"/><line x1="12" y1="16" x2="12" y2="18"/></svg>',
+        check: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>'
+    };
+
+    let settings = JSON.parse(localStorage.getItem('bytelearn_settings') || '{"sound":true,"dark":false,"unlock":false}');
+
+    function openSettings() {
+        document.getElementById('settings-overlay').classList.add('active');
+        syncToggles();
+    }
+    function closeSettings() {
+        document.getElementById('settings-overlay').classList.remove('active');
+    }
+    function syncToggles() {
+        document.getElementById('toggle-sound').classList.toggle('on', settings.sound);
+        document.getElementById('toggle-dark').classList.toggle('on', settings.dark);
+        document.getElementById('toggle-unlock').classList.toggle('on', settings.unlock);
+    }
+    function toggleSetting(key) {
+        settings[key] = !settings[key];
+        localStorage.setItem('bytelearn_settings', JSON.stringify(settings));
+        syncToggles();
+        if (key === 'dark') {
+            document.documentElement.classList.toggle('dark', settings.dark);
+            document.body.style.filter = settings.dark ? 'invert(0.9) hue-rotate(180deg)' : '';
+        }
+        if (key === 'unlock') renderLevels();
+    }
+    document.getElementById('settings-overlay').onclick = (e) => {
+        if (e.target === e.currentTarget) closeSettings();
+    };
+
+    function renderLevels() {
+        const solved = JSON.parse(localStorage.getItem('bytelearn_attack_0') || '[]');
+        const freeMode = settings.unlock;
+        const grid = document.getElementById('levels');
+        grid.innerHTML = '';
+
+        let maxAccessible = 0;
+        if (!freeMode) {
+            for (let i = 0; i < TOTAL; i++) {
+                if (solved.includes(i + 1)) maxAccessible = i + 1;
+                else { maxAccessible = i + 1; break; }
+            }
+            if (maxAccessible < 1) maxAccessible = 1;
+        }
+
+        for (let i = 0; i < TOTAL; i++) {
+            const levelNum = i + 1;
+            const lvl = LEVELS[i];
+            const isSolved = solved.includes(levelNum);
+            const isLocked = !freeMode && levelNum > maxAccessible && !isSolved;
+
+            const a = document.createElement('a');
+            a.className = 'level-btn';
+            if (isSolved) a.classList.add('solved');
+            if (isLocked) a.classList.add('locked');
+
+            if (isLocked) {
+                a.removeAttribute('href');
+                a.innerHTML = `
+                    <div class="icon-wrap" style="background: #e2e8f0; border-color: #cbd5e1;">${ICONS.lockClosed}</div>
+                    <div class="lvl-name" style="color: #94a3b8;">Locked</div>
+                    <div class="lvl-desc">Solve previous level first</div>
+                `;
+            } else {
+                a.href = `../${levelNum}/index.html`;
+                a.innerHTML = `
+                    <div class="icon-wrap">${isSolved ? ICONS.check : ICONS[lvl.icon]}</div>
+                    <div class="lvl-name">${isSolved ? 'Solved' : lvl.name}</div>
+                    <div class="lvl-desc">${isSolved ? 'Completed' : lvl.desc}</div>
+                `;
+            }
+            grid.appendChild(a);
+        }
+
+        const badge = document.getElementById('freeBadge');
+        badge.style.display = settings.unlock ? 'inline-flex' : 'none';
+    }
+
+    renderLevels();
+</script>
+</body>
+</html>

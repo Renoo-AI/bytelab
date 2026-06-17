@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ByteLearn | Discovery 0.3</title>
+    <link rel="icon" type="image/png" href="../../../assets/logo.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;600;800&family=Be+Vietnam+Pro:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root{--bg:#f5f6fb;--text:#1d1d1f;--primary:#4546d7;--secondary:#86868b;--border:#e2e8f0;--font-main:'Be Vietnam Pro',sans-serif;--font-display:'Plus Jakarta Sans',sans-serif}
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font-main);overflow:hidden;height:100vh;display:flex;flex-direction:column;padding:0}
+
+        #header-nav{position:fixed;top:0;left:0;right:0;height:64px;padding:0 32px;display:flex;justify-content:space-between;align-items:center;z-index:100;background:rgba(245,246,251,0.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+        .logo-group{display:flex;align-items:center;gap:10px}
+        .logo-group img{width:26px;height:26px;object-fit:contain}
+        .logo-group span{font-family:var(--font-display);font-weight:800;font-size:1.1rem}
+        .header-right{display:flex;align-items:center;gap:10px}
+        .progress-rail{width:70px;height:4px;background:#e2e8f0;border-radius:99px;overflow:hidden}
+        .progress-fill{height:100%;background:var(--primary);width:40%;border-radius:99px;transition:width 1s cubic-bezier(0.65,0,0.35,1)}
+        .progress-text{font-size:.7rem;font-weight:800;color:var(--secondary)}
+        .btn-quit{color:var(--secondary);font-weight:700;font-size:.8rem;cursor:pointer;border:none;background:none;padding:6px 12px;border-radius:8px}
+        .btn-quit:hover{background:rgba(0,0,0,0.04);color:#f43f5e}
+
+        @keyframes subtleGlitch{0%,95%,100%{opacity:.45;transform:translateX(0)}97%{opacity:.8;transform:translateX(-1px)}98%{opacity:.45;transform:translateX(1px)}}
+        #main-viewport{flex-grow:1;display:flex;margin-top:64px;opacity:0;transform:translateY(20px);transition:all .8s ease}
+        .sidebar{width:240px;background:white;border-right:1px solid var(--border);padding:24px 16px;display:flex;flex-direction:column;gap:4px}
+        .sidebar-title{font-size:.65rem;font-weight:800;color:var(--secondary);margin-bottom:10px;padding:0 10px;text-transform:uppercase;letter-spacing:.1em}
+        .sidebar-item{padding:10px 14px;border-radius:10px;color:#64748b;font-weight:600;font-size:.8rem;text-decoration:none;transition:all .2s;cursor:pointer;display:block}
+        .sidebar-item:hover:not(.locked):not([disabled]){background:var(--bg);color:var(--primary)}
+        .sidebar-item.active{background:#eef2ff;color:var(--primary)}
+        .locked{opacity:.45;pointer-events:none;animation:subtleGlitch 4s infinite}
+        .content-area{flex-grow:1;padding:32px;background:var(--bg);overflow-y:auto}
+        .view-section{display:none;animation:viewFade .4s ease-out}
+        .view-section.active{display:block}
+        @keyframes viewFade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+        .form-card{background:white;width:100%;max-width:440px;padding:32px;border-radius:28px;box-shadow:0 10px 40px rgba(0,0,0,0.02);margin:0 auto;text-align:center}
+        .form-group{margin-bottom:16px;text-align:left}
+        .form-label{font-size:.75rem;font-weight:800;color:var(--secondary);margin-bottom:4px;display:block}
+        .form-input{width:100%;padding:12px 14px;border-radius:10px;border:1px solid var(--border);background:var(--bg);font-weight:600;font-size:.85rem;color:#94a3b8}
+        .btn-transfer{width:100%;background:var(--primary);color:white;padding:14px;border-radius:14px;font-weight:800;font-size:.95rem;border:none;margin-top:6px;cursor:default}
+
+        /* BYTE */
+        #byte-container{position:fixed;bottom:40px;right:40px;z-index:500;display:flex;flex-direction:column;align-items:flex-end;gap:12px;opacity:0;transform:translateY(20px);transition:all .8s cubic-bezier(0.34,1.56,0.64,1)}
+        #byte-container.visible{opacity:1;transform:translateY(0)}
+        #byte-container.victory{bottom:50%!important;right:50%!important;transform:translate(50%,50%)scale(1.15)!important;align-items:center}
+        #byte-bubble{background:white;padding:14px 18px;border-radius:18px;box-shadow:0 8px 32px rgba(0,0,0,0.06);border:1px solid var(--border);max-width:260px;position:relative;opacity:0;transform:scale(.9);transition:all .4s cubic-bezier(.175,.885,.32,1.275);pointer-events:none}
+        #byte-bubble.visible{opacity:1;transform:scale(1);pointer-events:auto}
+        #byte-bubble::after{content:'';position:absolute;bottom:-7px;right:28px;border-left:8px solid transparent;border-right:8px solid transparent;border-top:8px solid white}
+        #byte-bubble .text{font-size:.85rem;font-weight:500;line-height:1.4;color:#334155}
+        #byte-bubble .mini{font-size:.65rem;color:#a78bfa;margin-top:6px;text-align:right}
+        #byte-mascot{width:72px;height:72px;object-fit:contain;cursor:pointer;border-radius:50%;box-shadow:0 4px 16px rgba(0,0,0,0.06);position:relative;transition:transform .15s}
+        #byte-mascot:hover{transform:scale(1.1)}
+        #byte-mascot:active{transform:scale(.92)}
+
+        .byte-float{animation:byteFloat 3s ease-in-out infinite}
+        @keyframes byteFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+        .byte-roll{animation:byteRoll .6s cubic-bezier(.34,1.56,.64,1)}
+        @keyframes byteRoll{0%{transform:rotate(0deg)scale(1)}50%{transform:rotate(360deg)scale(1.2)}100%{transform:rotate(720deg)scale(1)}}
+        .byte-bounce{animation:byteBounce .8s cubic-bezier(.34,1.56,.64,1)}
+        @keyframes byteBounce{0%{transform:translateY(0)scale(1)}30%{transform:translateY(-30px)scale(1.1)}60%{transform:translateY(-15px)scale(.95)}100%{transform:translateY(0)scale(1)}}
+        .byte-dance{animation:byteDance 1.2s ease-in-out infinite}
+        @keyframes byteDance{0%,100%{transform:translateY(0)rotate(0deg)}25%{transform:translateY(-15px)rotate(-8deg)}50%{transform:translateY(-5px)rotate(0deg)}75%{transform:translateY(-15px)rotate(8deg)}}
+        @keyframes bytePoint{0%,100%{transform:translateX(0)}20%{transform:translateX(8px)rotate(-5deg)}40%{transform:translateX(-4px)}60%{transform:translateX(6px)}80%{transform:translateX(-2px)}}
+        .byte-pop{animation:bytePop .4s cubic-bezier(.34,1.56,.64,1) forwards}
+        @keyframes bytePop{0%{transform:scale(0)}50%{transform:scale(1.3)}100%{transform:scale(1)}}
+        @keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+        .byte-sleep{animation:byteSleep 4s ease-in-out infinite}
+        @keyframes byteSleep{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+        .zzz{position:absolute;top:-16px;right:-8px;font-size:1.2rem;opacity:0}
+        .zzz.visible{opacity:1;animation:zzzFloat 3s ease-in-out infinite}
+        @keyframes zzzFloat{0%{transform:translate(0,0)scale(.5);opacity:0}20%{opacity:1}80%{opacity:1}100%{transform:translate(-16px,-24px)scale(1);opacity:0}}
+
+        /* VICTORY OVERLAY */
+        #win-overlay{position:fixed;inset:0;z-index:600;display:none;align-items:center;justify-content:center;background:rgba(10,10,26,0.92);backdrop-filter:blur(8px);opacity:0;transition:opacity .5s ease}
+        #win-overlay.active{display:flex;opacity:1}
+        .win-card{background:#0f0f23;border-radius:40px;padding:44px 36px;max-width:420px;width:90%;text-align:center;border:2px solid rgba(255,215,0,0.3);box-shadow:0 0 60px rgba(255,215,0,0.08),inset 0 0 60px rgba(255,215,0,0.02);transform:scale(.8);transition:transform .6s cubic-bezier(.34,1.56,.64,1);position:relative;overflow:hidden}
+        #win-overlay.active .win-card{transform:scale(1)}
+        .win-card::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:conic-gradient(from 0deg,transparent,rgba(255,215,0,0.03),transparent,rgba(255,215,0,0.03),transparent);animation:winGlow 4s linear infinite}
+        @keyframes winGlow{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+        .win-badge{width:80px;height:80px;margin:0 auto 16px;position:relative;z-index:1}
+        .win-badge svg{width:100%;height:100%;filter:drop-shadow(0 0 20px rgba(255,215,0,0.4));animation:winTrophy .8s cubic-bezier(.34,1.56,.64,1)}
+        @keyframes winTrophy{0%{transform:scale(0) rotate(-20deg)}50%{transform:scale(1.3) rotate(10deg)}100%{transform:scale(1) rotate(0deg)}}
+        .win-title{font-family:'Plus Jakarta Sans',sans-serif;font-size:2.4rem;font-weight:900;background:linear-gradient(135deg,#FFD700,#FFA500);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:2px;letter-spacing:-1px;position:relative;z-index:1;text-shadow:none}
+        .win-sub{color:#a0a0b8;font-size:.85rem;margin-bottom:12px;position:relative;z-index:1}
+        .win-xp{display:inline-block;background:rgba(255,215,0,0.12);color:#FFD700;padding:6px 24px;border-radius:99px;font-weight:800;font-size:1.1rem;margin-bottom:16px;border:1px solid rgba(255,215,0,0.2);position:relative;z-index:1}
+        .win-details{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:18px;padding:18px;margin-bottom:14px;text-align:left;position:relative;z-index:1}
+        .win-details h4{font-size:.75rem;font-weight:800;color:#FFD700;margin-bottom:6px}
+        .win-details p{font-size:.75rem;color:#a0a0b8;line-height:1.6}
+        .win-details .highlight{color:#FFD700;font-weight:700}
+        .win-btn{background:linear-gradient(135deg,#FFD700,#FFA500);color:#0f0f23;padding:14px 32px;border-radius:99px;font-weight:900;font-size:.9rem;border:none;cursor:pointer;transition:all .2s;text-decoration:none;display:inline-block;margin:4px;position:relative;z-index:1;box-shadow:0 4px 20px rgba(255,215,0,0.2)}
+        .win-btn:hover{transform:translateY(-2px);box-shadow:0 6px 30px rgba(255,215,0,0.35)}
+        .win-btn.ghost{background:rgba(255,255,255,0.06);color:#a0a0b8;border:1px solid rgba(255,255,255,0.1);box-shadow:none}
+        .win-btn.ghost:hover{background:rgba(255,255,255,0.1);color:#fff}
+        #why-btn{color:rgba(255,215,0,0.6);font-weight:700;font-size:.8rem;background:none;border:none;cursor:pointer;margin-top:4px;text-decoration:underline;text-underline-offset:3px;position:relative;z-index:1}
+        #why-btn:hover{color:#FFD700}
+        #why-content{display:none;margin-top:10px}
+        #why-content.visible{display:block}
+
+        /* LOSE OVERLAY */
+        #lose-overlay{position:fixed;inset:0;z-index:600;display:none;align-items:center;justify-content:center;background:rgba(10,10,26,0.92);backdrop-filter:blur(8px);opacity:0;transition:opacity .5s ease}
+        #lose-overlay.active{display:flex;opacity:1}
+        .lose-card{background:#0f0f23;border-radius:40px;padding:44px 36px;max-width:420px;width:90%;text-align:center;border:2px solid rgba(239,68,68,0.2);box-shadow:0 0 60px rgba(239,68,68,0.05);transform:scale(.8);transition:transform .6s cubic-bezier(.34,1.56,.64,1)}
+        #lose-overlay.active .lose-card{transform:scale(1)}
+        .lose-icon{width:72px;height:72px;margin:0 auto 16px}
+        .lose-icon img{width:100%;height:100%;object-fit:contain;border-radius:50%;opacity:.8;animation:loseShake 1s ease-in-out}
+        @keyframes loseShake{0%,100%{transform:translateX(0)}15%,45%,75%{transform:translateX(-6px)}30%,60%{transform:translateX(6px)}}
+        .lose-title{font-family:'Plus Jakarta Sans',sans-serif;font-size:2rem;font-weight:900;color:#ef4444;margin-bottom:4px;letter-spacing:-1px}
+        .lose-sub{color:#a0a0b8;font-size:.85rem;margin-bottom:20px}
+        .lose-btn{background:rgba(239,68,68,0.15);color:#ef4444;padding:14px 32px;border-radius:99px;font-weight:800;font-size:.9rem;border:1px solid rgba(239,68,68,0.25);cursor:pointer;transition:all .2s;text-decoration:none;display:inline-block;margin:4px}
+        .lose-btn:hover{background:rgba(239,68,68,0.25);transform:translateY(-2px)}
+        .lose-btn.ghost{background:rgba(255,255,255,0.06);color:#a0a0b8;border:1px solid rgba(255,255,255,0.1)}
+        .lose-btn.ghost:hover{background:rgba(255,255,255,0.1);color:#fff}
+        .confetti-container{position:fixed;inset:0;pointer-events:none;z-index:599;overflow:hidden}
+        .confetti-piece{position:absolute;width:8px;height:8px;top:-16px;animation:confettiFall linear forwards}
+        @keyframes confettiFall{0%{transform:translateY(0)rotate(0deg);opacity:1}100%{transform:translateY(110vh)rotate(720deg);opacity:0}}
+        #transition-screen{position:fixed;inset:0;background:var(--primary);z-index:700;opacity:1;transition:opacity .6s ease;pointer-events:none}
+        #story-overlay{position:fixed;inset:0;background:white;z-index:550;display:flex;justify-content:center;align-items:center;transition:opacity .5s ease;overflow-y:auto}
+        .story-content{width:100%;max-width:480px;padding:20px}
+    </style>
+</head>
+<body>
+    <div id="transition-screen"></div>
+    <div id="story-overlay">
+        <!-- LEARN TAB — BYTE TUTORIAL SHOW -->
+        <div id="learn-tab" class="story-content" style="max-width:460px;padding:16px 20px">
+            <div id="tutorial-step" style="background:white;border-radius:28px;padding:32px 24px;box-shadow:0 4px 24px rgba(0,0,0,0.04);border:1px solid var(--border);text-align:center;min-height:280px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;position:relative;overflow:hidden">
+                <div id="step-glow" style="position:absolute;top:-50%;left:-50%;width:200%;height:200%;border-radius:50%;opacity:.06;transition:all .6s ease"></div>
+                <div id="step-byte" style="width:80px;height:80px;transition:all .4s cubic-bezier(.34,1.56,.64,1);position:relative;z-index:1">
+                    <img id="step-img" src="../../../assets/byte-detective.png" style="width:100%;height:100%;object-fit:contain;border-radius:50%;box-shadow:0 4px 20px rgba(69,70,215,0.12)">
+                </div>
+                <div id="step-emoji" style="font-size:2.4rem;position:relative;z-index:1;animation:bytePop .5s cubic-bezier(.34,1.56,.64,1)"></div>
+                <h2 id="step-title" style="font-family:var(--font-display);font-weight:900;font-size:1.5rem;position:relative;z-index:1;transition:all .3s"></h2>
+                <p id="step-desc" style="color:var(--secondary);font-size:.9rem;line-height:1.5;position:relative;z-index:1;transition:all .3s"></p>
+                <div id="step-dots" style="display:flex;gap:6px;position:relative;z-index:1;margin-top:4px"></div>
+                <div id="step-lang" style="display:flex;gap:4px;background:var(--bg);padding:3px;border-radius:8px;position:relative;z-index:1">
+                    <button id="lang-en-btn" onclick="switchLang('en')" style="padding:4px 14px;border-radius:6px;border:none;font-weight:700;font-size:.75rem;cursor:pointer;background:white;color:var(--text);box-shadow:0 1px 4px rgba(0,0,0,0.06)">EN</button>
+                    <button id="lang-ar-btn" onclick="switchLang('ar')" style="padding:4px 14px;border-radius:6px;border:none;font-weight:700;font-size:.75rem;cursor:pointer;background:transparent;color:var(--secondary)">AR</button>
+                </div>
+                <button id="step-btn" onclick="tutorialNext()" style="padding:12px 36px;border-radius:99px;font-weight:800;font-size:.9rem;border:none;cursor:pointer;transition:all .2s;position:relative;z-index:1"></button>
+            </div>
+            <p style="color:var(--secondary);font-size:.65rem;margin-top:10px;text-align:center;opacity:.6">Byte watches you. He knows when you solve it 🎉</p>
+        </div>
+
+        <!-- PLAY TAB -->
+        <div id="play-tab" class="story-content" style="max-width:400px;padding:20px;display:none;animation:fadeUp .5s ease-out">
+            <div style="text-align:center">
+                <img src="../../../assets/byte-happy.png" id="playByte" style="width:80px;margin:0 auto 20px;border-radius:50%;box-shadow:0 4px 20px rgba(69,70,215,0.1);animation:bytePop .6s cubic-bezier(.34,1.56,.64,1)">
+                <h1 style="font-family:var(--font-display);font-size:1.6rem;font-weight:800;margin-bottom:8px">Lock Bypass</h1>
+                <p id="play-desc-en" style="color:var(--secondary);font-size:.9rem;line-height:1.6;margin-bottom:24px">Access is just a setting. Remove both locks from the Transfer Funds button to proceed!</p>
+                <p id="play-desc-ar" style="color:var(--secondary);font-size:.9rem;line-height:1.6;margin-bottom:24px;display:none">الوصول مجرد إعداد. قم بإزالة كلا القفلين من زر تحويل الأموال للمتابعة!</p>
+                <button onclick="startLevel()" style="background:var(--primary);color:white;padding:14px 36px;border-radius:99px;font-size:1rem;font-weight:700;border:none;cursor:pointer;box-shadow:0 4px 16px rgba(69,70,215,0.25);transition:all .2s">▶ START</button>
+                <button onclick="switchToLearn()" style="margin-top:10px;display:block;width:100%;background:none;border:none;color:var(--secondary);font-size:.8rem;font-weight:600;cursor:pointer;text-decoration:underline">← Back to Learn</button>
+            </div>
+        </div>
+    </div>
+    <header id="header-nav" style="opacity:0">
+        <div class="logo-group"><img src="../../../assets/logo.png" alt="ByteLearn"><span>ByteLearn</span></div>
+        <div class="header-right">
+            <div class="progress-rail"><div id="progress-fill-bar" class="progress-fill"></div></div>
+            <span id="progress-text-val" class="progress-text">3/5</span>
+            <button onclick="quit()" class="btn-quit">Quit</button>
+        </div>
+    </header>
+    <main id="main-viewport">
+        <nav class="sidebar" id="sidebar">
+            <div class="sidebar-title">Bank Navigation</div>
+            <div class="sidebar-item active" data-view="overview" onclick="switchView('overview',this)">Account Overview</div>
+            <div class="sidebar-item" data-view="history" onclick="switchView('history',this)">Transaction History</div>
+            <div class="sidebar-item" data-view="settings" onclick="switchView('settings',this)">Settings</div>
+            <div class="h-px bg-slate-100 my-2 mx-3"></div>
+            <a id="transfer-btn" class="sidebar-item locked" disabled data-view="transfer">Transfer Funds</a>
+        </nav>
+        <div class="content-area" id="main-content">
+            <div id="view-overview" class="view-section active">
+                <h2 style="font-size:1.2rem;font-weight:800;margin-bottom:8px">Welcome back, User</h2>
+                <p style="color:var(--secondary);font-size:.85rem;margin-bottom:24px">Your Priority Gold account is secure.</p>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+                    <div style="background:white;padding:20px;border-radius:20px;border:1px solid var(--border)">
+                        <p style="color:var(--secondary);font-size:.7rem;font-weight:700;text-transform:uppercase;margin-bottom:6px">Balance</p>
+                        <p style="font-size:1.6rem;font-weight:800;color:var(--primary)">$12,500</p>
+                    </div>
+                    <div style="background:white;padding:20px;border-radius:20px;border:1px solid var(--border);text-align:center">
+                        <p style="color:var(--secondary);font-size:.7rem;font-weight:700;text-transform:uppercase;margin-bottom:6px">Status</p>
+                        <p style="font-weight:700">Safe</p>
+                    </div>
+                </div>
+            </div>
+            <div id="view-history" class="view-section">
+                <h2 style="font-size:1.2rem;font-weight:800;margin-bottom:8px">Transactions</h2>
+                <p style="color:var(--secondary);font-size:.85rem;margin-bottom:16px">Recent activity</p>
+                <div style="background:white;border-radius:20px;border:1px solid var(--border)">
+                    <div style="padding:12px 16px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between">
+                        <div><p style="font-weight:700;font-size:.85rem">ATM Withdrawal</p><p style="font-size:.7rem;color:var(--secondary)">Today</p></div>
+                        <p style="font-weight:700;color:#ef4444">-$200</p>
+                    </div>
+                    <div style="padding:12px 16px;display:flex;justify-content:space-between">
+                        <div><p style="font-weight:700;font-size:.85rem">Upgrade Fee</p><p style="font-size:.7rem;color:var(--secondary)">Yesterday</p></div>
+                        <p style="font-weight:700;color:#ef4444">-$1</p>
+                    </div>
+                </div>
+            </div>
+            <div id="view-settings" class="view-section">
+                <h2 style="font-size:1.2rem;font-weight:800;margin-bottom:8px">Security</h2>
+                <p style="color:var(--secondary);font-size:.85rem;margin-bottom:16px">Access restrictions are active.</p>
+                <div style="background:white;padding:20px;border-radius:20px;border:1px solid var(--border)"><p style="color:#94a3b8;font-style:italic;font-size:.85rem">UI restrictions active for your safety.</p></div>
+            </div>
+            <div id="view-transfer" class="view-section">
+                <div class="form-card">
+                    <h2 style="font-size:1.1rem;font-weight:800;margin-bottom:4px">Transfer Funds</h2>
+                    <p style="color:var(--secondary);font-size:.8rem;margin-bottom:20px">Authorize external transfer</p>
+                    <div class="form-group"><label class="form-label">Recipient</label><input type="text" class="form-input" value="SAV-9921-2201" readonly></div>
+                    <div class="form-group"><label class="form-label">Amount</label><input type="text" class="form-input" value="$12,500" readonly></div>
+                    <button class="btn-transfer">Confirm</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- BYTE ASSISTANT -->
+    <div id="byte-container">
+        <div id="byte-bubble">
+            <div class="text" id="byte-talk">Hey! I'm Byte 👋</div>
+            <div class="mini" id="byte-mini">click me →</div>
+        </div>
+        <div style="position:relative">
+            <span class="zzz" id="byte-zzz">💤</span>
+            <img id="byte-mascot" src="../../../assets/byte-hello.png" class="byte-float" alt="Byte">
+        </div>
+    </div>
+
+    <!-- VICTORY OVERLAY -->
+    <div id="win-overlay">
+        <div class="confetti-container" id="confettiBox"></div>
+        <div class="win-card">
+            <div class="win-badge">
+                <svg viewBox="0 0 100 100" fill="none">
+                    <circle cx="50" cy="50" r="45" fill="rgba(255,215,0,0.1)" stroke="#FFD700" stroke-width="2"/>
+                    <path d="M50 15L58 35L80 38L63 54L68 75L50 64L32 75L37 54L20 38L42 35L50 15Z" fill="#FFD700" stroke="#FFA500" stroke-width="1.5"/>
+                    <path d="M50 25L54 35L65 37L57 45L59 56L50 50L41 56L43 45L35 37L46 35L50 25Z" fill="#FFF3CD"/>
+                    <rect x="42" y="75" width="16" height="8" rx="2" fill="#FFD700"/>
+                    <rect x="36" y="83" width="28" height="4" rx="2" fill="#FFD700"/>
+                </svg>
+            </div>
+            <div class="win-title">VICTORY</div>
+            <div class="win-sub">LEVEL COMPLETE!</div>
+            <div class="win-xp">+15 XP</div>
+            <div class="win-details">
+                <h4>💡 What you did</h4>
+                <p>You solved the challenge! Byte is proud.</p>
+            </div>
+            <button id="why-btn">Why does this work? 🤔</button>
+            <div id="why-content" class="win-details">
+                <h4>🔍 Full Explanation</h4>
+                <p>Client-side controls are not security boundaries. Always validate on the server.</p>
+            </div>
+            <div style="margin-top:12px">
+                <button onclick="nextLevel()" class="win-btn">NEXT LEVEL →</button>
+                <button onclick="closeWin()" class="win-btn ghost">Stay</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- LOSE OVERLAY -->
+    <div id="lose-overlay">
+        <div class="lose-card">
+            <div class="lose-icon">
+                <img src="../../../assets/byte-hang.png" alt="Byte sad">
+            </div>
+            <div class="lose-title">TRY AGAIN</div>
+            <div class="lose-sub">Don't give up! Byte believes in you.</div>
+            <div style="margin-top:8px">
+                <button onclick="closeLose()" class="lose-btn">RETRY LEVEL</button>
+                <button onclick="quitToHub()" class="lose-btn ghost">Back to Hub</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const BYTE_IMG = {
+            hello: 'assets/byte-hello.png',
+            pc: 'assets/byte-pc.png',
+            hang: 'assets/byte-hang.png',
+            rich: 'assets/byte-rich.png',
+            superman: 'assets/byte-superman.png',
+            book: 'assets/byte-book.png',
+            lightning: 'assets/byte-lightning.png',
+            detective: 'assets/byte-detective.png',
+            hacker: 'assets/byte-hacker.png',
+            ninja: 'assets/byte-ninja.png',
+            happy: 'assets/byte-happy.png'
+        };
+        const BYTE_MOODS = ['hello','detective','ninja','book','lightning','happy','hello','detective'];
+        let currentMoodIdx = 0;
+        let hasWon = false, idleTimer = null, observer = null;
+
+        // AUDIO
+        function playSuccess() {
+            try{const c=new(window.AudioContext||window.webkitAudioContext)();[523.25,659.25,783.99,1046.5].forEach((f,i)=>{const o=c.createOscillator(),g=c.createGain();o.type='sine';o.frequency.setValueAtTime(f,c.currentTime+i*.12);g.gain.setValueAtTime(.15,c.currentTime+i*.12);g.gain.exponentialRampToValueAtTime(.001,c.currentTime+i*.12+.4);o.connect(g);g.connect(c.destination);o.start(c.currentTime+i*.12);o.stop(c.currentTime+i*.12+.4)})}catch(e){}
+        }
+        function playGliss() {
+            try{const c=new(window.AudioContext||window.webkitAudioContext)();[392,440,493.88,523.25,587.33,659.25,698.46,783.99].forEach((f,i)=>{const o=c.createOscillator(),g=c.createGain();o.type='sine';o.frequency.setValueAtTime(f,c.currentTime+i*.06);g.gain.setValueAtTime(.08,c.currentTime+i*.06);g.gain.exponentialRampToValueAtTime(.001,c.currentTime+i*.06+.2);o.connect(g);g.connect(c.destination);o.start(c.currentTime+i*.06);o.stop(c.currentTime+i*.06+.2)})}catch(e){}
+        }
+
+        // CONFETTI
+        function spawnConfetti() {
+            const box=document.getElementById('confettiBox');box.innerHTML='';
+            const colors=['#FFD700','#FFA500','#FFC107','#FFB300','#FF8F00','#FFD54F','#FFE082'];
+            for(let i=0;i<80;i++){const e=document.createElement('div');e.className='confetti-piece';e.style.left=Math.random()*100+'%';e.style.background=colors[Math.floor(Math.random()*7)];e.style.width=(4+Math.random()*8)+'px';e.style.height=(4+Math.random()*8)+'px';e.style.borderRadius=Math.random()>.5?'50%':'2px';e.style.animationDuration=(2+Math.random()*3)+'s';e.style.animationDelay=Math.random()*1.5+'s';box.appendChild(e)}
+        }
+
+        // BYTE
+        function byteSay(text, duration=5000) {
+            const talk=document.getElementById('byte-talk');
+            const mini=document.getElementById('byte-mini');
+            const bubble=document.getElementById('byte-bubble');
+            talk.innerText=text;bubble.classList.add('visible');
+            mini.innerText='';
+            clearTimeout(idleTimer);
+            if(duration>0) setTimeout(()=>{bubble.classList.remove('visible');mini.innerText='click me →'},duration);
+        }
+
+        function byteAnimate(className, duration=1000) {
+            const m=document.getElementById('byte-mascot');
+            m.classList.remove('byte-float','byte-dance','byte-pop');
+            m.classList.add(className);
+            setTimeout(()=>{m.classList.remove(className);if(!hasWon)m.classList.add('byte-float')},duration);
+        }
+
+        function byteSetImage(key) {
+            document.getElementById('byte-mascot').src=BYTE_IMG[key]||BYTE_IMG.hello;
+        }
+
+        // BYTE CLICK - pure fun
+        function byteNextMood() {
+            currentMoodIdx = (currentMoodIdx + 1) % BYTE_MOODS.length;
+            const key = BYTE_MOODS[currentMoodIdx];
+            byteSetImage(key);
+        }
+
+        function byteClick() {
+            if(hasWon) return;
+            byteAnimate('byte-roll');
+            playGliss();
+            byteNextMood();
+            const reactions=[
+                ["🔍 Let me take a closer look...","🕵️ Investigating the elements...","🔎 I see something interesting here!","📋 Check the Elements panel..."],
+                ["✨ Right-click and choose Inspect!","💻 DevTools is your best friend!","🛠️ The Elements tab shows everything."],
+                ["🥷 Sneaky changes in the DOM...","🔐 Never trust the client side!","⚡ One edit can change everything!"],
+                ["📚 The answer is always in the code.","🧠 You're learning to see what others miss.","💡 Keep exploring, you're close!"],
+                ["🌟 You're getting warmer!","🎯 One more thing to change...","🔥 You've got this!"]
+            ];
+            const group = reactions[Math.floor(Math.random()*reactions.length)];
+            byteSay(group[Math.floor(Math.random()*group.length)]);
+        }
+        document.getElementById('byte-mascot').onclick=byteClick;
+
+        // BYTE IDLE
+        function byteIdle() {
+            if(hasWon) return;
+            idleCount++;
+            document.getElementById('byte-zzz').classList.add('visible');
+            const m=document.getElementById('byte-mascot');
+            m.classList.remove('byte-float');m.classList.add('byte-sleep');
+            if(idleCount>=3) {
+                byteSay("😴 Too long... giving up?",0);
+                setTimeout(()=>showLose(),2000);
+            } else {
+                byteSay("😴 Zzz... *snort* Oh! I'm awake!",6000);
+                setTimeout(()=>{
+                    if(!hasWon){m.classList.remove('byte-sleep');m.classList.add('byte-float');
+                    document.getElementById('byte-zzz').classList.remove('visible')}
+                },6000);
+            }
+        }
+
+        // AUTO-DETECTION - Byte watches transfer-btn
+        function initByteDetection() {
+            const el=document.getElementById('transfer-btn');
+            observer=new MutationObserver(()=>{
+                const hasDisabled=el.hasAttribute('disabled');
+                const hasLocked=el.classList.contains('locked');
+                if(!hasDisabled&&!hasLocked&&!hasWon){
+                    setTimeout(()=>handleWin(),300);
+                }
+            });
+            observer.observe(el,{attributes:true,attributeFilter:['disabled','class'],attributeOldValue:false});
+        }
+
+        let currentLearnLang = 'en', tutorialStep = 0, tutorialTimer = null;
+
+        const TUTORIAL = {
+            en: [
+                { img:'ninja', emoji:'🥷', title:"Transfer Funds is LOCKED!", desc:"The button has TWO locks. You can't click it... yet.", bg:'#f8f6ff', anim:'pop' },
+                { img:'book', emoji:'📚', title:"Lock 1: disabled attribute!", desc:"The disabled attribute blocks ALL clicks. Delete it in DevTools!", bg:'#eef2ff', anim:'point' },
+                { img:'hacker', emoji:'🧢', title:"Lock 2: CSS pointer-events!", desc:"The 'locked' class sets pointer-events:none. Remove that class too!", bg:'#fff8f0', anim:'roll' },
+                { img:'happy', emoji:'🎈', title:"Both gone? CLICK IT!", desc:"No disabled + no locked class = the button WORKS. Try it!", bg:'#f0fdf4', anim:'bounce' },
+                { img:'lightning', emoji:'⚡', title:"Security Lesson!", desc:"Disabled and CSS locks are CLIENT-SIDE only. Never rely on them for security!", bg:'#fef2f2', anim:'dance' }
+            ],
+            ar: [
+                { img:'ninja', emoji:'🥷', title:'تحويل الأموال مقفول!', desc:'الزر لديه قفلان. لا يمكنك النقر عليه... بعد.', bg:'#f8f6ff', anim:'pop' },
+                { img:'book', emoji:'📚', title:'القفل 1: الخاصية disabled!', desc:'الخاصية disabled تمنع كل النقرات. احذفها في أدوات المطور!', bg:'#eef2ff', anim:'point' },
+                { img:'hacker', emoji:'🧢', title:'القفل 2: CSS pointer-events!', desc:'الكود locked يضع pointer-events:none. احذف هذا الكود أيضاً!', bg:'#fff8f0', anim:'roll' },
+                { img:'happy', emoji:'🎈', title:'كلاهما ذهب؟ اضغط عليه!', desc:'لا disabled + لا locked = الزر يعمل. جربه!', bg:'#f0fdf4', anim:'bounce' },
+                { img:'lightning', emoji:'⚡', title:'درس أمني!', desc:'الأقفال في CSS والخاصية disabled هي فقط من جهة العميل. لا تعتمد عليها!', bg:'#fef2f2', anim:'dance' }
+            ]
+        };
+
+        function getTutorial() { return TUTORIAL[currentLearnLang] || TUTORIAL.en; }
+
+        function renderTutorialStep() {
+            const t = getTutorial();
+            const step = t[tutorialStep];
+            if (!step) { switchToPlay(); return; }
+
+            const img = document.getElementById('step-img');
+            const title = document.getElementById('step-title');
+            const desc = document.getElementById('step-desc');
+            const emoji = document.getElementById('step-emoji');
+            const btn = document.getElementById('step-btn');
+            const glow = document.getElementById('step-glow');
+            const byteBox = document.getElementById('step-byte');
+            const dots = document.getElementById('step-dots');
+
+            img.src = `../../../assets/byte-${step.img}.png`;
+            byteBox.style.animation = 'none';
+            void byteBox.offsetWidth;
+            const animMap = { pop:'bytePop .5s cubic-bezier(.34,1.56,.64,1)', point:'bytePoint 1s ease-in-out', roll:'byteRoll .6s cubic-bezier(.34,1.56,.64,1)', bounce:'byteBounce .8s cubic-bezier(.34,1.56,.64,1)', dance:'byteDance .6s ease-in-out' };
+            byteBox.style.animation = animMap[step.anim] || animMap.pop;
+
+            emoji.innerText = step.emoji;
+            title.innerText = step.title;
+            desc.innerHTML = step.desc;
+            glow.style.background = step.bg;
+
+            dots.innerHTML = '';
+            t.forEach((_, i) => {
+                const d = document.createElement('div');
+                d.style.cssText = `width:8px;height:8px;border-radius:50%;background:${i === tutorialStep ? 'var(--primary)' : 'var(--border)'};transition:all .3s`;
+                dots.appendChild(d);
+            });
+
+            const isLast = tutorialStep >= t.length - 1;
+            btn.innerText = isLast ? '▶ PLAY CHALLENGE' : 'Next →';
+            btn.style.background = isLast ? 'var(--primary)' : 'var(--bg)';
+            btn.style.color = isLast ? 'white' : 'var(--text)';
+            btn.style.boxShadow = isLast ? '0 4px 16px rgba(69,70,215,0.25)' : 'none';
+            btn.onclick = isLast ? switchToPlay : () => { tutorialStep++; renderTutorialStep(); };
+
+            if (tutorialTimer) clearTimeout(tutorialTimer);
+            if (!isLast) tutorialTimer = setTimeout(() => { tutorialStep++; renderTutorialStep(); }, 3500);
+        }
+
+        function switchLang(lang) {
+            currentLearnLang = lang;
+            document.getElementById('lang-en-btn').style.background = lang === 'en' ? 'white' : 'transparent';
+            document.getElementById('lang-en-btn').style.boxShadow = lang === 'en' ? '0 1px 4px rgba(0,0,0,0.06)' : 'none';
+            document.getElementById('lang-ar-btn').style.background = lang === 'ar' ? 'white' : 'transparent';
+            document.getElementById('lang-ar-btn').style.boxShadow = lang === 'ar' ? '0 1px 4px rgba(0,0,0,0.06)' : 'none';
+            renderTutorialStep();
+        }
+
+        function switchToPlay() {
+            if (tutorialTimer) clearTimeout(tutorialTimer);
+            document.getElementById('learn-tab').style.display = 'none';
+            document.getElementById('play-tab').style.display = 'block';
+        }
+        function switchToLearn() {
+            tutorialStep = 0;
+            document.getElementById('play-tab').style.display = 'none';
+            document.getElementById('learn-tab').style.display = 'block';
+            renderTutorialStep();
+        }
+
+        // Start the tutorial
+        renderTutorialStep();
+
+        // START
+        window.onload=()=>setTimeout(()=>document.getElementById('transition-screen').style.opacity='0',500);
+
+        function startLevel() {
+            const story=document.getElementById('story-overlay');
+            story.style.opacity='0';
+            setTimeout(()=>{
+                story.style.display='none';
+                document.getElementById('transition-screen').style.opacity='1';
+                setTimeout(()=>{
+                    document.getElementById('transition-screen').style.opacity='0';
+                    document.getElementById('header-nav').style.opacity='1';
+                    document.getElementById('main-viewport').style.opacity='1';
+                    document.getElementById('main-viewport').style.transform='translateY(0)';
+                    document.getElementById('byte-container').classList.add('visible');
+                    byteSay("🔒 Two locks on Transfer Funds. Inspect that button!");
+                    idleTimer=setTimeout(byteIdle,25000);
+                    initByteDetection();
+                },800);
+            },500);
+        }
+
+        // VIEW SWITCHING
+        document.querySelectorAll('.sidebar-item[data-view]').forEach(item=>{
+            item.onclick=function(e){
+                const v=this.dataset.view;
+                if(this.id==='transfer-btn'){
+                    const tb=document.getElementById('transfer-btn');
+                    if(tb.hasAttribute('disabled')){
+                        byteSay("Remove the disabled attribute first! Right-click → Inspect.");
+                        return;
+                    }
+                    if(tb.classList.contains('locked')){
+                        byteSay("Now remove the 'locked' class from the element.");
+                        return;
+                    }
+                    switchView(v,this);
+                } else {
+                    switchView(v,this);
+                }
+            }
+        });
+
+        function switchView(n,el){
+            document.querySelectorAll('.view-section').forEach(v=>v.classList.remove('active'));
+            const t=document.getElementById('view-'+n);
+            if(t)t.classList.add('active');
+            document.querySelectorAll('.sidebar-item').forEach(i=>i.classList.remove('active'));
+            if(el)el.classList.add('active')
+        }
+
+        // WIN
+        function handleWin() {
+            if(hasWon) return;
+            hasWon=true;
+            clearTimeout(idleTimer);
+            if(observer) observer.disconnect();
+            document.getElementById('byte-zzz').classList.remove('visible');
+
+            const m=document.getElementById('byte-mascot');
+            m.classList.remove('byte-float','byte-sleep');
+            byteSetImage('hacker');
+            byteAnimate('byte-pop');
+
+            setTimeout(()=>{
+                document.getElementById('byte-container').classList.add('victory');
+                byteSetImage('hacker');
+                byteAnimate('byte-dance');
+                spawnConfetti();
+                playSuccess();
+                byteSay("🏆 VICTORY! Byte saw everything! Amazing work!",0);
+            },400);
+
+            setTimeout(()=>{
+                byteAnimate('byte-bounce');
+                document.getElementById('progress-fill-bar').style.width='60%';
+                saveProgress(3);
+                setTimeout(()=>document.getElementById('win-overlay').classList.add('active'),600);
+            },1200);
+        }
+
+        function saveProgress(l) {
+            const s=JSON.parse(localStorage.getItem('bytelearn_attack_0')||'[]');
+            if(!s.includes(l)){s.push(l);localStorage.setItem('bytelearn_attack_0',JSON.stringify(s))}
+        }
+
+        document.getElementById('why-btn').onclick=()=>{
+            const c=document.getElementById('why-content');
+            c.classList.toggle('visible');
+            document.getElementById('why-btn').innerText=c.classList.contains('visible')?'Hide ▲':'Why does this work? 🤔';
+        };
+        let idleCount = 0;
+        function showLose() {
+            document.getElementById('lose-overlay').classList.add('active');
+        }
+        function closeLose() {
+            document.getElementById('lose-overlay').classList.remove('active');
+            window.location.reload();
+        }
+        function quitToHub() {
+            document.getElementById('transition-screen').style.opacity='1';
+            setTimeout(()=>window.location.href='../../../game.html',600);
+        }
+
+        function nextLevel(){window.location.href='../4/index.html'}
+        function closeWin(){document.getElementById('win-overlay').classList.remove('active')}
+        function quit(){document.getElementById('transition-screen').style.opacity='1';setTimeout(()=>window.location.href='../../../game.html',600)}
+    </script>
+</body>
+</html>

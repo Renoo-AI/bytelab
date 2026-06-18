@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ByteLab — Academy Map</title>
-    <link rel="icon" type="image/png" href="assets/logo.png">
+    <link rel="icon" type="image/png" href="https://dropshare.42web.io/1/files/UIi3dXms4F.png">
     
     <!-- Tailwind Framework -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -249,11 +249,10 @@
 
     <!-- TOP NAVBAR -->
     <nav class="h-[72px] px-6 md:px-12 flex items-center justify-between border-b border-slate-200 bg-white">
-        <div class="flex items-center gap-3" onclick="window.location.href=\'profile/index.html\'" style="cursor:pointer">
-            <img src="assets/logo.png" alt="ByteLab Logo" class="w-8 h-8 object-contain">
+        <div class="flex items-center gap-3" onclick="window.location.href='index.html'" style="cursor:pointer">
+            <img src="https://dropshare.42web.io/1/files/UIi3dXms4F.png" alt="ByteLab Logo" class="w-8 h-8 object-contain">
             <span class="font-display font-extrabold text-xl tracking-tight text-slate-800">ByteLab</span>
         </div>
-
 
         <!-- Mode selection pill -->
         <div class="path-toggle-wrapper">
@@ -261,18 +260,11 @@
             <button class="path-btn" id="mode-defend-btn" onclick="setMode('defend')">Blue Team (🛡️)</button>
         </div>
 
-        <div style="display:flex;align-items:center;gap:12px;margin-left:auto;margin-right:24px;">
-            <div style="background: linear-gradient(135deg, #10b981, #059669); color: white; padding: 6px 16px; border-radius: 99px; font-weight: 800; font-size: 0.75rem; letter-spacing: 0.05em; text-transform: uppercase; display: flex; items-center; gap: 6px; cursor: pointer; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3); transition: all 0.2s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
-                <span>✦</span> PRO: REAL-WORLD REPLICAS
-            </div>
-        </div>
-
-
         <!-- ── STREAMING_CHUNK:Building operator card controls... -->
         <!-- Profile/Cadet Status info -->
         <div class="flex items-center gap-4">
-            <div class="flex items-center gap-2.5 bg-slate-50 border border-slate-200 rounded-full py-1.5 pl-2 pr-4 cursor-pointer transition-all hover:bg-slate-100" onclick="window.location.href=\'profile/index.html\'">
-                <img src="assets/byte-hello.png" class="w-8 h-8 object-contain rounded-full bg-white border border-slate-200 p-0.5" alt="Avatar">
+            <div class="flex items-center gap-2.5 bg-slate-50 border border-slate-200 rounded-full py-1.5 pl-2 pr-4 cursor-pointer transition-all hover:bg-slate-100" onclick="window.location.href='index.html'">
+                <img src="https://dropshare.42web.io/1/files/zVYAUZDpex.png" class="w-8 h-8 object-contain rounded-full bg-white border border-slate-200 p-0.5" alt="Avatar">
                 <div class="text-left">
                     <div class="font-display font-extrabold text-[11px] text-slate-800 leading-none" id="profileName">Hacker</div>
                     <div class="text-[9px] font-bold text-indigo-600 mt-0.5 leading-none" id="profileRank">Recruit</div>
@@ -340,32 +332,6 @@
     </div>
 
     <!-- ── STREAMING_CHUNK:Building system modals... -->
-
-    <div style="position: fixed; bottom: 20px; left: 20px; z-index: 1000;">
-        <button onclick="openHintModal()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-full shadow-lg transition-all flex items-center gap-2">
-            💡 <span id="hint-count-text">5 Hints Left</span>
-        </button>
-    </div>
-
-    <!-- HINT MODAL -->
-    <div class="modal-bg" id="hintModal">
-        <div class="modal-card text-center" style="max-width: 320px;">
-            <div class="text-4xl mb-4">💡</div>
-            <h3 class="font-display font-extrabold text-xl text-slate-800 mb-2">Need a Hint?</h3>
-            <p class="text-slate-500 text-sm mb-6" id="hint-modal-desc">You have <strong id="hint-modal-count">5</strong> free hints remaining.</p>
-
-            <button onclick="useHint()" id="btn-use-hint" class="w-full py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-2xl font-bold text-sm transition-all mb-3">
-                Reveal Hint
-            </button>
-            <button onclick="closeHintModal()" class="w-full py-3 bg-slate-100 hover:bg-slate-200 text-slate-600 rounded-2xl font-bold text-sm transition-all">
-                Maybe Later
-            </button>
-
-            <div id="hint-result" class="hidden mt-6 p-4 bg-indigo-50 border border-indigo-100 rounded-xl text-left text-sm text-indigo-900 font-medium leading-relaxed">
-            </div>
-        </div>
-    </div>
-
     <!-- SETTINGS MODAL -->
     <div class="modal-bg" id="settingsModal">
         <div class="modal-card">
@@ -379,15 +345,6 @@
                     </div>
                     <div class="toggle-switch" id="toggleUnlock" onclick="toggleSetting('unlock')"></div>
                 </div>
-
-                <div class="flex items-center justify-between border-t border-slate-100 pt-5">
-                    <div>
-                        <h4 class="font-display font-extrabold text-sm text-slate-700">Hardcore Mode</h4>
-                        <p class="text-xs text-slate-400 font-medium mt-0.5">30 second time limit per level</p>
-                    </div>
-                    <div class="toggle-switch" id="toggleHardcore" onclick="toggleSetting('hardcore')"></div>
-                </div>
-
 
                 <div class="border-t border-slate-100 pt-5">
                     <button onclick="resetProgress()" class="w-full py-3 bg-rose-50 hover:bg-rose-100 border border-rose-200 text-rose-600 rounded-2xl font-bold text-sm transition-all">
@@ -406,429 +363,99 @@
     <!-- JS ENGINE -->
     <script>
         const WORLDS = [
-    { id: 0, name: 'Discovery', icon: '🧭', desc: 'The basics. Learn how to inspect elements and bypass simple client-side locks.', x: 100, y: 100, type: 'regular' },
-    { id: 1, name: 'PayPal', icon: '🏦', desc: 'Financial spoofing. Manipulate visible balances and bypass form validation.', x: 300, y: 100, type: 'regular' },
-    { id: 2, name: 'Netflix', icon: '🍿', desc: 'Media locks. Unlock premium video content by editing DOM properties.', x: 500, y: 100, type: 'regular' },
-    { id: 3, name: 'Amazon', icon: '🛍️', desc: 'E-commerce. Alter cart prices and bypass quantity limits.', x: 700, y: 100, type: 'regular' },
-    { id: 4, name: 'Slack', icon: '💼', desc: 'Corporate internal tools. Escalate privileges in client-side dashboards.', x: 900, y: 100, type: 'regular' },
-    { id: 5, name: 'Airbnb', icon: '✈️', desc: 'Travel booking. Hijack session tokens and modify reservation data.', x: 1100, y: 100, type: 'regular' },
-    { id: 6, name: 'Twitter', icon: '💬', desc: 'Social media logic. Bypass message rate limits and view private profiles.', x: 1300, y: 100, type: 'regular' },
-    { id: 7, name: 'HealthTrack', icon: '🏥', desc: 'Medical records. Expose hidden patient IDs and manipulate health scores.', x: 1500, y: 100, type: 'regular' },
-    { id: 8, name: 'GameForge', icon: '🎮', desc: 'Web gaming. Modify save states and unlock hidden achievements.', x: 1700, y: 100, type: 'regular' },
-    { id: 9, name: 'CryptoVault', icon: '🪙', desc: 'Crypto wallet UI. Bypass withdrawal constraints and fake transaction hashes.', x: 1900, y: 100, type: 'regular' },
-    { id: 10, name: 'RedSector 1', icon: '🔴', desc: 'Advanced offensive scenario 1. Complex multi-stage vulnerabilities.', x: 100, y: 300, type: 'red' },
-    { id: 11, name: 'RedSector 2', icon: '🔴', desc: 'Advanced offensive scenario 2. Complex multi-stage vulnerabilities.', x: 300, y: 300, type: 'red' },
-    { id: 12, name: 'RedSector 3', icon: '🔴', desc: 'Advanced offensive scenario 3. Complex multi-stage vulnerabilities.', x: 500, y: 300, type: 'red' },
-    { id: 13, name: 'RedSector 4', icon: '🔴', desc: 'Advanced offensive scenario 4. Complex multi-stage vulnerabilities.', x: 700, y: 300, type: 'red' },
-    { id: 14, name: 'RedSector 5', icon: '🔴', desc: 'Advanced offensive scenario 5. Complex multi-stage vulnerabilities.', x: 900, y: 300, type: 'red' },
-    { id: 15, name: 'RedSector 6', icon: '🔴', desc: 'Advanced offensive scenario 6. Complex multi-stage vulnerabilities.', x: 1100, y: 300, type: 'red' },
-    { id: 16, name: 'RedSector 7', icon: '🔴', desc: 'Advanced offensive scenario 7. Complex multi-stage vulnerabilities.', x: 1300, y: 300, type: 'red' },
-    { id: 17, name: 'RedSector 8', icon: '🔴', desc: 'Advanced offensive scenario 8. Complex multi-stage vulnerabilities.', x: 1500, y: 300, type: 'red' },
-    { id: 18, name: 'RedSector 9', icon: '🔴', desc: 'Advanced offensive scenario 9. Complex multi-stage vulnerabilities.', x: 1700, y: 300, type: 'red' },
-    { id: 19, name: 'RedSector 10', icon: '🔴', desc: 'Advanced offensive scenario 10. Complex multi-stage vulnerabilities.', x: 1900, y: 300, type: 'red' },
-    { id: 20, name: 'RedSector 11', icon: '🔴', desc: 'Advanced offensive scenario 11. Complex multi-stage vulnerabilities.', x: 100, y: 500, type: 'red' },
-    { id: 21, name: 'RedSector 12', icon: '🔴', desc: 'Advanced offensive scenario 12. Complex multi-stage vulnerabilities.', x: 300, y: 500, type: 'red' },
-    { id: 22, name: 'RedSector 13', icon: '🔴', desc: 'Advanced offensive scenario 13. Complex multi-stage vulnerabilities.', x: 500, y: 500, type: 'red' },
-    { id: 23, name: 'RedSector 14', icon: '🔴', desc: 'Advanced offensive scenario 14. Complex multi-stage vulnerabilities.', x: 700, y: 500, type: 'red' },
-    { id: 24, name: 'RedSector 15', icon: '🔴', desc: 'Advanced offensive scenario 15. Complex multi-stage vulnerabilities.', x: 900, y: 500, type: 'red' },
-    { id: 25, name: 'RedSector 16', icon: '🔴', desc: 'Advanced offensive scenario 16. Complex multi-stage vulnerabilities.', x: 1100, y: 500, type: 'red' },
-    { id: 26, name: 'RedSector 17', icon: '🔴', desc: 'Advanced offensive scenario 17. Complex multi-stage vulnerabilities.', x: 1300, y: 500, type: 'red' },
-    { id: 27, name: 'RedSector 18', icon: '🔴', desc: 'Advanced offensive scenario 18. Complex multi-stage vulnerabilities.', x: 1500, y: 500, type: 'red' },
-    { id: 28, name: 'RedSector 19', icon: '🔴', desc: 'Advanced offensive scenario 19. Complex multi-stage vulnerabilities.', x: 1700, y: 500, type: 'red' },
-    { id: 29, name: 'RedSector 20', icon: '🔴', desc: 'Advanced offensive scenario 20. Complex multi-stage vulnerabilities.', x: 1900, y: 500, type: 'red' },
-    { id: 30, name: 'BlueShield 1', icon: '🔵', desc: 'Advanced defensive scenario 1. Patching critical infrastructure.', x: 100, y: 700, type: 'blue' },
-    { id: 31, name: 'BlueShield 2', icon: '🔵', desc: 'Advanced defensive scenario 2. Patching critical infrastructure.', x: 300, y: 700, type: 'blue' },
-    { id: 32, name: 'BlueShield 3', icon: '🔵', desc: 'Advanced defensive scenario 3. Patching critical infrastructure.', x: 500, y: 700, type: 'blue' },
-    { id: 33, name: 'BlueShield 4', icon: '🔵', desc: 'Advanced defensive scenario 4. Patching critical infrastructure.', x: 700, y: 700, type: 'blue' },
-    { id: 34, name: 'BlueShield 5', icon: '🔵', desc: 'Advanced defensive scenario 5. Patching critical infrastructure.', x: 900, y: 700, type: 'blue' },
-    { id: 35, name: 'BlueShield 6', icon: '🔵', desc: 'Advanced defensive scenario 6. Patching critical infrastructure.', x: 1100, y: 700, type: 'blue' },
-    { id: 36, name: 'BlueShield 7', icon: '🔵', desc: 'Advanced defensive scenario 7. Patching critical infrastructure.', x: 1300, y: 700, type: 'blue' },
-    { id: 37, name: 'BlueShield 8', icon: '🔵', desc: 'Advanced defensive scenario 8. Patching critical infrastructure.', x: 1500, y: 700, type: 'blue' },
-    { id: 38, name: 'BlueShield 9', icon: '🔵', desc: 'Advanced defensive scenario 9. Patching critical infrastructure.', x: 1700, y: 700, type: 'blue' },
-    { id: 39, name: 'BlueShield 10', icon: '🔵', desc: 'Advanced defensive scenario 10. Patching critical infrastructure.', x: 1900, y: 700, type: 'blue' },
-    { id: 40, name: 'BlueShield 11', icon: '🔵', desc: 'Advanced defensive scenario 11. Patching critical infrastructure.', x: 100, y: 900, type: 'blue' },
-    { id: 41, name: 'BlueShield 12', icon: '🔵', desc: 'Advanced defensive scenario 12. Patching critical infrastructure.', x: 300, y: 900, type: 'blue' },
-    { id: 42, name: 'BlueShield 13', icon: '🔵', desc: 'Advanced defensive scenario 13. Patching critical infrastructure.', x: 500, y: 900, type: 'blue' },
-    { id: 43, name: 'BlueShield 14', icon: '🔵', desc: 'Advanced defensive scenario 14. Patching critical infrastructure.', x: 700, y: 900, type: 'blue' },
-    { id: 44, name: 'BlueShield 15', icon: '🔵', desc: 'Advanced defensive scenario 15. Patching critical infrastructure.', x: 900, y: 900, type: 'blue' },
-    { id: 45, name: 'BlueShield 16', icon: '🔵', desc: 'Advanced defensive scenario 16. Patching critical infrastructure.', x: 1100, y: 900, type: 'blue' },
-    { id: 46, name: 'BlueShield 17', icon: '🔵', desc: 'Advanced defensive scenario 17. Patching critical infrastructure.', x: 1300, y: 900, type: 'blue' },
-    { id: 47, name: 'BlueShield 18', icon: '🔵', desc: 'Advanced defensive scenario 18. Patching critical infrastructure.', x: 1500, y: 900, type: 'blue' },
-    { id: 48, name: 'BlueShield 19', icon: '🔵', desc: 'Advanced defensive scenario 19. Patching critical infrastructure.', x: 1700, y: 900, type: 'blue' },
-    { id: 49, name: 'BlueShield 20', icon: '🔵', desc: 'Advanced defensive scenario 20. Patching critical infrastructure.', x: 1900, y: 900, type: 'blue' },
-    { id: 50, name: 'Uber Simulation', icon: '🚕', desc: 'Real-world Uber replica. Hack fares, bypass driver verification, reset surge multipliers.', x: 100, y: 1100, type: 'sim' },
-    { id: 51, name: 'Netflix Simulation', icon: '🎬', desc: 'Real-world Netflix replica. Bypass regional locks, manipulate user profiles, access admin debug panels.', x: 300, y: 1100, type: 'sim' }
-];
-
+            { id: 0, name: 'Discovery', desc: 'Tutorial & basics introduction', icon: '🎓', x: 60, y: 120 },
+            { id: 1, name: 'PayBal', desc: 'Banking & payments logic parameters', icon: '🏦', x: 190, y: 220 },
+            { id: 2, name: 'Netflox', desc: 'Streaming authorization checks & paywalls', icon: '🎬', x: 310, y: 450 },
+            { id: 3, name: 'CloudStore', desc: 'E-commerce validation parameters & quantities', icon: '🛒', x: 470, y: 280 },
+            { id: 4, name: 'SpaceY', desc: 'Private mission SSO targets and auth keys', icon: '🚀', x: 630, y: 550 },
+            { id: 5, name: 'Uper', desc: 'Rideshare billing structures & calculations', icon: '🚗', x: 790, y: 340 },
+            { id: 6, name: 'ApexAI', desc: 'LLM injection & sandbox context overrides', icon: '🤖', x: 970, y: 580 },
+            { id: 7, name: 'CareSync', desc: 'Telehealth patient record leaks', icon: '🏥', x: 1150, y: 360 },
+            { id: 8, name: 'TokenVault', desc: 'Web3 storage manipulation & cookies', icon: '💎', x: 1310, y: 620 },
+            { id: 9, name: 'GridControl', desc: 'IoT indicators & telemetry path checks', icon: '⚡', x: 1470, y: 380 },
+            { id: 10, name: 'ShipReady', desc: 'Logistics cargo validations', icon: '📦', x: 1650, y: 580 }
+        ];
 
         // Fully equipped with 50 sequential challenges across 10 main worlds (5 per world)
         const LEVELS = {
-    0: [
-        { l: 1, name: 'Challenge 0.1', desc: 'Bypass security controls in Discovery.' },
-        { l: 2, name: 'Challenge 0.2', desc: 'Bypass security controls in Discovery.' },
-        { l: 3, name: 'Challenge 0.3', desc: 'Bypass security controls in Discovery.' },
-        { l: 4, name: 'Challenge 0.4', desc: 'Bypass security controls in Discovery.' },
-        { l: 5, name: 'Challenge 0.5', desc: 'Bypass security controls in Discovery.' }
-    ],
-    1: [
-        { l: 1, name: 'Challenge 1.1', desc: 'Bypass security controls in PayPal.' },
-        { l: 2, name: 'Challenge 1.2', desc: 'Bypass security controls in PayPal.' },
-        { l: 3, name: 'Challenge 1.3', desc: 'Bypass security controls in PayPal.' },
-        { l: 4, name: 'Challenge 1.4', desc: 'Bypass security controls in PayPal.' },
-        { l: 5, name: 'Challenge 1.5', desc: 'Bypass security controls in PayPal.' }
-    ],
-    2: [
-        { l: 1, name: 'Challenge 2.1', desc: 'Bypass security controls in Netflix.' },
-        { l: 2, name: 'Challenge 2.2', desc: 'Bypass security controls in Netflix.' },
-        { l: 3, name: 'Challenge 2.3', desc: 'Bypass security controls in Netflix.' },
-        { l: 4, name: 'Challenge 2.4', desc: 'Bypass security controls in Netflix.' },
-        { l: 5, name: 'Challenge 2.5', desc: 'Bypass security controls in Netflix.' }
-    ],
-    3: [
-        { l: 1, name: 'Challenge 3.1', desc: 'Bypass security controls in Amazon.' },
-        { l: 2, name: 'Challenge 3.2', desc: 'Bypass security controls in Amazon.' },
-        { l: 3, name: 'Challenge 3.3', desc: 'Bypass security controls in Amazon.' },
-        { l: 4, name: 'Challenge 3.4', desc: 'Bypass security controls in Amazon.' },
-        { l: 5, name: 'Challenge 3.5', desc: 'Bypass security controls in Amazon.' }
-    ],
-    4: [
-        { l: 1, name: 'Challenge 4.1', desc: 'Bypass security controls in Slack.' },
-        { l: 2, name: 'Challenge 4.2', desc: 'Bypass security controls in Slack.' },
-        { l: 3, name: 'Challenge 4.3', desc: 'Bypass security controls in Slack.' },
-        { l: 4, name: 'Challenge 4.4', desc: 'Bypass security controls in Slack.' },
-        { l: 5, name: 'Challenge 4.5', desc: 'Bypass security controls in Slack.' }
-    ],
-    5: [
-        { l: 1, name: 'Challenge 5.1', desc: 'Bypass security controls in Airbnb.' },
-        { l: 2, name: 'Challenge 5.2', desc: 'Bypass security controls in Airbnb.' },
-        { l: 3, name: 'Challenge 5.3', desc: 'Bypass security controls in Airbnb.' },
-        { l: 4, name: 'Challenge 5.4', desc: 'Bypass security controls in Airbnb.' },
-        { l: 5, name: 'Challenge 5.5', desc: 'Bypass security controls in Airbnb.' }
-    ],
-    6: [
-        { l: 1, name: 'Challenge 6.1', desc: 'Bypass security controls in Twitter.' },
-        { l: 2, name: 'Challenge 6.2', desc: 'Bypass security controls in Twitter.' },
-        { l: 3, name: 'Challenge 6.3', desc: 'Bypass security controls in Twitter.' },
-        { l: 4, name: 'Challenge 6.4', desc: 'Bypass security controls in Twitter.' },
-        { l: 5, name: 'Challenge 6.5', desc: 'Bypass security controls in Twitter.' }
-    ],
-    7: [
-        { l: 1, name: 'Challenge 7.1', desc: 'Bypass security controls in HealthTrack.' },
-        { l: 2, name: 'Challenge 7.2', desc: 'Bypass security controls in HealthTrack.' },
-        { l: 3, name: 'Challenge 7.3', desc: 'Bypass security controls in HealthTrack.' },
-        { l: 4, name: 'Challenge 7.4', desc: 'Bypass security controls in HealthTrack.' },
-        { l: 5, name: 'Challenge 7.5', desc: 'Bypass security controls in HealthTrack.' }
-    ],
-    8: [
-        { l: 1, name: 'Challenge 8.1', desc: 'Bypass security controls in GameForge.' },
-        { l: 2, name: 'Challenge 8.2', desc: 'Bypass security controls in GameForge.' },
-        { l: 3, name: 'Challenge 8.3', desc: 'Bypass security controls in GameForge.' },
-        { l: 4, name: 'Challenge 8.4', desc: 'Bypass security controls in GameForge.' },
-        { l: 5, name: 'Challenge 8.5', desc: 'Bypass security controls in GameForge.' }
-    ],
-    9: [
-        { l: 1, name: 'Challenge 9.1', desc: 'Bypass security controls in CryptoVault.' },
-        { l: 2, name: 'Challenge 9.2', desc: 'Bypass security controls in CryptoVault.' },
-        { l: 3, name: 'Challenge 9.3', desc: 'Bypass security controls in CryptoVault.' },
-        { l: 4, name: 'Challenge 9.4', desc: 'Bypass security controls in CryptoVault.' },
-        { l: 5, name: 'Challenge 9.5', desc: 'Bypass security controls in CryptoVault.' }
-    ],
-    10: [
-        { l: 1, name: 'Challenge 10.1', desc: 'Bypass security controls in RedSector 1.' },
-        { l: 2, name: 'Challenge 10.2', desc: 'Bypass security controls in RedSector 1.' },
-        { l: 3, name: 'Challenge 10.3', desc: 'Bypass security controls in RedSector 1.' },
-        { l: 4, name: 'Challenge 10.4', desc: 'Bypass security controls in RedSector 1.' },
-        { l: 5, name: 'Challenge 10.5', desc: 'Bypass security controls in RedSector 1.' }
-    ],
-    11: [
-        { l: 1, name: 'Challenge 11.1', desc: 'Bypass security controls in RedSector 2.' },
-        { l: 2, name: 'Challenge 11.2', desc: 'Bypass security controls in RedSector 2.' },
-        { l: 3, name: 'Challenge 11.3', desc: 'Bypass security controls in RedSector 2.' },
-        { l: 4, name: 'Challenge 11.4', desc: 'Bypass security controls in RedSector 2.' },
-        { l: 5, name: 'Challenge 11.5', desc: 'Bypass security controls in RedSector 2.' }
-    ],
-    12: [
-        { l: 1, name: 'Challenge 12.1', desc: 'Bypass security controls in RedSector 3.' },
-        { l: 2, name: 'Challenge 12.2', desc: 'Bypass security controls in RedSector 3.' },
-        { l: 3, name: 'Challenge 12.3', desc: 'Bypass security controls in RedSector 3.' },
-        { l: 4, name: 'Challenge 12.4', desc: 'Bypass security controls in RedSector 3.' },
-        { l: 5, name: 'Challenge 12.5', desc: 'Bypass security controls in RedSector 3.' }
-    ],
-    13: [
-        { l: 1, name: 'Challenge 13.1', desc: 'Bypass security controls in RedSector 4.' },
-        { l: 2, name: 'Challenge 13.2', desc: 'Bypass security controls in RedSector 4.' },
-        { l: 3, name: 'Challenge 13.3', desc: 'Bypass security controls in RedSector 4.' },
-        { l: 4, name: 'Challenge 13.4', desc: 'Bypass security controls in RedSector 4.' },
-        { l: 5, name: 'Challenge 13.5', desc: 'Bypass security controls in RedSector 4.' }
-    ],
-    14: [
-        { l: 1, name: 'Challenge 14.1', desc: 'Bypass security controls in RedSector 5.' },
-        { l: 2, name: 'Challenge 14.2', desc: 'Bypass security controls in RedSector 5.' },
-        { l: 3, name: 'Challenge 14.3', desc: 'Bypass security controls in RedSector 5.' },
-        { l: 4, name: 'Challenge 14.4', desc: 'Bypass security controls in RedSector 5.' },
-        { l: 5, name: 'Challenge 14.5', desc: 'Bypass security controls in RedSector 5.' }
-    ],
-    15: [
-        { l: 1, name: 'Challenge 15.1', desc: 'Bypass security controls in RedSector 6.' },
-        { l: 2, name: 'Challenge 15.2', desc: 'Bypass security controls in RedSector 6.' },
-        { l: 3, name: 'Challenge 15.3', desc: 'Bypass security controls in RedSector 6.' },
-        { l: 4, name: 'Challenge 15.4', desc: 'Bypass security controls in RedSector 6.' },
-        { l: 5, name: 'Challenge 15.5', desc: 'Bypass security controls in RedSector 6.' }
-    ],
-    16: [
-        { l: 1, name: 'Challenge 16.1', desc: 'Bypass security controls in RedSector 7.' },
-        { l: 2, name: 'Challenge 16.2', desc: 'Bypass security controls in RedSector 7.' },
-        { l: 3, name: 'Challenge 16.3', desc: 'Bypass security controls in RedSector 7.' },
-        { l: 4, name: 'Challenge 16.4', desc: 'Bypass security controls in RedSector 7.' },
-        { l: 5, name: 'Challenge 16.5', desc: 'Bypass security controls in RedSector 7.' }
-    ],
-    17: [
-        { l: 1, name: 'Challenge 17.1', desc: 'Bypass security controls in RedSector 8.' },
-        { l: 2, name: 'Challenge 17.2', desc: 'Bypass security controls in RedSector 8.' },
-        { l: 3, name: 'Challenge 17.3', desc: 'Bypass security controls in RedSector 8.' },
-        { l: 4, name: 'Challenge 17.4', desc: 'Bypass security controls in RedSector 8.' },
-        { l: 5, name: 'Challenge 17.5', desc: 'Bypass security controls in RedSector 8.' }
-    ],
-    18: [
-        { l: 1, name: 'Challenge 18.1', desc: 'Bypass security controls in RedSector 9.' },
-        { l: 2, name: 'Challenge 18.2', desc: 'Bypass security controls in RedSector 9.' },
-        { l: 3, name: 'Challenge 18.3', desc: 'Bypass security controls in RedSector 9.' },
-        { l: 4, name: 'Challenge 18.4', desc: 'Bypass security controls in RedSector 9.' },
-        { l: 5, name: 'Challenge 18.5', desc: 'Bypass security controls in RedSector 9.' }
-    ],
-    19: [
-        { l: 1, name: 'Challenge 19.1', desc: 'Bypass security controls in RedSector 10.' },
-        { l: 2, name: 'Challenge 19.2', desc: 'Bypass security controls in RedSector 10.' },
-        { l: 3, name: 'Challenge 19.3', desc: 'Bypass security controls in RedSector 10.' },
-        { l: 4, name: 'Challenge 19.4', desc: 'Bypass security controls in RedSector 10.' },
-        { l: 5, name: 'Challenge 19.5', desc: 'Bypass security controls in RedSector 10.' }
-    ],
-    20: [
-        { l: 1, name: 'Challenge 20.1', desc: 'Bypass security controls in RedSector 11.' },
-        { l: 2, name: 'Challenge 20.2', desc: 'Bypass security controls in RedSector 11.' },
-        { l: 3, name: 'Challenge 20.3', desc: 'Bypass security controls in RedSector 11.' },
-        { l: 4, name: 'Challenge 20.4', desc: 'Bypass security controls in RedSector 11.' },
-        { l: 5, name: 'Challenge 20.5', desc: 'Bypass security controls in RedSector 11.' }
-    ],
-    21: [
-        { l: 1, name: 'Challenge 21.1', desc: 'Bypass security controls in RedSector 12.' },
-        { l: 2, name: 'Challenge 21.2', desc: 'Bypass security controls in RedSector 12.' },
-        { l: 3, name: 'Challenge 21.3', desc: 'Bypass security controls in RedSector 12.' },
-        { l: 4, name: 'Challenge 21.4', desc: 'Bypass security controls in RedSector 12.' },
-        { l: 5, name: 'Challenge 21.5', desc: 'Bypass security controls in RedSector 12.' }
-    ],
-    22: [
-        { l: 1, name: 'Challenge 22.1', desc: 'Bypass security controls in RedSector 13.' },
-        { l: 2, name: 'Challenge 22.2', desc: 'Bypass security controls in RedSector 13.' },
-        { l: 3, name: 'Challenge 22.3', desc: 'Bypass security controls in RedSector 13.' },
-        { l: 4, name: 'Challenge 22.4', desc: 'Bypass security controls in RedSector 13.' },
-        { l: 5, name: 'Challenge 22.5', desc: 'Bypass security controls in RedSector 13.' }
-    ],
-    23: [
-        { l: 1, name: 'Challenge 23.1', desc: 'Bypass security controls in RedSector 14.' },
-        { l: 2, name: 'Challenge 23.2', desc: 'Bypass security controls in RedSector 14.' },
-        { l: 3, name: 'Challenge 23.3', desc: 'Bypass security controls in RedSector 14.' },
-        { l: 4, name: 'Challenge 23.4', desc: 'Bypass security controls in RedSector 14.' },
-        { l: 5, name: 'Challenge 23.5', desc: 'Bypass security controls in RedSector 14.' }
-    ],
-    24: [
-        { l: 1, name: 'Challenge 24.1', desc: 'Bypass security controls in RedSector 15.' },
-        { l: 2, name: 'Challenge 24.2', desc: 'Bypass security controls in RedSector 15.' },
-        { l: 3, name: 'Challenge 24.3', desc: 'Bypass security controls in RedSector 15.' },
-        { l: 4, name: 'Challenge 24.4', desc: 'Bypass security controls in RedSector 15.' },
-        { l: 5, name: 'Challenge 24.5', desc: 'Bypass security controls in RedSector 15.' }
-    ],
-    25: [
-        { l: 1, name: 'Challenge 25.1', desc: 'Bypass security controls in RedSector 16.' },
-        { l: 2, name: 'Challenge 25.2', desc: 'Bypass security controls in RedSector 16.' },
-        { l: 3, name: 'Challenge 25.3', desc: 'Bypass security controls in RedSector 16.' },
-        { l: 4, name: 'Challenge 25.4', desc: 'Bypass security controls in RedSector 16.' },
-        { l: 5, name: 'Challenge 25.5', desc: 'Bypass security controls in RedSector 16.' }
-    ],
-    26: [
-        { l: 1, name: 'Challenge 26.1', desc: 'Bypass security controls in RedSector 17.' },
-        { l: 2, name: 'Challenge 26.2', desc: 'Bypass security controls in RedSector 17.' },
-        { l: 3, name: 'Challenge 26.3', desc: 'Bypass security controls in RedSector 17.' },
-        { l: 4, name: 'Challenge 26.4', desc: 'Bypass security controls in RedSector 17.' },
-        { l: 5, name: 'Challenge 26.5', desc: 'Bypass security controls in RedSector 17.' }
-    ],
-    27: [
-        { l: 1, name: 'Challenge 27.1', desc: 'Bypass security controls in RedSector 18.' },
-        { l: 2, name: 'Challenge 27.2', desc: 'Bypass security controls in RedSector 18.' },
-        { l: 3, name: 'Challenge 27.3', desc: 'Bypass security controls in RedSector 18.' },
-        { l: 4, name: 'Challenge 27.4', desc: 'Bypass security controls in RedSector 18.' },
-        { l: 5, name: 'Challenge 27.5', desc: 'Bypass security controls in RedSector 18.' }
-    ],
-    28: [
-        { l: 1, name: 'Challenge 28.1', desc: 'Bypass security controls in RedSector 19.' },
-        { l: 2, name: 'Challenge 28.2', desc: 'Bypass security controls in RedSector 19.' },
-        { l: 3, name: 'Challenge 28.3', desc: 'Bypass security controls in RedSector 19.' },
-        { l: 4, name: 'Challenge 28.4', desc: 'Bypass security controls in RedSector 19.' },
-        { l: 5, name: 'Challenge 28.5', desc: 'Bypass security controls in RedSector 19.' }
-    ],
-    29: [
-        { l: 1, name: 'Challenge 29.1', desc: 'Bypass security controls in RedSector 20.' },
-        { l: 2, name: 'Challenge 29.2', desc: 'Bypass security controls in RedSector 20.' },
-        { l: 3, name: 'Challenge 29.3', desc: 'Bypass security controls in RedSector 20.' },
-        { l: 4, name: 'Challenge 29.4', desc: 'Bypass security controls in RedSector 20.' },
-        { l: 5, name: 'Challenge 29.5', desc: 'Bypass security controls in RedSector 20.' }
-    ],
-    30: [
-        { l: 1, name: 'Challenge 30.1', desc: 'Bypass security controls in BlueShield 1.' },
-        { l: 2, name: 'Challenge 30.2', desc: 'Bypass security controls in BlueShield 1.' },
-        { l: 3, name: 'Challenge 30.3', desc: 'Bypass security controls in BlueShield 1.' },
-        { l: 4, name: 'Challenge 30.4', desc: 'Bypass security controls in BlueShield 1.' },
-        { l: 5, name: 'Challenge 30.5', desc: 'Bypass security controls in BlueShield 1.' }
-    ],
-    31: [
-        { l: 1, name: 'Challenge 31.1', desc: 'Bypass security controls in BlueShield 2.' },
-        { l: 2, name: 'Challenge 31.2', desc: 'Bypass security controls in BlueShield 2.' },
-        { l: 3, name: 'Challenge 31.3', desc: 'Bypass security controls in BlueShield 2.' },
-        { l: 4, name: 'Challenge 31.4', desc: 'Bypass security controls in BlueShield 2.' },
-        { l: 5, name: 'Challenge 31.5', desc: 'Bypass security controls in BlueShield 2.' }
-    ],
-    32: [
-        { l: 1, name: 'Challenge 32.1', desc: 'Bypass security controls in BlueShield 3.' },
-        { l: 2, name: 'Challenge 32.2', desc: 'Bypass security controls in BlueShield 3.' },
-        { l: 3, name: 'Challenge 32.3', desc: 'Bypass security controls in BlueShield 3.' },
-        { l: 4, name: 'Challenge 32.4', desc: 'Bypass security controls in BlueShield 3.' },
-        { l: 5, name: 'Challenge 32.5', desc: 'Bypass security controls in BlueShield 3.' }
-    ],
-    33: [
-        { l: 1, name: 'Challenge 33.1', desc: 'Bypass security controls in BlueShield 4.' },
-        { l: 2, name: 'Challenge 33.2', desc: 'Bypass security controls in BlueShield 4.' },
-        { l: 3, name: 'Challenge 33.3', desc: 'Bypass security controls in BlueShield 4.' },
-        { l: 4, name: 'Challenge 33.4', desc: 'Bypass security controls in BlueShield 4.' },
-        { l: 5, name: 'Challenge 33.5', desc: 'Bypass security controls in BlueShield 4.' }
-    ],
-    34: [
-        { l: 1, name: 'Challenge 34.1', desc: 'Bypass security controls in BlueShield 5.' },
-        { l: 2, name: 'Challenge 34.2', desc: 'Bypass security controls in BlueShield 5.' },
-        { l: 3, name: 'Challenge 34.3', desc: 'Bypass security controls in BlueShield 5.' },
-        { l: 4, name: 'Challenge 34.4', desc: 'Bypass security controls in BlueShield 5.' },
-        { l: 5, name: 'Challenge 34.5', desc: 'Bypass security controls in BlueShield 5.' }
-    ],
-    35: [
-        { l: 1, name: 'Challenge 35.1', desc: 'Bypass security controls in BlueShield 6.' },
-        { l: 2, name: 'Challenge 35.2', desc: 'Bypass security controls in BlueShield 6.' },
-        { l: 3, name: 'Challenge 35.3', desc: 'Bypass security controls in BlueShield 6.' },
-        { l: 4, name: 'Challenge 35.4', desc: 'Bypass security controls in BlueShield 6.' },
-        { l: 5, name: 'Challenge 35.5', desc: 'Bypass security controls in BlueShield 6.' }
-    ],
-    36: [
-        { l: 1, name: 'Challenge 36.1', desc: 'Bypass security controls in BlueShield 7.' },
-        { l: 2, name: 'Challenge 36.2', desc: 'Bypass security controls in BlueShield 7.' },
-        { l: 3, name: 'Challenge 36.3', desc: 'Bypass security controls in BlueShield 7.' },
-        { l: 4, name: 'Challenge 36.4', desc: 'Bypass security controls in BlueShield 7.' },
-        { l: 5, name: 'Challenge 36.5', desc: 'Bypass security controls in BlueShield 7.' }
-    ],
-    37: [
-        { l: 1, name: 'Challenge 37.1', desc: 'Bypass security controls in BlueShield 8.' },
-        { l: 2, name: 'Challenge 37.2', desc: 'Bypass security controls in BlueShield 8.' },
-        { l: 3, name: 'Challenge 37.3', desc: 'Bypass security controls in BlueShield 8.' },
-        { l: 4, name: 'Challenge 37.4', desc: 'Bypass security controls in BlueShield 8.' },
-        { l: 5, name: 'Challenge 37.5', desc: 'Bypass security controls in BlueShield 8.' }
-    ],
-    38: [
-        { l: 1, name: 'Challenge 38.1', desc: 'Bypass security controls in BlueShield 9.' },
-        { l: 2, name: 'Challenge 38.2', desc: 'Bypass security controls in BlueShield 9.' },
-        { l: 3, name: 'Challenge 38.3', desc: 'Bypass security controls in BlueShield 9.' },
-        { l: 4, name: 'Challenge 38.4', desc: 'Bypass security controls in BlueShield 9.' },
-        { l: 5, name: 'Challenge 38.5', desc: 'Bypass security controls in BlueShield 9.' }
-    ],
-    39: [
-        { l: 1, name: 'Challenge 39.1', desc: 'Bypass security controls in BlueShield 10.' },
-        { l: 2, name: 'Challenge 39.2', desc: 'Bypass security controls in BlueShield 10.' },
-        { l: 3, name: 'Challenge 39.3', desc: 'Bypass security controls in BlueShield 10.' },
-        { l: 4, name: 'Challenge 39.4', desc: 'Bypass security controls in BlueShield 10.' },
-        { l: 5, name: 'Challenge 39.5', desc: 'Bypass security controls in BlueShield 10.' }
-    ],
-    40: [
-        { l: 1, name: 'Challenge 40.1', desc: 'Bypass security controls in BlueShield 11.' },
-        { l: 2, name: 'Challenge 40.2', desc: 'Bypass security controls in BlueShield 11.' },
-        { l: 3, name: 'Challenge 40.3', desc: 'Bypass security controls in BlueShield 11.' },
-        { l: 4, name: 'Challenge 40.4', desc: 'Bypass security controls in BlueShield 11.' },
-        { l: 5, name: 'Challenge 40.5', desc: 'Bypass security controls in BlueShield 11.' }
-    ],
-    41: [
-        { l: 1, name: 'Challenge 41.1', desc: 'Bypass security controls in BlueShield 12.' },
-        { l: 2, name: 'Challenge 41.2', desc: 'Bypass security controls in BlueShield 12.' },
-        { l: 3, name: 'Challenge 41.3', desc: 'Bypass security controls in BlueShield 12.' },
-        { l: 4, name: 'Challenge 41.4', desc: 'Bypass security controls in BlueShield 12.' },
-        { l: 5, name: 'Challenge 41.5', desc: 'Bypass security controls in BlueShield 12.' }
-    ],
-    42: [
-        { l: 1, name: 'Challenge 42.1', desc: 'Bypass security controls in BlueShield 13.' },
-        { l: 2, name: 'Challenge 42.2', desc: 'Bypass security controls in BlueShield 13.' },
-        { l: 3, name: 'Challenge 42.3', desc: 'Bypass security controls in BlueShield 13.' },
-        { l: 4, name: 'Challenge 42.4', desc: 'Bypass security controls in BlueShield 13.' },
-        { l: 5, name: 'Challenge 42.5', desc: 'Bypass security controls in BlueShield 13.' }
-    ],
-    43: [
-        { l: 1, name: 'Challenge 43.1', desc: 'Bypass security controls in BlueShield 14.' },
-        { l: 2, name: 'Challenge 43.2', desc: 'Bypass security controls in BlueShield 14.' },
-        { l: 3, name: 'Challenge 43.3', desc: 'Bypass security controls in BlueShield 14.' },
-        { l: 4, name: 'Challenge 43.4', desc: 'Bypass security controls in BlueShield 14.' },
-        { l: 5, name: 'Challenge 43.5', desc: 'Bypass security controls in BlueShield 14.' }
-    ],
-    44: [
-        { l: 1, name: 'Challenge 44.1', desc: 'Bypass security controls in BlueShield 15.' },
-        { l: 2, name: 'Challenge 44.2', desc: 'Bypass security controls in BlueShield 15.' },
-        { l: 3, name: 'Challenge 44.3', desc: 'Bypass security controls in BlueShield 15.' },
-        { l: 4, name: 'Challenge 44.4', desc: 'Bypass security controls in BlueShield 15.' },
-        { l: 5, name: 'Challenge 44.5', desc: 'Bypass security controls in BlueShield 15.' }
-    ],
-    45: [
-        { l: 1, name: 'Challenge 45.1', desc: 'Bypass security controls in BlueShield 16.' },
-        { l: 2, name: 'Challenge 45.2', desc: 'Bypass security controls in BlueShield 16.' },
-        { l: 3, name: 'Challenge 45.3', desc: 'Bypass security controls in BlueShield 16.' },
-        { l: 4, name: 'Challenge 45.4', desc: 'Bypass security controls in BlueShield 16.' },
-        { l: 5, name: 'Challenge 45.5', desc: 'Bypass security controls in BlueShield 16.' }
-    ],
-    46: [
-        { l: 1, name: 'Challenge 46.1', desc: 'Bypass security controls in BlueShield 17.' },
-        { l: 2, name: 'Challenge 46.2', desc: 'Bypass security controls in BlueShield 17.' },
-        { l: 3, name: 'Challenge 46.3', desc: 'Bypass security controls in BlueShield 17.' },
-        { l: 4, name: 'Challenge 46.4', desc: 'Bypass security controls in BlueShield 17.' },
-        { l: 5, name: 'Challenge 46.5', desc: 'Bypass security controls in BlueShield 17.' }
-    ],
-    47: [
-        { l: 1, name: 'Challenge 47.1', desc: 'Bypass security controls in BlueShield 18.' },
-        { l: 2, name: 'Challenge 47.2', desc: 'Bypass security controls in BlueShield 18.' },
-        { l: 3, name: 'Challenge 47.3', desc: 'Bypass security controls in BlueShield 18.' },
-        { l: 4, name: 'Challenge 47.4', desc: 'Bypass security controls in BlueShield 18.' },
-        { l: 5, name: 'Challenge 47.5', desc: 'Bypass security controls in BlueShield 18.' }
-    ],
-    48: [
-        { l: 1, name: 'Challenge 48.1', desc: 'Bypass security controls in BlueShield 19.' },
-        { l: 2, name: 'Challenge 48.2', desc: 'Bypass security controls in BlueShield 19.' },
-        { l: 3, name: 'Challenge 48.3', desc: 'Bypass security controls in BlueShield 19.' },
-        { l: 4, name: 'Challenge 48.4', desc: 'Bypass security controls in BlueShield 19.' },
-        { l: 5, name: 'Challenge 48.5', desc: 'Bypass security controls in BlueShield 19.' }
-    ],
-    49: [
-        { l: 1, name: 'Challenge 49.1', desc: 'Bypass security controls in BlueShield 20.' },
-        { l: 2, name: 'Challenge 49.2', desc: 'Bypass security controls in BlueShield 20.' },
-        { l: 3, name: 'Challenge 49.3', desc: 'Bypass security controls in BlueShield 20.' },
-        { l: 4, name: 'Challenge 49.4', desc: 'Bypass security controls in BlueShield 20.' },
-        { l: 5, name: 'Challenge 49.5', desc: 'Bypass security controls in BlueShield 20.' }
-    ],
-    50: [
-        { l: 1, name: 'Challenge 50.1', desc: 'Bypass security controls in Uber Simulation.' },
-        { l: 2, name: 'Challenge 50.2', desc: 'Bypass security controls in Uber Simulation.' },
-        { l: 3, name: 'Challenge 50.3', desc: 'Bypass security controls in Uber Simulation.' },
-        { l: 4, name: 'Challenge 50.4', desc: 'Bypass security controls in Uber Simulation.' },
-        { l: 5, name: 'Challenge 50.5', desc: 'Bypass security controls in Uber Simulation.' }
-    ],
-    51: [
-        { l: 1, name: 'Challenge 51.1', desc: 'Bypass security controls in Netflix Simulation.' },
-        { l: 2, name: 'Challenge 51.2', desc: 'Bypass security controls in Netflix Simulation.' },
-        { l: 3, name: 'Challenge 51.3', desc: 'Bypass security controls in Netflix Simulation.' },
-        { l: 4, name: 'Challenge 51.4', desc: 'Bypass security controls in Netflix Simulation.' },
-        { l: 5, name: 'Challenge 51.5', desc: 'Bypass security controls in Netflix Simulation.' }
-    ],
-};
-
+            0: [
+                { l: 1, name: 'Hidden View', desc: 'The real account balance is hidden from view. Change display:none to reveal it.' },
+                { l: 2, name: 'Price Mod', desc: 'Upgrade price checks look at the page text. Modify the price parameter in DevTools.' },
+                { l: 3, name: 'Lock Bypass', desc: 'Bypass disabled constraints on buttons by removing attributes and disabled classes.' },
+                { l: 4, name: 'Role Escalate', desc: 'Tamper with data-role attributes on the app shell to become admin.' },
+                { l: 5, name: 'System Context Check', desc: 'Inspect initialization parameters structure to unlock navigation variables.' }
+            ],
+            1: [
+                { l: 1, name: 'Disabled Bypass', desc: 'The transfer button has a disabled markup attribute. Remove it to unlock click handlers.' },
+                { l: 2, name: 'Pointer Lock Bypass', desc: 'CSS pointer-events: none stops execution. Modify classes to bypass constraint.' },
+                { l: 3, name: 'Hidden Input Price', desc: 'An transaction charge fee is hidden. Set value to negative numbers to earn cashback.' },
+                { l: 4, name: 'Invisible Balance', desc: 'A balance display is hidden from layout via styles. Remove style display:none.' },
+                { l: 5, name: 'Role Attribute Bypass', desc: 'Authorization role members are stored on tags. Escalated member variables to admin.' }
+            ],
+            2: [
+                { l: 1, name: 'Cookie Escalation', desc: 'A local cookie stores membership tiers. Override details to premium to watch streams.' },
+                { l: 2, name: 'Overlay DOM Deletion', desc: 'Deletes overlays blocking active media objects to stream streams.' },
+                { l: 3, name: 'SSO Redirect Hijack', desc: 'Bypass authorization logins redirect parameters. Change variables destination.' },
+                { l: 4, name: 'Global Timer Abuse', desc: 'A trial timer counts down in storage. Reset seconds values to stay inside trial.' },
+                { l: 5, name: 'Prototype Pollution', desc: 'Override object constructor defaults to register system authorizations as valid.' }
+            ],
+            3: [
+                { l: 1, name: 'Quantity Bypass', desc: 'Change checkout products quantities to negative numbers to receive money refunds.' },
+                { l: 2, name: 'Custom Shipping Inject', desc: 'Inject custom option values to select a free delivery method.' },
+                { l: 3, name: 'Hidden Tax Override', desc: 'Sales charges rate is stored in input. Zero it out to skip checkout taxes.' },
+                { l: 4, name: 'Readonly Coupon Bypass', desc: 'Forms disable input via readonly attributes. Remove attribute to enter discount coupons.' },
+                { l: 5, name: 'DOM Parameter Inject', desc: 'Form items lack validations. Add hidden input fields carrying promo parameters.' }
+            ],
+            4: [
+                { l: 1, name: 'SSO User ID Spoof', desc: 'Cookie values identifies users. Modify current cookie values to administrative id (1).' },
+                { l: 2, name: 'IP Proxy Override', desc: 'Gateway verification checks client IP properties. Override gatewayIp variables.' },
+                { l: 3, name: 'Endpoint Path Tampering', desc: 'Modify submission destinations stored inside button dataset attributes.' },
+                { l: 4, name: 'Host Header Spoofing', desc: 'Modify target origin validation variables to trick CORS security frameworks.' },
+                { l: 5, name: 'LocalStorage Auth Bypass', desc: 'LocalStorage records active auth sessions. Inject authorized flags directly.' }
+            ],
+            5: [
+                { l: 1, name: 'Reverse Date Chronology', desc: 'AirBook dates logic checks booking durations. Reverse arrival/departures to get negative days.' },
+                { l: 2, name: 'NaN Weight Injection', desc: 'Form validates payload weight as numbers. Inject NaN strings to skip ceilings checks.' },
+                { l: 3, name: 'Seat Tier Desync', desc: 'Premium seats check membership variables. Mutate ticket ranks attributes to unlock seating.' },
+                { l: 4, name: 'Open Redirect', desc: 'Alter navigation anchors destinative parameters to redirect users outwards.' },
+                { l: 5, name: 'Config Variable Override', desc: 'Verification processes check system configuration structures. Override checks properties.' }
+            ],
+            6: [
+                { l: 1, name: 'Prompt Injection Leak', desc: 'AI chat system prompt guidelines are hidden behind layout cards. Make them visible.' },
+                { l: 2, name: 'Token Temperature Flood', desc: 'Slider details accept decimals parameters. Force values past ceiling to abort threads.' },
+                { l: 3, name: 'Premium Stream Hijack', desc: 'Blurs stream containers using CSS definitions. Remove the blur response class to read text.' },
+                { l: 4, name: 'System Instruction Swap', desc: 'Change context flags on elements datasets properties from user to admin roles.' },
+                { l: 5, name: 'Pre-Seed Parameter Poison', desc: 'Find hidden assistant_override options and flip them to true to dump developers flags.' }
+            ],
+            7: [
+                { l: 1, name: 'Prescription Multiplier', desc: 'Modify local in-memory quantity parameters to multiply order items for the price of one.' },
+                { l: 2, name: 'The Glass Backdrop', desc: 'Delete glassmorphic modal blocks overlaying hidden patient records datasets.' },
+                { l: 3, name: 'Global Namespace Scrape', desc: 'Access global dump variables on window scopes to harvest patient details.' },
+                { l: 4, name: 'Operational Interval Freeze', desc: 'Disable or clear the countdown interval ID handle to bypass security timers.' },
+                { l: 5, name: 'Structural Constraint Sever', desc: 'Change input parameters structures (date type details) to bypass age restrictions.' }
+            ],
+            8: [
+                { l: 1, name: 'Cookie Allowance Expand', desc: 'Mutate cookies options user_tier tags to whale classifications to bypass restrictions.' },
+                { l: 2, name: 'Verification State Inject', desc: 'LocalStorage locks KYC options. Add kyc_approved status variables to trade.' },
+                { l: 3, name: 'Endless Session Wrap', desc: 'Set sessionStorage timestamp boundaries decades into the future.' },
+                { l: 4, name: 'Base64 Claim Deconstruct', desc: 'Base64-decode parameters inside local storage to set withdrawal indicators.' },
+                { l: 5, name: 'Namespace Sabotage', desc: 'Delete initialization variables tags from web storage to trigger fallback views.' }
+            ],
+            9: [
+                { l: 1, name: 'Grid Row Deselection', desc: 'Remove CSS display:none structures to show hidden panels.' },
+                { l: 2, name: 'DOM Node Fabrication', desc: 'Manually construct elements triggers to execute internal backend callbacks.' },
+                { l: 3, name: 'Target Endpoint Diverge', desc: 'Change metric source path data properties to point to internal configurations.' },
+                { l: 4, name: 'Comment Mapping Extract', desc: 'Audit HTML markup comment lines to find unmapped routing properties.' },
+                { l: 5, name: 'Notification Silencing', desc: 'Unbind event listeners preventing violation detection logs from triggering.' }
+            ],
+            10: [
+                { l: 1, name: 'The $0 Customs Valuation', desc: 'Modify weight parameters values directly to bypass billing rules.' },
+                { l: 2, name: 'Event Interceptor Removal', desc: 'Strip event preventDefault bindings on forms to bypass checks validations.' },
+                { l: 3, name: 'Route ID Crawling', desc: 'Alter numerical path parameters to view parallel shipment details.' },
+                { l: 4, name: 'Asset Pipeline Hijack', desc: 'Mutate onerror tags properties to execute custom inline callbacks.' },
+                { l: 5, name: 'Source Map Harvesting', desc: 'Audit production source maps configurations inside devtools to find credentials.' }
+            ]
+        };
 
         const RANKS = [
             { min: 0, name: "Recruit", icon: "🪖" },
@@ -984,7 +611,7 @@
                 const doneCount = solved.length;
 
                 // Sequential locked status checks
-                let isLocked = (w.type === "sim" && !settings.unlock) || (w.type === "red" && !settings.unlock) || (w.type === "blue" && !settings.unlock);
+                let isLocked = false;
                 if (index > 0 && !settings.unlock) {
                     const prevWorldSolved = getSolved(WORLDS[index - 1].id);
                     if (prevWorldSolved.length < 5) {
@@ -1056,9 +683,9 @@
             // Build challenges within details drawer sequentially
             list.innerHTML = levels.map(({ l, name, desc }) => {
                 const isSolved = solved.includes(l);
-                const isLocked = (!freeMode && !isSolved && l !== nextL && (nextL === -1 || l > nextL)) || (w.type === "sim" && !settings.unlock) || (w.type === "red" && !settings.unlock) || (w.type === "blue" && !settings.unlock);
+                const isLocked = !freeMode && !isSolved && l !== nextL && (nextL === -1 || l > nextL);
                 
-                const href = `levels/${worldId}/${l}/index.html?mode=${activeMode}` + (settings.hardcore ? "&hc=1" : "");
+                const href = `levels/${worldId}/${l}/index.html?mode=${activeMode}`;
 
                 let statusBadge = '';
                 if (isSolved) {
@@ -1091,65 +718,6 @@
             renderMap();
         }
 
-
-        // ── HINTS SYSTEM ─────────────────────────────────────────────────────────
-        let hintsLeft = parseInt(localStorage.getItem('bytelab_hints')) || 5;
-        if (localStorage.getItem('bytelab_hints') === null) localStorage.setItem('bytelab_hints', 5);
-
-        function updateHintUI() {
-            document.getElementById('hint-count-text').innerText = `${hintsLeft} Hints Left`;
-            document.getElementById('hint-modal-count').innerText = hintsLeft;
-
-            if (hintsLeft <= 0) {
-                document.getElementById('btn-use-hint').innerText = "Out of Hints (Upgrade to Pro)";
-                document.getElementById('btn-use-hint').classList.replace('bg-indigo-600', 'bg-slate-800');
-                document.getElementById('btn-use-hint').classList.replace('hover:bg-indigo-700', 'hover:bg-slate-900');
-            }
-        }
-
-        function openHintModal() {
-            const el = document.getElementById('hintModal');
-            el.style.display = 'flex';
-            requestAnimationFrame(() => el.classList.add('active'));
-            document.getElementById('hint-result').classList.add('hidden');
-            updateHintUI();
-        }
-
-        function closeHintModal() {
-            const el = document.getElementById('hintModal');
-            el.classList.remove('active');
-            setTimeout(() => el.style.display = 'none', 300);
-        }
-
-        function useHint() {
-            if (hintsLeft > 0) {
-                hintsLeft--;
-                localStorage.setItem('bytelab_hints', hintsLeft);
-                updateHintUI();
-
-                const hints = [
-                    "Check the Elements panel for hidden inline styles like display: none.",
-                    "Look for disabled attributes on buttons and remove them.",
-                    "Inspect network requests for exposed API keys or endpoints.",
-                    "Check Local Storage or Session Storage for manipulable data.",
-                    "Sometimes the client-side validation can be bypassed by editing the JavaScript variable in the console."
-                ];
-
-                const hintDiv = document.getElementById('hint-result');
-                hintDiv.innerText = hints[Math.floor(Math.random() * hints.length)];
-                hintDiv.classList.remove('hidden');
-            } else {
-                window.location.href = 'index.html#pricing';
-            }
-        }
-
-        document.getElementById('hintModal').onclick = e => {
-            if (e.target === e.currentTarget) closeHintModal();
-        };
-
-        // init UI
-        setTimeout(updateHintUI, 100);
-
         // ── SETTINGS MODAL ────────────────────────────────────────────────────────
         function openSettings() {
             const el = document.getElementById('settingsModal');
@@ -1164,12 +732,9 @@
             setTimeout(() => el.style.display = 'none', 300);
         }
 
-
         function syncToggles() {
             document.getElementById('toggleUnlock').classList.toggle('on', settings.unlock);
-            document.getElementById('toggleHardcore').classList.toggle('on', settings.hardcore);
         }
-
 
         function toggleSetting(key) {
             settings[key] = !settings[key];

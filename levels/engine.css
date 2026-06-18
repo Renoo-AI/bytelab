@@ -7,8 +7,8 @@
     --border: #e2e8f0;
     --success: #10b981;
     --danger: #ef4444;
-    --font-main: 'Be Vietnam Pro', 'Cairo', sans-serif;
-    --font-display: 'Plus Jakarta Sans', 'Cairo', sans-serif;
+    --font-main: 'Be Vietnam Pro', sans-serif;
+    --font-display: 'Plus Jakarta Sans', sans-serif;
 }
 
 body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:var(--font-main);overflow:hidden;height:100vh;display:flex;flex-direction:column}
@@ -54,12 +54,3 @@ body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:var(-
 .premium-badge{display:inline-flex;align-items:center;gap:4px;background:linear-gradient(135deg,#f59e0b,#d97706);color:white;font-weight:800;font-size:.6rem;padding:3px 10px;border-radius:99px;text-transform:uppercase}
 
 html[dir="rtl"] .stage-panel.left{border-right:none;border-left:1px solid var(--border)}
-
-/* Fallback for Arabic translations */
-html[lang="ar"] {
-    font-family: 'Cairo', 'Tajawal', var(--font-main), sans-serif;
-    direction: rtl;
-}
-html[lang="ar"] .font-display, html[lang="ar"] h1, html[lang="ar"] h2, html[lang="ar"] h3 {
-    font-family: 'Cairo', var(--font-display), sans-serif;
-}

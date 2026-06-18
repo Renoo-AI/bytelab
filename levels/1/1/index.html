@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -41,8 +41,18 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font-main
 .card-title{font-family:var(--font-display);font-size:1.5rem;font-weight:800;margin-bottom:8px}
 .card-sub{color:var(--secondary);margin-bottom:32px;line-height:1.6;font-weight:500}
 .btn-main{background:var(--primary);color:white;width:100%;padding:20px;border-radius:20px;font-weight:800;font-size:1.2rem;cursor:pointer;border:none;transition:all .2s}
-.btn-main:hover:not([disabled]){transform:translateY(-2px);box-shadow:0 8px 24px rgba(69,70,215,0.25)}
-.btn-main[disabled]{opacity:.45;cursor:not-allowed}
+.btn-main:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(69,70,215,0.25)}
+
+/* Creative Loader & Shake Animation */
+.btn-main.loading { color: transparent; pointer-events: none; position: relative; }
+.btn-main.loading::after { content:''; position:absolute; left:50%; top:50%; width:24px; height:24px; margin:-12px 0 0 -12px; border:3px solid rgba(255,255,255,0.3); border-top-color:white; border-radius:50%; animation:spin 0.8s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.btn-main.denied { background: #f43f5e; color: white; animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both; }
+@keyframes shake { 10%, 90% { transform: translate3d(-1px, 0, 0); } 20%, 80% { transform: translate3d(2px, 0, 0); } 30%, 50%, 70% { transform: translate3d(-4px, 0, 0); } 40%, 60% { transform: translate3d(4px, 0, 0); } }
+
+/* Next Level Button */
+.btn-next { display:inline-block; margin-top:16px; background:#4546d7; color:white; padding:12px 24px; border-radius:16px; font-weight:700; text-decoration:none; cursor:pointer; border:none; transition:transform 0.2s; }
+.btn-next:hover { transform: translateY(-2px); }
 </style>
 </head>
 <body>
@@ -51,7 +61,7 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font-main
   <div class="text-center max-w-md p-5">
     <img src="../../../assets/byte-hello.png" class="w-24 mx-auto mb-8" alt="Byte">
     <h1 class="text-3xl font-extrabold mb-4 tracking-tight">The Hidden Balance</h1>
-    <p class="text-lg text-slate-500 mb-10 font-medium leading-relaxed">Not locked. Just hidden. Everything you need is already there â€” you just can't see it yet.</p>
+    <p class="text-lg text-slate-500 mb-10 font-medium leading-relaxed">Not locked. Just hidden. Everything you need is already there — you just can't see it yet.</p>
     <button onclick="startLevel()" class="bg-[#4546d7] text-white px-10 py-4 rounded-full text-lg font-bold hover:scale-105 transition-all">Start</button>
   </div>
 </div>
@@ -78,11 +88,13 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font-main
   <div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
 </div>
 <div id="real-balance" style="display:none" class="card-amount">$12,500.00</div>
-<button id="reveal-btn" class="btn-main" disabled>Show Balance</button></div>
+<button id="reveal-btn" class="btn-main" onclick="tryReveal()">Show Balance</button></div>
 </main>
 <script>
+const BYTE_HACKER = '../../../assets/byte-hacker.png';
+const BYTE_DETECTIVE = '../../../assets/byte-detective.png';
+const BYTE_HELLO = '../../../assets/byte-hello.png';
 
-const BYTE_PC = '../../../assets/byte-pc.png';
 let talkTimeout, hintTimeout, hasWon = false;
 const cardEl = document.getElementById('card');
 const assistant = document.getElementById('assistant');
@@ -92,49 +104,72 @@ const mascot = document.getElementById('mascot');
 const fillBar = document.getElementById('progress-fill-bar');
 const progLabel = document.getElementById('progress-text-val');
 const transition = document.getElementById('transition-screen');
+const revealBtn = document.getElementById('reveal-btn');
+
 function speak(text, persist) {
   if (hasWon && !persist) return;
   clearTimeout(talkTimeout);
-  talkText.innerText = text;
+  talkText.innerHTML = text; // Allow HTML rendering for buttons inside bubble
   bubble.classList.remove('hidden-msg');
   if (!persist) talkTimeout = setTimeout(function(){ bubble.classList.add('hidden-msg'); }, 6000);
 }
-// Fade transition screen as soon as DOM is ready (not waiting for CDN assets)
+
+function tryReveal() {
+  if (hasWon) return;
+  revealBtn.classList.add('loading');
+  setTimeout(() => {
+    revealBtn.classList.remove('loading');
+    revealBtn.classList.add('denied');
+    revealBtn.innerText = 'Not Approved';
+    mascot.src = BYTE_DETECTIVE;
+    speak('Access denied by the UI layer. But the UI is just an illusion. What controls visibility?', true);
+    setTimeout(() => {
+        revealBtn.classList.remove('denied');
+        revealBtn.innerText = 'Show Balance';
+        mascot.src = BYTE_HELLO;
+    }, 2500);
+  }, 1000);
+}
+
+// Fade transition screen as soon as DOM is ready
 function fadeIn() { transition.style.opacity = '0'; }
 document.addEventListener('DOMContentLoaded', function(){ setTimeout(fadeIn, 200); });
-// Hard fallback in case DOMContentLoaded already fired
 setTimeout(fadeIn, 800);
+
 function startLevel() {
   document.getElementById('story-overlay').style.display = 'none';
   document.getElementById('header-nav').style.opacity = '1';
   assistant.style.opacity = '1';
   assistant.style.transform = 'translateY(0)';
   if (cardEl) { cardEl.style.opacity = '1'; cardEl.style.transform = 'translateY(0)'; }
-  speak('The data is there. The style is blocking it.');
-  hintTimeout = setTimeout(function(){ if (!hasWon) speak('Find the element with id="real-balance" and change its display property to block.'); }, 20000);
+  speak('Go ahead, try to click the button.');
   setupDetection();
 }
+
+function nextLevel() {
+  transition.style.opacity = '1';
+  setTimeout(function(){ window.location.href = '../2/index.html'; }, 800);
+}
+
 function handleWin() {
   if (hasWon) return;
   hasWon = true;
   clearTimeout(hintTimeout); clearTimeout(talkTimeout);
   if (window.parent) window.parent.postMessage({ type: 'LEVEL_COMPLETE', world: 1, level: 1 }, '*');
+
+  if (revealBtn) { revealBtn.style.display = 'none'; }
+
   setTimeout(function() {
     if (cardEl) cardEl.classList.add('card-exit');
     assistant.classList.add('victory-move');
-    mascot.src = BYTE_PC;
-    speak('You see past the surface. That\'s the first skill.', true);
-    setTimeout(function() {
-      if (fillBar) fillBar.style.width = '20%';
-      if (progLabel) progLabel.innerText = '1/5';
-      if (progLabel) progLabel.style.color = '#4546d7';
-      setTimeout(function() {
-        transition.style.opacity = '1';
-        setTimeout(function(){ window.location.href = '../2/index.html'; }, 800);
-      }, 2500);
-    }, 800);
+    mascot.src = BYTE_HACKER;
+    speak('You see past the surface. That is the first skill.<br><button class="btn-next" onclick="nextLevel()">Next Challenge</button>', true);
+    if (fillBar) fillBar.style.width = '20%';
+    if (progLabel) progLabel.innerText = '1/5';
+    if (progLabel) progLabel.style.color = '#4546d7';
   }, 1000);
 }
+
 function quit() { transition.style.opacity = '1'; setTimeout(function(){ window.location.href = '../../game.html'; }, 600); }
 
 function setupDetection() {
@@ -150,7 +185,7 @@ function setupDetection() {
     }
   }
   if (el) {
-    new MutationObserver(check).observe(el, { attributes: true });
+    new MutationObserver(check).observe(el, { attributes: true, attributeFilter: ['style', 'class'] });
     setInterval(check, 500);
   }
 }

@@ -1,561 +1,785 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ByteLab — Mission Control</title>
-<link rel="icon" type="image/png" href="https://dropshare.42web.io/1/files/UIi3dXms4F.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;600;700;800&family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-:root{
-  --bg:#05050f;
-  --surface:#0d0d1a;
-  --surface2:#111120;
-  --surface3:#16162a;
-  --primary:#5b5ef4;
-  --primary-dim:rgba(91,94,244,0.15);
-  --accent:#a78bfa;
-  --text:#f0f0ff;
-  --muted:#6b7280;
-  --border:rgba(255,255,255,0.06);
-  --border2:rgba(255,255,255,0.1);
-  --success:#10b981;
-  --font:'Plus Jakarta Sans',sans-serif;
-  --font-body:'Be Vietnam Pro',sans-serif;
-}
-html,body{height:100%;overflow:hidden}
-body{background:var(--bg);color:var(--text);font-family:var(--font-body);display:flex;flex-direction:column}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ByteLab — Academy Map</title>
+    <link rel="icon" type="image/png" href="https://dropshare.42web.io/1/files/UIi3dXms4F.png">
+    
+    <!-- Tailwind Framework -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg: #f8fafc;
+            --surface: #ffffff;
+            --text: #0f172a;
+            --muted: #64748b;
+            --border: #e2e8f0;
+            --primary: #4546d7;
+            --red-team: #e11d48;
+            --blue-team: #2563eb;
+            --font-main: 'Be Vietnam Pro', sans-serif;
+            --font-display: 'Plus Jakarta Sans', sans-serif;
+        }
 
-/* ── GRID BG ───────────────────────── */
-body::before{
-  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
-  background-image:linear-gradient(rgba(91,94,244,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(91,94,244,0.025) 1px,transparent 1px);
-  background-size:48px 48px;
-}
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: var(--font-main);
+            overflow: hidden;
+            height: 100vh;
+        }
 
-/* ── TOPBAR ────────────────────────── */
-.topbar{
-  position:relative;z-index:10;
-  height:64px;flex-shrink:0;
-  display:flex;align-items:center;justify-content:space-between;
-  padding:0 32px;
-  background:rgba(5,5,15,0.9);
-  border-bottom:1px solid var(--border);
-  backdrop-filter:blur(16px);
-}
-.topbar-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
-.topbar-logo img{width:26px;height:26px;object-fit:contain}
-.topbar-logo span{font-family:var(--font);font-weight:800;font-size:1.1rem;letter-spacing:-.03em;color:var(--text)}
-.topbar-right{display:flex;align-items:center;gap:10px}
-.topbar-btn{
-  display:flex;align-items:center;gap:6px;
-  padding:8px 16px;border-radius:10px;
-  border:1px solid var(--border);background:transparent;
-  color:var(--muted);font-weight:600;font-size:.8rem;
-  cursor:pointer;transition:all .2s;font-family:var(--font-body);
-}
-.topbar-btn:hover{border-color:var(--border2);color:var(--text)}
-.topbar-btn svg{width:15px;height:15px;flex-shrink:0}
+        /* ── STREAMING_CHUNK:Styling the interactive map... --> */
+        /* Draggable map container and layout */
+        .map-viewport {
+            width: 100vw;
+            height: calc(100vh - 72px);
+            position: relative;
+            overflow: auto;
+            cursor: grab;
+            user-select: none;
+            background-image: 
+                radial-gradient(var(--border) 1.5px, transparent 1.5px);
+            background-size: 30px 30px;
+            scroll-behavior: smooth;
+        }
+        .map-viewport:active {
+            cursor: grabbing;
+        }
 
-/* ── MAIN LAYOUT ───────────────────── */
-.layout{
-  position:relative;z-index:1;
-  flex:1;display:flex;overflow:hidden;
-}
+        .map-content {
+            width: 1900px;
+            height: 1000px;
+            position: relative;
+        }
 
-/* ── SIDEBAR ───────────────────────── */
-.sidebar{
-  width:280px;flex-shrink:0;
-  background:var(--surface);
-  border-right:1px solid var(--border);
-  display:flex;flex-direction:column;
-  overflow-y:auto;
-}
-.sidebar-head{
-  padding:28px 24px 20px;
-  border-bottom:1px solid var(--border);
-}
-.sidebar-label{font-size:.65rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
-.sidebar-title{font-family:var(--font);font-size:1.05rem;font-weight:800;margin-bottom:2px}
-.sidebar-sub{font-size:.8rem;color:var(--muted)}
+        /* Clean circular nodes with direct text and details labels */
+        .world-node {
+            position: absolute;
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background: var(--surface);
+            border: 3px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 2;
+        }
 
-.sidebar-worlds{padding:12px 12px;}
-.world-row{
-  display:flex;align-items:center;gap:12px;
-  padding:12px 14px;border-radius:14px;
-  cursor:pointer;transition:all .2s;
-  border:1px solid transparent;
-  margin-bottom:4px;
-}
-.world-row:hover{background:var(--surface2);border-color:var(--border)}
-.world-row.active{background:var(--primary-dim);border-color:rgba(91,94,244,0.25)}
-.world-icon-sm{
-  width:36px;height:36px;border-radius:10px;flex-shrink:0;
-  display:flex;align-items:center;justify-content:center;font-size:1rem;
-}
-.world-row-info{flex:1;min-width:0}
-.world-row-name{font-weight:700;font-size:.9rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.world-row-desc{font-size:.72rem;color:var(--muted);margin-top:1px}
-.world-progress-mini{display:flex;gap:3px;margin-top:6px}
-.mini-dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,0.1);transition:background .2s}
-.mini-dot.done{background:var(--success)}
-.mini-dot.current{background:var(--primary)}
+        .world-node:hover {
+            transform: scale(1.1);
+            border-color: var(--theme-color, var(--primary));
+        }
 
-/* ── CONTENT AREA ──────────────────── */
-.content{flex:1;overflow-y:auto;padding:36px 40px}
+        .world-node.active-selection {
+            transform: scale(1.15);
+            border-color: var(--theme-color, var(--primary)) !important;
+            background: #fafafd;
+        }
 
-/* WORLD HEADER */
-.world-header{margin-bottom:32px}
-.world-header-top{display:flex;align-items:center;gap:16px;margin-bottom:6px}
-.world-badge{
-  display:inline-flex;align-items:center;gap:6px;
-  background:var(--primary-dim);border:1px solid rgba(91,94,244,0.2);
-  border-radius:99px;padding:4px 12px;
-  font-size:.7rem;font-weight:800;color:var(--accent);letter-spacing:.06em;text-transform:uppercase;
-}
-.world-header h1{font-family:var(--font);font-size:1.8rem;font-weight:800;letter-spacing:-.03em;margin-bottom:4px}
-.world-header p{color:var(--muted);font-size:.9rem}
+        .world-node.locked {
+            filter: grayscale(1) opacity(0.4);
+            border-style: dashed;
+        }
 
-/* PROGRESS BAR */
-.world-progress-bar{
-  background:rgba(255,255,255,0.06);border-radius:99px;height:4px;margin:20px 0;overflow:hidden;
-}
-.world-progress-fill{height:100%;background:linear-gradient(90deg,var(--primary),var(--accent));border-radius:99px;transition:width .8s cubic-bezier(0.65,0,0.35,1)}
+        /* ── STREAMING_CHUNK:Styling labels and connectors... --> */
+        .node-label {
+            position: absolute;
+            top: 72px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-family: var(--font-display);
+            font-weight: 800;
+            font-size: 0.72rem;
+            white-space: nowrap;
+            pointer-events: none;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.01);
+            color: #334155;
+            transition: all 0.25s;
+        }
+        .world-node:hover .node-label,
+        .world-node.active-selection .node-label {
+            border-color: var(--theme-color, var(--primary));
+            color: var(--theme-color, var(--primary));
+        }
 
-/* LEVELS GRID */
-.levels-grid{
-  display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;
-}
-.level-card{
-  background:var(--surface2);
-  border:1px solid var(--border);
-  border-radius:20px;
-  padding:22px 20px;
-  cursor:pointer;
-  transition:all .25s;
-  text-decoration:none;color:var(--text);
-  display:block;position:relative;overflow:hidden;
-}
-.level-card::before{
-  content:'';position:absolute;inset:0;border-radius:20px;
-  background:linear-gradient(135deg,var(--primary),var(--accent));
-  opacity:0;transition:opacity .3s;
-}
-.level-card:hover{transform:translateY(-3px);border-color:rgba(91,94,244,0.3)}
-.level-card:hover::before{opacity:.06}
-.level-card.solved{border-color:rgba(16,185,129,0.3);background:rgba(16,185,129,0.06)}
-.level-card.solved::before{background:linear-gradient(135deg,#10b981,#34d399)}
-.level-card.locked{opacity:.35;pointer-events:none}
+        /* Curved vector visual connections */
+        .svg-connections {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
 
-.level-num{
-  font-family:var(--font);font-size:.7rem;font-weight:800;letter-spacing:.1em;
-  text-transform:uppercase;color:var(--muted);margin-bottom:10px;
-}
-.level-name{font-family:var(--font);font-size:1rem;font-weight:800;margin-bottom:6px;line-height:1.3}
-.level-desc{font-size:.78rem;color:var(--muted);line-height:1.5}
-.level-status{
-  display:inline-flex;align-items:center;gap:5px;
-  margin-top:16px;padding:4px 10px;border-radius:99px;
-  font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em;
-}
-.level-status.open{background:var(--primary-dim);color:var(--accent)}
-.level-status.solved{background:rgba(16,185,129,0.15);color:#34d399}
-.level-status.locked{background:rgba(255,255,255,0.04);color:var(--muted)}
-.level-status svg{width:12px;height:12px}
+        .connection-path {
+            stroke: #cbd5e1;
+            stroke-width: 4;
+            fill: none;
+            stroke-linecap: round;
+            stroke-dasharray: 8 6;
+            transition: all 0.4s ease;
+        }
+        .connection-path.active {
+            stroke: var(--theme-color, var(--primary));
+            stroke-dasharray: none;
+            stroke-width: 4.5;
+        }
 
-/* STAT CARDS */
-.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:32px}
-.stat-card{
-  background:var(--surface2);border:1px solid var(--border);border-radius:18px;padding:20px;
-}
-.stat-card-num{font-family:var(--font);font-size:1.6rem;font-weight:800;margin-bottom:2px}
-.stat-card-label{font-size:.75rem;color:var(--muted);font-weight:600}
+        /* ── STREAMING_CHUNK:Styling sliding drawer... --> */
+        /* Slide drawers details panel */
+        .details-drawer {
+            position: fixed;
+            top: 72px; bottom: 0; right: -420px;
+            width: 400px;
+            background: var(--surface);
+            border-left: 1px solid var(--border);
+            box-shadow: -10px 0 40px rgba(0, 0, 0, 0.02);
+            z-index: 30;
+            transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            flex-direction: column;
+        }
+        .details-drawer.open {
+            right: 0;
+        }
 
-/* ── SETTINGS MODAL ────────────────── */
-#modal-overlay{
-  position:fixed;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(12px);
-  z-index:1000;display:none;justify-content:center;align-items:center;
-  opacity:0;transition:opacity .25s;
-}
-#modal-overlay.active{display:flex;opacity:1}
-.modal-card{
-  background:var(--surface);border:1px solid var(--border2);border-radius:28px;
-  width:90%;max-width:400px;padding:36px;
-  transform:translateY(16px);transition:transform .3s cubic-bezier(0.2,1,0.2,1);
-}
-#modal-overlay.active .modal-card{transform:translateY(0)}
-.modal-title{font-family:var(--font);font-weight:800;font-size:1.2rem;margin-bottom:4px}
-.modal-sub{font-size:.8rem;color:var(--muted);margin-bottom:24px}
-.setting-row{
-  display:flex;justify-content:space-between;align-items:center;
-  padding:14px 0;border-bottom:1px solid var(--border);
-}
-.setting-row:last-of-type{border-bottom:none}
-.setting-info h4{font-weight:700;font-size:.9rem}
-.setting-info p{font-size:.75rem;color:var(--muted);margin-top:2px}
-.toggle{
-  width:44px;height:24px;border-radius:99px;
-  background:rgba(255,255,255,0.08);cursor:pointer;position:relative;transition:background .2s;flex-shrink:0;border:none;
-}
-.toggle.on{background:var(--primary)}
-.toggle::after{
-  content:'';position:absolute;top:3px;left:3px;
-  width:18px;height:18px;border-radius:50%;background:white;
-  transition:transform .2s;box-shadow:0 1px 4px rgba(0,0,0,.3);
-}
-.toggle.on::after{transform:translateX(20px)}
-.modal-btn{
-  display:block;width:100%;padding:13px;border-radius:14px;font-weight:700;font-size:.9rem;
-  border:none;cursor:pointer;margin-top:10px;font-family:var(--font-body);transition:all .2s;
-}
-.modal-btn.ghost{background:rgba(255,255,255,.04);color:var(--muted);border:1px solid var(--border)}
-.modal-btn.ghost:hover{color:var(--text)}
-.modal-btn.danger{background:rgba(239,68,68,.1);color:#f87171;border:1px solid rgba(239,68,68,.15)}
-.secret-badge{font-size:.6rem;color:var(--accent);font-weight:800;background:rgba(167,139,250,.1);padding:2px 8px;border-radius:99px;margin-left:6px}
-</style>
+        /* Mode choosing triggers layout */
+        .path-toggle-wrapper {
+            display: inline-flex;
+            background: #e2e8f0;
+            padding: 4px;
+            border-radius: 99px;
+        }
+        .path-btn {
+            padding: 8px 18px;
+            border-radius: 99px;
+            font-weight: 800;
+            font-size: 0.8rem;
+            font-family: var(--font-display);
+            transition: all 0.25s;
+        }
+        .path-btn.active.attack {
+            background: var(--red-team);
+            color: white;
+        }
+        .path-btn.active.defend {
+            background: var(--blue-team);
+            color: white;
+        }
+
+        /* ── STREAMING_CHUNK:Styling level layout nodes... --> */
+        /* Simple clean level lists */
+        .lvl-row-btn {
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.2s;
+            text-align: left;
+        }
+        .lvl-row-btn:hover:not(.locked) {
+            transform: translateY(-2px);
+            border-color: var(--theme-color, var(--primary));
+        }
+        .lvl-row-btn.locked {
+            opacity: 0.45;
+            background: #f8fafc;
+            cursor: not-allowed;
+        }
+        .lvl-row-btn.solved {
+            border-color: #bbf7d0;
+            background: #fafdfb;
+        }
+
+        /* Dialog Settings panel styling */
+        .modal-bg {
+            position: fixed; inset: 0;
+            background: rgba(15, 23, 42, 0.15);
+            backdrop-filter: blur(4px);
+            z-index: 100;
+            display: none;
+            align-items: center; justify-content: center;
+            opacity: 0; transition: opacity 0.3s ease;
+        }
+        .modal-bg.active { opacity: 1; }
+        .modal-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            width: 90%; max-width: 400px;
+            border-radius: 28px;
+            padding: 32px;
+            transform: scale(0.95); transition: transform 0.3s ease;
+        }
+        .modal-bg.active .modal-card { transform: scale(1); }
+
+        .toggle-switch {
+            width: 44px; height: 24px; border-radius: 99px; background: #cbd5e1;
+            position: relative; cursor: pointer; transition: background 0.2s;
+        }
+        .toggle-switch.on { background: #10b981; }
+        .toggle-switch::after {
+            content: ''; position: absolute; top: 2px; left: 2px;
+            width: 20px; height: 20px; border-radius: 50%; background: white;
+            transition: left 0.2s;
+        }
+        .toggle-switch.on::after { left: 22px; }
+    </style>
 </head>
-<body>
+<body class="flex flex-col">
 
-<!-- TOPBAR -->
-<header class="topbar">
-  <a href="index.html" class="topbar-logo">
-    <img src="https://dropshare.42web.io/1/files/UIi3dXms4F.png" alt="ByteLab">
-    <span>ByteLab</span>
-  </a>
-  <div class="topbar-right">
-    <button class="topbar-btn" onclick="openSettings()">
-      <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><circle cx="12" cy="12" r="3"/></svg>
-      Settings
-    </button>
-  </div>
-</header>
-
-<!-- MAIN LAYOUT -->
-<div class="layout">
-
-  <!-- SIDEBAR -->
-  <aside class="sidebar">
-    <div class="sidebar-head">
-      <div class="sidebar-label">Curriculum</div>
-      <div class="sidebar-title">Attack Path</div>
-      <div class="sidebar-sub">DOM hacking · Client-side exploits</div>
-    </div>
-    <div class="sidebar-worlds" id="worldList"></div>
-  </aside>
-
-  <!-- CONTENT -->
-  <main class="content" id="content"></main>
-
-</div>
-
-<!-- SETTINGS MODAL -->
-<div id="modal-overlay">
-  <div class="modal-card">
-    <div class="modal-title">Settings</div>
-    <div class="modal-sub">Configure your experience</div>
-
-    <div class="setting-row">
-      <div class="setting-info"><h4>Free Mode <span class="secret-badge">SECRET</span></h4><p>Unlock all levels with no progression lock</p></div>
-      <button class="toggle" id="toggle-unlock" onclick="toggleSetting('unlock')"></button>
-    </div>
-    <div class="setting-row">
-      <div class="setting-info"><h4>Reset Progress</h4><p>Clear all saves and start from scratch</p></div>
-      <button class="modal-btn danger" style="width:auto;padding:8px 16px;font-size:.75rem;margin-top:0" onclick="resetProgress()">Reset</button>
-    </div>
-
-    <button class="modal-btn ghost" onclick="closeSettings()" style="margin-top:20px">Close</button>
-  </div>
-</div>
-
-<script>
-// ── CONFIG ──────────────────────────────────────────────────────────────────
-const WORLDS = [
-  { id:1, name:'PayBal',     desc:'Banking & payments',    icon:'🏦', color:'#5b5ef4' },
-  { id:2, name:'Netflox',    desc:'Streaming platform',    icon:'🎬', color:'#ef4444' },
-  { id:3, name:'CloudStore', desc:'E-commerce checkout',   icon:'🛒', color:'#f59e0b' },
-  { id:4, name:'SpaceY',     desc:'Private space tech',    icon:'🚀', color:'#0ea5e9' },
-  { id:5, name:'Uper',       desc:'Rideshare app',         icon:'🚗', color:'#10b981' },
-  { id:6, name:'ApexAI',     desc:'AI & LLM exploits',     icon:'🤖', color:'#8b5cf6' },
-  { id:7, name:'CareSync',   desc:'Telehealth portal',     icon:'🏥', color:'#ec4899' },
-  { id:8, name:'TokenVault', desc:'Web3 & crypto tracker', icon:'💎', color:'#f59e0b' },
-  { id:9, name:'GridControl',desc:'Smart energy & IoT',    icon:'⚡', color:'#84cc16' },
-  { id:10,name:'ShipReady',  desc:'Logistics & fleet',     icon:'📦', color:'#06b6d4' },
-  { id:11,name:'PayBall V2', desc:'Advanced fintech',      icon:'💳', color:'#6366f1' },
-  { id:12,name:'ApexMarket', desc:'DOM context attacks',   icon:'🏪', color:'#f43f5e' },
-  { id:13,name:'CloudStorV2',desc:'Query logic exploits',  icon:'🗄️', color:'#fb923c' },
-  { id:14,name:'NetRun V2',  desc:'Path & traversal',      icon:'🌐', color:'#22d3ee' },
-  { id:15,name:'ShadowProxy',desc:'Payload delivery',      icon:'🕶️', color:'#a78bfa' },
-];
-
-const LEVELS = {
-  1: [
-    { l:1, name:'Hidden Balance',  desc:'A balance hidden in plain sight. The style is the only lock.' },
-    { l:2, name:'Upgrade Price',   desc:'The price is just text on a page. Text can be changed.' },
-    { l:3, name:'Transfer Lock',   desc:'Two restrictions guard the transfer button. Remove both.' },
-    { l:4, name:'Fee Ghost',       desc:'A hidden input field silently adds a fee to every transfer.' },
-    { l:5, name:'Admin Override',  desc:'Your role is "member". One attribute controls everything.' },
-  ],
-  2: [
-    { l:1, name:'Tier Up',         desc:'The cookie says "free". Set it to "premium" in the console.' },
-    { l:2, name:'The Paywall',     desc:'The content exists. The overlay blocking it can be deleted.' },
-    { l:3, name:'Redirect Spoof',  desc:'The Google SSO button sends users somewhere. Change it.' },
-    { l:4, name:'Trial Expired',   desc:'The timer is a global JS variable. Override it.' },
-    { l:5, name:'The Blur',        desc:'The video loads. A CSS filter is making it unwatchable.' },
-  ],
-  3: [
-    { l:1, name:'Quantity Minus',  desc:'The minimum quantity is 1. Remove the attribute.' },
-    { l:2, name:'Free Delivery',   desc:'Every option costs something. Add one that doesn\'t.' },
-    { l:3, name:'Tax Zero',        desc:'A hidden input controls the tax calculation. Zero it.' },
-    { l:4, name:'Coupon Vault',    desc:'The field is readonly. Remove the restriction.' },
-    { l:5, name:'Payload Inject',  desc:'Forms speak in parameters. Add your own discount parameter.' },
-  ],
-  4: [
-    { l:1, name:'Classified',      desc:'The mission budget is hidden. Not deleted — just hidden.' },
-    { l:2, name:'Launch Price',    desc:'$50M per launch. The invoice reads from the page content.' },
-    { l:3, name:'Mission Control', desc:'Mission Control is locked behind two HTML restrictions.' },
-    { l:4, name:'Payload Cap',     desc:'The 1,000 kg limit lives in a max attribute. Remove it.' },
-    { l:5, name:'Orbital Slot',    desc:'The slot is "restricted". Change the data-status attribute.' },
-  ],
-  5: [
-    { l:1, name:'Promo Code',      desc:'The code is on the page. It\'s just not visible.' },
-    { l:2, name:'Fare Hack',       desc:'The app calculated your fare. It made an assumption.' },
-    { l:3, name:'Skip Verify',     desc:'"Required" is an HTML attribute. Attributes can be removed.' },
-    { l:4, name:'No Surge',        desc:'4.2x surge. window.surgeMultiplier is yours to change.' },
-    { l:5, name:'Status Unlock',   desc:'The Premium section is accessible. A CSS class blocks it.' },
-  ],
-  6: [
-    { l:1, name:'Prompt Injection', desc:'Hidden system prompts behind a CSS trick. Intercept the DOM.' },
-    { l:2, name:'Temp Flooding',    desc:'Slider values accept floating-point. Push temperature past 2.0.' },
-    { l:3, name:'Stream Hijack',    desc:'CSS class .blur-response limits visible text. Remove it.' },
-    { l:4, name:'Instruction Swap', desc:'data-system-context="user". Change it to admin.' },
-    { l:5, name:'Seed Poisoning',   desc:'Hidden input assistant_override. Toggle it to true.' },
-  ],
-  7: [
-    { l:1, name:'Rx Multiplier',    desc:'Quantities use client-side math. Modify to buy 100x doses.' },
-    { l:2, name:'Glass Backdrop',   desc:'Patient charts behind a translucent modal. Delete the overlay.' },
-    { l:3, name:'Namespace Scrape', desc:'window.__INTERNAL_PATIENT_DUMP__ exposed globally. Parse it.' },
-    { l:4, name:'Interval Freeze',  desc:'Verification countdown via setInterval. Nullify the timer.' },
-    { l:5, name:'Constraint Break', desc:'type="date" and max attributes. Strip them to break age checks.' },
-  ],
-  8: [
-    { l:1, name:'Cookie Expansion', desc:'user_tier=free in plain cookies. Change to whale.' },
-    { l:2, name:'KYC Injection',    desc:'kyc_approved in localStorage. Set to true to trade.' },
-    { l:3, name:'Session Wrap',     desc:'sessionStorage timestamps. Advance decades to stay logged in.' },
-    { l:4, name:'Claim Deconstruct',desc:'Base64 config token. Decode, flip can_withdraw, re-encode.' },
-    { l:5, name:'Namespace Sabotage',desc:'Wipe init keys from localStorage to trigger fallback debug mode.' },
-  ],
-  9: [
-    { l:1, name:'Grid Deselect',    desc:'.hidden-grids display:none blocks controls. Delete the CSS rule.' },
-    { l:2, name:'Node Fabrication', desc:'Fabricate #emergency-override-trigger button. Inject into DOM.' },
-    { l:3, name:'Endpoint Diverge', desc:'data-source-path="/api/public". Redirect to private diagnostics.' },
-    { l:4, name:'Comment Extract',  desc:'Developer comments left in HTML. Extract internal master routes.' },
-    { l:5, name:'Notify Silence',   desc:'Event interceptors block anomaly alerts. Unbind them.' },
-  ],
-  10: [
-    { l:1, name:'$0 Customs',       desc:'Weight string editable client-side. Rewrite to bypass billing.' },
-    { l:2, name:'Interceptor Strip',desc:'event.preventDefault on shipment forms. Strip the handler.' },
-    { l:3, name:'Route Crawling',   desc:'Modify /fleet/shipment/4001 to /4002. Access parallel routes.' },
-    { l:4, name:'Asset Hijack',     desc:'Fleet image onerror attributes. Execute custom validation scripts.' },
-    { l:5, name:'Source Harvest',   desc:'Production source maps. Extract hardcoded dev authorization keys.' },
-  ],
-  11: [
-    { l:1, name:'Control Splitting',desc:'Inject %00 or %0A in payee name to break string parsers.' },
-    { l:2, name:'Inline Jailbreak', desc:'Inject quote delimiters into text fields to escape boundaries.' },
-    { l:3, name:'Naming Collision', desc:'Duplicate input with same name. Test parser isolation.' },
-    { l:4, name:'Filter Slip',      desc:'Nest forbidden keywords: <scr<script>ipt>. Test reassembly.' },
-    { l:5, name:'Type Mutation',    desc:'Change type="number" to "text". Feed alpha-numeric payloads.' },
-  ],
-  12: [
-    { l:1, name:'Query Inversion',  desc:'?search=<svg/onload=...> reflection. Test unescaped rendering.' },
-    { l:2, name:'Container Split',  desc:'Inject </div></td> to prematurely close HTML wrappers.' },
-    { l:3, name:'Live Stream Evasion',desc:'Live-stream string operations. Pass hooks into the reactive loop.' },
-    { l:4, name:'Anchor Mutation',  desc:'href="javascript:bypassPaywall()". Turn navigation into execution.' },
-    { l:5, name:'State Overwrite',  desc:'Override cached response objects. Inject admin privilege attributes.' },
-  ],
-  13: [
-    { l:1, name:'Boolean ID Extract',desc:"' OR '1'='1 in search. Dump hidden enterprise inventory." },
-    { l:2, name:'Query Pruning',    desc:'-- or /* after search queries. Truncate SQL WHERE conditions.' },
-    { l:3, name:'Signature Spoof',  desc:"admin' -- in username field. Bypass password check." },
-    { l:4, name:'Column Fingerprint',desc:'ORDER BY with incrementing numbers. Map backend table columns.' },
-    { l:5, name:'Union Merger',     desc:'UNION SELECT username,password FROM users--. Merge admin tables.' },
-  ],
-  14: [
-    { l:1, name:'Traversal Step',   desc:'../../system_manifest.json in upload paths. Escape sandbox.' },
-    { l:2, name:'Flag Polling',     desc:'Probe /.env, /debug-log.json, /config.yml for deployment artifacts.' },
-    { l:3, name:'Recursive Loop',   desc:'Feed doc renderer its own path. Trigger infinite recursion.' },
-    { l:4, name:'Route Forcing',    desc:'?skip_perimeter=1, ?override_auth=true. Find forgotten shortcuts.' },
-    { l:5, name:'Memory Scraping',  desc:'window.__DEV_FLAGS__. Uncover unmapped staging credentials.' },
-  ],
-  15: [
-    { l:1, name:'Persistent Store', desc:'Script payloads in forum posts. Test cross-profile execution.' },
-    { l:2, name:'Invisible Traps',  desc:'onmouseenter payload wrappers. Execute on hover interactions.' },
-    { l:3, name:'Sub-Frame Hijack', desc:'<iframe> injection in input fields. Test rogue window mounting.' },
-    { l:4, name:'Base64 Cloak',     desc:'eval(atob(base64_payload)). Slip past word filter blacklists.' },
-    { l:5, name:'Char Compilation', desc:'String.fromCharCode(60,115,99...). Build script tags from decimals.' },
-  ],
-};
-
-// ── STATE ────────────────────────────────────────────────────────────────────
-let activeWorld = parseInt(new URLSearchParams(location.search).get('world')) || 1;
-if (activeWorld < 1 || activeWorld > 15) activeWorld = 1;
-
-let settings = JSON.parse(localStorage.getItem('bytelab_settings') || '{"unlock":false}');
-
-// ── PROGRESS ─────────────────────────────────────────────────────────────────
-function getSolved(world) {
-  return JSON.parse(localStorage.getItem(`bl_w${world}`) || '[]');
-}
-function markSolved(world, level) {
-  const arr = getSolved(world);
-  if (!arr.includes(level)) arr.push(level);
-  localStorage.setItem(`bl_w${world}`, JSON.stringify(arr));
-}
-function totalDone() {
-  return WORLDS.reduce((acc, w) => acc + getSolved(w.id).length, 0);
-}
-
-// ── SIDEBAR ───────────────────────────────────────────────────────────────────
-function renderSidebar() {
-  const container = document.getElementById('worldList');
-  container.innerHTML = '';
-  WORLDS.forEach(w => {
-    const solved = getSolved(w.id);
-    const row = document.createElement('div');
-    row.className = 'world-row' + (w.id === activeWorld ? ' active' : '');
-    row.innerHTML = `
-      <div class="world-icon-sm" style="background:${w.color}20">${w.icon}</div>
-      <div class="world-row-info">
-        <div class="world-row-name">${w.name}</div>
-        <div class="world-row-desc">${w.desc}</div>
-        <div class="world-progress-mini">
-          ${[1,2,3,4,5].map(l =>
-            `<div class="mini-dot ${solved.includes(l) ? 'done' : (l === getNextLevel(w.id, solved) ? 'current' : '')}"></div>`
-          ).join('')}
+    <!-- TOP NAVBAR -->
+    <nav class="h-[72px] px-6 md:px-12 flex items-center justify-between border-b border-slate-200 bg-white">
+        <div class="flex items-center gap-3" onclick="window.location.href='index.html'" style="cursor:pointer">
+            <img src="https://dropshare.42web.io/1/files/UIi3dXms4F.png" alt="ByteLab Logo" class="w-8 h-8 object-contain">
+            <span class="font-display font-extrabold text-xl tracking-tight text-slate-800">ByteLab</span>
         </div>
-      </div>`;
-    row.onclick = () => { activeWorld = w.id; renderSidebar(); renderContent(); };
-    container.appendChild(row);
-  });
-}
 
-function getNextLevel(worldId, solved) {
-  for (let l = 1; l <= 5; l++) if (!solved.includes(l)) return l;
-  return -1;
-}
-
-// ── CONTENT ───────────────────────────────────────────────────────────────────
-function renderContent() {
-  const w = WORLDS.find(x => x.id === activeWorld);
-  const solved = getSolved(activeWorld);
-  const levels = LEVELS[activeWorld] || [];
-  const done = solved.length;
-  const pct = (done / 5) * 100;
-  const nextL = getNextLevel(activeWorld, solved);
-  const freeMode = settings.unlock;
-
-  const statsHtml = `
-    <div class="stats-row">
-      <div class="stat-card">
-        <div class="stat-card-num" style="color:${w.color}">${done}/5</div>
-        <div class="stat-card-label">Completed</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-card-num">${totalDone()}/25</div>
-        <div class="stat-card-label">Total Progress</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-card-num" style="color:${done===5?'#10b981':'var(--muted)'}">
-          ${done === 5 ? '★ Done' : nextL > 0 ? `Lab ${nextL}` : '—'}
+        <!-- Mode selection pill -->
+        <div class="path-toggle-wrapper">
+            <button class="path-btn active attack" id="mode-attack-btn" onclick="setMode('attack')">Red Team (⚔️)</button>
+            <button class="path-btn" id="mode-defend-btn" onclick="setMode('defend')">Blue Team (🛡️)</button>
         </div>
-        <div class="stat-card-label">${done === 5 ? 'World Complete' : 'Up Next'}</div>
-      </div>
-    </div>`;
 
-  const levelsHtml = levels.map(({ l, name, desc }) => {
-    const isSolved = solved.includes(l);
-    const isLocked = !freeMode && !isSolved && l !== nextL && (nextL === -1 || l > nextL);
-    const href = `levels/${activeWorld}/${l}/index.html`;
-    const statusHtml = isSolved
-      ? `<div class="level-status solved"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Solved</div>`
-      : isLocked
-        ? `<div class="level-status locked"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg> Locked</div>`
-        : `<div class="level-status open">Start Lab &rarr;</div>`;
+        <!-- ── STREAMING_CHUNK:Building operator card controls... -->
+        <!-- Profile/Cadet Status info -->
+        <div class="flex items-center gap-4">
+            <div class="flex items-center gap-2.5 bg-slate-50 border border-slate-200 rounded-full py-1.5 pl-2 pr-4 cursor-pointer transition-all hover:bg-slate-100" onclick="window.location.href='index.html'">
+                <img src="https://dropshare.42web.io/1/files/zVYAUZDpex.png" class="w-8 h-8 object-contain rounded-full bg-white border border-slate-200 p-0.5" alt="Avatar">
+                <div class="text-left">
+                    <div class="font-display font-extrabold text-[11px] text-slate-800 leading-none" id="profileName">Hacker</div>
+                    <div class="text-[9px] font-bold text-indigo-600 mt-0.5 leading-none" id="profileRank">Recruit</div>
+                </div>
+            </div>
 
-    return `<a class="level-card ${isSolved ? 'solved' : ''} ${isLocked ? 'locked' : ''}"
-      href="${isLocked ? '#' : href}">
-      <div class="level-num">Lab ${String(l).padStart(2,'0')}</div>
-      <div class="level-name">${name}</div>
-      <div class="level-desc">${desc}</div>
-      ${statusHtml}
-    </a>`;
-  }).join('');
+            <!-- Settings trigger -->
+            <button onclick="openSettings()" class="p-2.5 bg-white border border-slate-200 hover:border-slate-400 text-slate-500 hover:text-slate-800 rounded-full transition-all">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+            </button>
+        </div>
+    </nav>
 
-  document.getElementById('content').innerHTML = `
-    <div class="world-header">
-      <div class="world-header-top">
-        <div class="world-badge">${w.icon} ${w.name}</div>
-      </div>
-      <h1>${w.name} — ${w.desc}</h1>
-      <p>Use your browser's DevTools to inspect, modify, and bypass client-side restrictions.</p>
-      <div class="world-progress-bar"><div class="world-progress-fill" style="width:${pct}%"></div></div>
+    <!-- DRIFTING CANVAS MAP VIEWPORT -->
+    <div class="map-viewport" id="mapViewport">
+        <div class="map-content" id="mapContent">
+            <!-- Dynamic connection lines SVG canvas -->
+            <svg class="svg-connections" id="svgCanvas"></svg>
+            
+            <!-- Nodes will be rendered dynamically -->
+        </div>
     </div>
-    ${statsHtml}
-    <div class="levels-grid">${levelsHtml}</div>
-  `;
-}
 
-// ── SETTINGS ──────────────────────────────────────────────────────────────────
-function openSettings() {
-  const el = document.getElementById('modal-overlay');
-  el.style.display = 'flex';
-  requestAnimationFrame(() => el.classList.add('active'));
-  syncToggles();
-}
-function closeSettings() {
-  const el = document.getElementById('modal-overlay');
-  el.classList.remove('active');
-  setTimeout(() => el.style.display = 'none', 300);
-}
-function syncToggles() {
-  document.getElementById('toggle-unlock').classList.toggle('on', !!settings.unlock);
-}
-function toggleSetting(key) {
-  settings[key] = !settings[key];
-  localStorage.setItem('bytelab_settings', JSON.stringify(settings));
-  syncToggles();
-  renderContent();
-}
-function resetProgress() {
-  if (!confirm('Reset ALL progress? Cannot be undone.')) return;
-  for (let w = 1; w <= 15; w++) localStorage.removeItem(`bl_w${w}`);
-  renderSidebar(); renderContent();
-}
-document.getElementById('modal-overlay').onclick = e => {
-  if (e.target === e.currentTarget) closeSettings();
-};
+    <!-- ── STREAMING_CHUNK:Injecting details drawer panel... -->
+    <!-- DETAIL SLIDE DRAWER -->
+    <div class="details-drawer" id="detailsDrawer">
+        <!-- Drawer Header -->
+        <div class="p-6 border-b border-slate-100 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <span class="text-2xl" id="drawerWorldIcon">🎓</span>
+                <div>
+                    <span class="text-[9px] font-extrabold text-slate-400 uppercase tracking-wider block">Active World</span>
+                    <h2 class="font-display font-extrabold text-base text-slate-800 leading-tight" id="drawerWorldName">Discovery</h2>
+                </div>
+            </div>
+            <button onclick="closeDrawer()" class="p-2 hover:bg-slate-50 border border-slate-200 rounded-xl text-slate-400 hover:text-slate-700">
+                &times; Close
+            </button>
+        </div>
 
-// ── LISTEN FOR LEVEL COMPLETE ──────────────────────────────────────────────────
-window.addEventListener('message', e => {
-  if (e.data?.type === 'LEVEL_COMPLETE') {
-    markSolved(e.data.world, e.data.level);
-    renderSidebar(); renderContent();
-  }
-});
+        <!-- Drawer Body -->
+        <div class="flex-1 overflow-y-auto p-6 space-y-6">
+            <!-- World desc & specs -->
+            <div>
+                <p class="text-slate-500 text-xs leading-relaxed font-medium" id="drawerWorldDesc">Description goes here.</p>
+                
+                <!-- Progress bar metrics -->
+                <div class="mt-4 flex items-center justify-between text-xs font-bold text-slate-700 mb-1.5">
+                    <span>Progress</span>
+                    <span id="drawerProgressText">0/5 Solved</span>
+                </div>
+                <div class="w-full h-1.5 bg-slate-100 border border-slate-200 rounded-full overflow-hidden">
+                    <div class="h-full bg-indigo-600 transition-all duration-300" id="drawerProgressBar" style="width: 0%"></div>
+                </div>
+            </div>
 
-// ── INIT ──────────────────────────────────────────────────────────────────────
-const worldParam = parseInt(new URLSearchParams(location.search).get('world'));
-if (worldParam >= 1 && worldParam <= 5) activeWorld = worldParam;
+            <!-- Injected levels list container -->
+            <div class="space-y-3" id="drawerLevelsList">
+                <!-- Levels populate here dynamically -->
+            </div>
+        </div>
+    </div>
 
-const levelParam = parseInt(new URLSearchParams(location.search).get('level'));
-if (levelParam >= 1 && levelParam <= 5) {
-  window.location.href = `levels/${activeWorld}/${levelParam}/index.html`;
-} else {
-  renderSidebar();
-  renderContent();
-}
-</script>
+    <!-- ── STREAMING_CHUNK:Building system modals... -->
+    <!-- SETTINGS MODAL -->
+    <div class="modal-bg" id="settingsModal">
+        <div class="modal-card">
+            <h3 class="font-display font-extrabold text-lg text-slate-800 mb-6">Settings & Controls</h3>
+            
+            <div class="space-y-5">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h4 class="font-display font-extrabold text-sm text-slate-700">Free Mode (Unlock All)</h4>
+                        <p class="text-xs text-slate-400 font-medium mt-0.5">Bypasses sequential progression rules to launch any lab</p>
+                    </div>
+                    <div class="toggle-switch" id="toggleUnlock" onclick="toggleSetting('unlock')"></div>
+                </div>
+
+                <div class="border-t border-slate-100 pt-5">
+                    <button onclick="resetProgress()" class="w-full py-3 bg-rose-50 hover:bg-rose-100 border border-rose-200 text-rose-600 rounded-2xl font-bold text-sm transition-all">
+                        Reset All Solves
+                    </button>
+                </div>
+            </div>
+
+            <button onclick="closeSettings()" class="w-full mt-6 py-3 bg-slate-100 hover:bg-slate-200 text-slate-600 rounded-2xl font-bold text-sm transition-all font-display">
+                Close Panel
+            </button>
+        </div>
+    </div>
+
+    <!-- ── STREAMING_CHUNK:Configuring databases and logic engines... -->
+    <!-- JS ENGINE -->
+    <script>
+        const WORLDS = [
+            { id: 0, name: 'Discovery', desc: 'Tutorial & basics introduction', icon: '🎓', x: 60, y: 120 },
+            { id: 1, name: 'PayBal', desc: 'Banking & payments logic parameters', icon: '🏦', x: 190, y: 220 },
+            { id: 2, name: 'Netflox', desc: 'Streaming authorization checks & paywalls', icon: '🎬', x: 310, y: 450 },
+            { id: 3, name: 'CloudStore', desc: 'E-commerce validation parameters & quantities', icon: '🛒', x: 470, y: 280 },
+            { id: 4, name: 'SpaceY', desc: 'Private mission SSO targets and auth keys', icon: '🚀', x: 630, y: 550 },
+            { id: 5, name: 'Uper', desc: 'Rideshare billing structures & calculations', icon: '🚗', x: 790, y: 340 },
+            { id: 6, name: 'ApexAI', desc: 'LLM injection & sandbox context overrides', icon: '🤖', x: 970, y: 580 },
+            { id: 7, name: 'CareSync', desc: 'Telehealth patient record leaks', icon: '🏥', x: 1150, y: 360 },
+            { id: 8, name: 'TokenVault', desc: 'Web3 storage manipulation & cookies', icon: '💎', x: 1310, y: 620 },
+            { id: 9, name: 'GridControl', desc: 'IoT indicators & telemetry path checks', icon: '⚡', x: 1470, y: 380 },
+            { id: 10, name: 'ShipReady', desc: 'Logistics cargo validations', icon: '📦', x: 1650, y: 580 }
+        ];
+
+        // Fully equipped with 50 sequential challenges across 10 main worlds (5 per world)
+        const LEVELS = {
+            0: [
+                { l: 1, name: 'Hidden View', desc: 'The real account balance is hidden from view. Change display:none to reveal it.' },
+                { l: 2, name: 'Price Mod', desc: 'Upgrade price checks look at the page text. Modify the price parameter in DevTools.' },
+                { l: 3, name: 'Lock Bypass', desc: 'Bypass disabled constraints on buttons by removing attributes and disabled classes.' },
+                { l: 4, name: 'Role Escalate', desc: 'Tamper with data-role attributes on the app shell to become admin.' },
+                { l: 5, name: 'System Context Check', desc: 'Inspect initialization parameters structure to unlock navigation variables.' }
+            ],
+            1: [
+                { l: 1, name: 'Disabled Bypass', desc: 'The transfer button has a disabled markup attribute. Remove it to unlock click handlers.' },
+                { l: 2, name: 'Pointer Lock Bypass', desc: 'CSS pointer-events: none stops execution. Modify classes to bypass constraint.' },
+                { l: 3, name: 'Hidden Input Price', desc: 'An transaction charge fee is hidden. Set value to negative numbers to earn cashback.' },
+                { l: 4, name: 'Invisible Balance', desc: 'A balance display is hidden from layout via styles. Remove style display:none.' },
+                { l: 5, name: 'Role Attribute Bypass', desc: 'Authorization role members are stored on tags. Escalated member variables to admin.' }
+            ],
+            2: [
+                { l: 1, name: 'Cookie Escalation', desc: 'A local cookie stores membership tiers. Override details to premium to watch streams.' },
+                { l: 2, name: 'Overlay DOM Deletion', desc: 'Deletes overlays blocking active media objects to stream streams.' },
+                { l: 3, name: 'SSO Redirect Hijack', desc: 'Bypass authorization logins redirect parameters. Change variables destination.' },
+                { l: 4, name: 'Global Timer Abuse', desc: 'A trial timer counts down in storage. Reset seconds values to stay inside trial.' },
+                { l: 5, name: 'Prototype Pollution', desc: 'Override object constructor defaults to register system authorizations as valid.' }
+            ],
+            3: [
+                { l: 1, name: 'Quantity Bypass', desc: 'Change checkout products quantities to negative numbers to receive money refunds.' },
+                { l: 2, name: 'Custom Shipping Inject', desc: 'Inject custom option values to select a free delivery method.' },
+                { l: 3, name: 'Hidden Tax Override', desc: 'Sales charges rate is stored in input. Zero it out to skip checkout taxes.' },
+                { l: 4, name: 'Readonly Coupon Bypass', desc: 'Forms disable input via readonly attributes. Remove attribute to enter discount coupons.' },
+                { l: 5, name: 'DOM Parameter Inject', desc: 'Form items lack validations. Add hidden input fields carrying promo parameters.' }
+            ],
+            4: [
+                { l: 1, name: 'SSO User ID Spoof', desc: 'Cookie values identifies users. Modify current cookie values to administrative id (1).' },
+                { l: 2, name: 'IP Proxy Override', desc: 'Gateway verification checks client IP properties. Override gatewayIp variables.' },
+                { l: 3, name: 'Endpoint Path Tampering', desc: 'Modify submission destinations stored inside button dataset attributes.' },
+                { l: 4, name: 'Host Header Spoofing', desc: 'Modify target origin validation variables to trick CORS security frameworks.' },
+                { l: 5, name: 'LocalStorage Auth Bypass', desc: 'LocalStorage records active auth sessions. Inject authorized flags directly.' }
+            ],
+            5: [
+                { l: 1, name: 'Reverse Date Chronology', desc: 'AirBook dates logic checks booking durations. Reverse arrival/departures to get negative days.' },
+                { l: 2, name: 'NaN Weight Injection', desc: 'Form validates payload weight as numbers. Inject NaN strings to skip ceilings checks.' },
+                { l: 3, name: 'Seat Tier Desync', desc: 'Premium seats check membership variables. Mutate ticket ranks attributes to unlock seating.' },
+                { l: 4, name: 'Open Redirect', desc: 'Alter navigation anchors destinative parameters to redirect users outwards.' },
+                { l: 5, name: 'Config Variable Override', desc: 'Verification processes check system configuration structures. Override checks properties.' }
+            ],
+            6: [
+                { l: 1, name: 'Prompt Injection Leak', desc: 'AI chat system prompt guidelines are hidden behind layout cards. Make them visible.' },
+                { l: 2, name: 'Token Temperature Flood', desc: 'Slider details accept decimals parameters. Force values past ceiling to abort threads.' },
+                { l: 3, name: 'Premium Stream Hijack', desc: 'Blurs stream containers using CSS definitions. Remove the blur response class to read text.' },
+                { l: 4, name: 'System Instruction Swap', desc: 'Change context flags on elements datasets properties from user to admin roles.' },
+                { l: 5, name: 'Pre-Seed Parameter Poison', desc: 'Find hidden assistant_override options and flip them to true to dump developers flags.' }
+            ],
+            7: [
+                { l: 1, name: 'Prescription Multiplier', desc: 'Modify local in-memory quantity parameters to multiply order items for the price of one.' },
+                { l: 2, name: 'The Glass Backdrop', desc: 'Delete glassmorphic modal blocks overlaying hidden patient records datasets.' },
+                { l: 3, name: 'Global Namespace Scrape', desc: 'Access global dump variables on window scopes to harvest patient details.' },
+                { l: 4, name: 'Operational Interval Freeze', desc: 'Disable or clear the countdown interval ID handle to bypass security timers.' },
+                { l: 5, name: 'Structural Constraint Sever', desc: 'Change input parameters structures (date type details) to bypass age restrictions.' }
+            ],
+            8: [
+                { l: 1, name: 'Cookie Allowance Expand', desc: 'Mutate cookies options user_tier tags to whale classifications to bypass restrictions.' },
+                { l: 2, name: 'Verification State Inject', desc: 'LocalStorage locks KYC options. Add kyc_approved status variables to trade.' },
+                { l: 3, name: 'Endless Session Wrap', desc: 'Set sessionStorage timestamp boundaries decades into the future.' },
+                { l: 4, name: 'Base64 Claim Deconstruct', desc: 'Base64-decode parameters inside local storage to set withdrawal indicators.' },
+                { l: 5, name: 'Namespace Sabotage', desc: 'Delete initialization variables tags from web storage to trigger fallback views.' }
+            ],
+            9: [
+                { l: 1, name: 'Grid Row Deselection', desc: 'Remove CSS display:none structures to show hidden panels.' },
+                { l: 2, name: 'DOM Node Fabrication', desc: 'Manually construct elements triggers to execute internal backend callbacks.' },
+                { l: 3, name: 'Target Endpoint Diverge', desc: 'Change metric source path data properties to point to internal configurations.' },
+                { l: 4, name: 'Comment Mapping Extract', desc: 'Audit HTML markup comment lines to find unmapped routing properties.' },
+                { l: 5, name: 'Notification Silencing', desc: 'Unbind event listeners preventing violation detection logs from triggering.' }
+            ],
+            10: [
+                { l: 1, name: 'The $0 Customs Valuation', desc: 'Modify weight parameters values directly to bypass billing rules.' },
+                { l: 2, name: 'Event Interceptor Removal', desc: 'Strip event preventDefault bindings on forms to bypass checks validations.' },
+                { l: 3, name: 'Route ID Crawling', desc: 'Alter numerical path parameters to view parallel shipment details.' },
+                { l: 4, name: 'Asset Pipeline Hijack', desc: 'Mutate onerror tags properties to execute custom inline callbacks.' },
+                { l: 5, name: 'Source Map Harvesting', desc: 'Audit production source maps configurations inside devtools to find credentials.' }
+            ]
+        };
+
+        const RANKS = [
+            { min: 0, name: "Recruit", icon: "🪖" },
+            { min: 5, name: "Scripter", icon: "📜" },
+            { min: 15, name: "Explorer", icon: "🔍" },
+            { min: 30, name: "Hacker", icon: "💻" },
+            { min: 45, name: "Elite", icon: "⭐" }
+        ];
+
+        // ── STATE ────────────────────────────────────────────────────────────────
+        let activeMode = new URLSearchParams(location.search).get('mode') || 'attack';
+        if (activeMode !== 'attack' && activeMode !== 'defend') activeMode = 'attack';
+
+        let activeWorld = parseInt(new URLSearchParams(location.search).get('world')) || 0;
+        if (activeWorld < 0 || activeWorld > 10) activeWorld = 0;
+
+        let settings = JSON.parse(localStorage.getItem('bytelab_settings') || '{"unlock":false}');
+
+        // ── STORAGE ──────────────────────────────────────────────────────────────
+        function getSolved(world) {
+            const a = JSON.parse(localStorage.getItem(`bl_solved_attack_${world}`) || '[]');
+            const d = JSON.parse(localStorage.getItem(`bl_solved_defend_${world}`) || '[]');
+            const legacy = JSON.parse(localStorage.getItem(`bl_w${world}`) || '[]');
+
+            if (activeMode === 'attack') {
+                return Array.from(new Set([...a, ...legacy]));
+            } else {
+                return Array.from(new Set([...d]));
+            }
+        }
+
+        // ── STREAMING_CHUNK:Calculating operational user data...
+        function totalSolvedInMode(mode) {
+            let total = 0;
+            for (let w = 0; w <= 10; w++) {
+                const solved = getSolved(w);
+                total += solved.length;
+            }
+            return total;
+        }
+
+        function getNextLevel(worldId, solved) {
+            for (let l = 1; l <= 5; l++) {
+                if (!solved.includes(l)) return l;
+            }
+            return -1;
+        }
+
+        // ── MAP DRAG PAN LOGIC ───────────────────────────────────────────────────
+        const viewport = document.getElementById('mapViewport');
+        let isDragging = false;
+        let startX, startY, scrollLeft, scrollTop;
+
+        viewport.addEventListener('mousedown', (e) => {
+            if (e.target.closest('.world-node') || e.target.closest('button')) return;
+            isDragging = true;
+            viewport.classList.add('grabbing');
+            startX = e.pageX - viewport.offsetLeft;
+            startY = e.pageY - viewport.offsetTop;
+            scrollLeft = viewport.scrollLeft;
+            scrollTop = viewport.scrollTop;
+        });
+
+        viewport.addEventListener('mouseleave', () => { isDragging = false; });
+        viewport.addEventListener('mouseup', () => { isDragging = false; });
+
+        viewport.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            e.preventDefault();
+            const x = e.pageX - viewport.offsetLeft;
+            const y = e.pageY - viewport.offsetTop;
+            const walkX = (x - startX) * 1.5;
+            const walkY = (y - startY) * 1.5;
+            viewport.scrollLeft = scrollLeft - walkX;
+            viewport.scrollTop = scrollTop - walkY;
+        });
+
+        // ── NAVIGATION & RENDERING ───────────────────────────────────────────────
+        function setMode(mode) {
+            activeMode = mode;
+            
+            const btnAttack = document.getElementById('mode-attack-btn');
+            const btnDefend = document.getElementById('mode-defend-btn');
+
+            const themeColor = mode === 'attack' ? 'var(--red-team)' : 'var(--blue-team)';
+            document.documentElement.style.setProperty('--theme-color', themeColor);
+
+            if (mode === 'attack') {
+                btnAttack.className = 'path-btn active attack';
+                btnDefend.className = 'path-btn';
+            } else {
+                btnAttack.className = 'path-btn';
+                btnDefend.className = 'path-btn active defend';
+            }
+
+            renderMap();
+            updateProfileInfo();
+            
+            if (document.getElementById('detailsDrawer').classList.contains('open')) {
+                openWorldDrawer(activeWorld);
+            }
+        }
+
+        // ── STREAMING_CHUNK:Updating dynamic cadet identities...
+        function updateProfileInfo() {
+            const alias = localStorage.getItem('bytelearn_alias') || 'Hacker';
+            document.getElementById('profileName').innerText = alias;
+
+            const total = totalSolvedInMode(activeMode);
+            let rank = RANKS[0];
+            for (const r of RANKS) {
+                if (total >= r.min) rank = r;
+            }
+            document.getElementById('profileRank').innerText = `${rank.icon} ${rank.name}`;
+        }
+
+        // ── STREAMING_CHUNK:Drawing dynamic connectors SVG map...
+        function renderMap() {
+            const container = document.getElementById('mapContent');
+            
+            // Wipe existing nodes
+            document.querySelectorAll('.world-node').forEach(node => node.remove());
+
+            // Compile SVG paths sequential lines
+            const svg = document.getElementById('svgCanvas');
+            svg.innerHTML = '';
+            
+            for (let i = 0; i < WORLDS.length - 1; i++) {
+                const w1 = WORLDS[i];
+                const w2 = WORLDS[i + 1];
+                
+                const solvedPrev = getSolved(w1.id);
+                const isPathActive = solvedPrev.length >= 5 || settings.unlock;
+
+                const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                
+                const dx = w2.x - w1.x;
+                const dy = w2.y - w1.y;
+                const cx1 = w1.x + dx * 0.5;
+                const cy1 = w1.y;
+                const cx2 = w1.x + dx * 0.5;
+                const cy2 = w2.y;
+
+                path.setAttribute('d', `M ${w1.x + 32} ${w1.y + 32} C ${cx1 + 32} ${cy1 + 32}, ${cx2 + 32} ${cy2 + 32}, ${w2.x + 32} ${w2.y + 32}`);
+                path.setAttribute('class', `connection-path ${isPathActive ? 'active' : ''}`);
+                
+                svg.appendChild(path);
+            }
+
+            // ── STREAMING_CHUNK:Placing map nodes dynamically...
+            WORLDS.forEach((w, index) => {
+                const solved = getSolved(w.id);
+                const doneCount = solved.length;
+
+                // Sequential locked status checks
+                let isLocked = false;
+                if (index > 0 && !settings.unlock) {
+                    const prevWorldSolved = getSolved(WORLDS[index - 1].id);
+                    if (prevWorldSolved.length < 5) {
+                        isLocked = true;
+                    }
+                }
+
+                const node = document.createElement('div');
+                node.className = `world-node ${isLocked ? 'locked' : ''} ${w.id === activeWorld ? 'active-selection' : ''}`;
+                node.style.left = `${w.x}px`;
+                node.style.top = `${w.y}px`;
+                
+                if (w.id === activeWorld) {
+                    node.style.borderColor = activeMode === 'attack' ? 'var(--red-team)' : 'var(--blue-team)';
+                }
+
+                node.innerHTML = `
+                    <span>${w.icon}</span>
+                    <div class="node-label">
+                        <div class="text-[8px] uppercase tracking-wider text-slate-400 font-bold leading-none">World ${String(w.id).padStart(2,'0')}</div>
+                        <div class="font-extrabold mt-0.5 text-[10px] leading-tight">${w.name}</div>
+                        <div class="text-[8px] font-bold text-emerald-600 mt-0.5">${doneCount}/5 Solved</div>
+                    </div>
+                `;
+
+                node.onclick = (e) => {
+                    e.stopPropagation();
+                    if (isLocked) {
+                        alert('Complete all challenges in the previous world to unlock this node!');
+                        return;
+                    }
+                    selectNode(w.id);
+                };
+
+                container.appendChild(node);
+            });
+        }
+
+        function selectNode(worldId) {
+            activeWorld = worldId;
+            renderMap();
+            openWorldDrawer(worldId);
+        }
+
+        // ── DRAWER PANEL CONTROLS ────────────────────────────────────────────────
+        function openWorldDrawer(worldId) {
+            const w = WORLDS.find(x => x.id === worldId);
+            const solved = getSolved(worldId);
+            const levels = LEVELS[worldId] || [];
+            const done = solved.length;
+            const pct = (done / 5) * 100;
+            const nextL = getNextLevel(worldId, solved);
+            const freeMode = settings.unlock;
+
+            const drawer = document.getElementById('detailsDrawer');
+            
+            document.getElementById('drawerWorldIcon').innerText = w.icon;
+            document.getElementById('drawerWorldName').innerText = w.name;
+            document.getElementById('drawerWorldDesc').innerText = activeMode === 'attack'
+                ? `${w.desc}. Explore frontend properties, change DOM inputs, and bypass filters.`
+                : `${w.desc}. Seal DOM properties leaks, declare strong validations, and set secure frameworks.`;
+
+            document.getElementById('drawerProgressText').innerText = `${done}/5 Labs Solved`;
+            document.getElementById('drawerProgressBar').style.width = `${pct}%`;
+            document.getElementById('drawerProgressBar').style.backgroundColor = activeMode === 'attack' ? 'var(--red-team)' : 'var(--blue-team)';
+
+            const list = document.getElementById('drawerLevelsList');
+            
+            // Build challenges within details drawer sequentially
+            list.innerHTML = levels.map(({ l, name, desc }) => {
+                const isSolved = solved.includes(l);
+                const isLocked = !freeMode && !isSolved && l !== nextL && (nextL === -1 || l > nextL);
+                
+                const href = `levels/${worldId}/${l}/index.html?mode=${activeMode}`;
+
+                let statusBadge = '';
+                if (isSolved) {
+                    statusBadge = `<span class="text-xs font-bold text-emerald-600">✓ Done</span>`;
+                } else if (isLocked) {
+                    statusBadge = `<span class="text-xs text-slate-400 font-bold">🔒 Locked</span>`;
+                } else {
+                    statusBadge = `<span class="text-xs font-bold" style="color: var(--theme-color)">Launch &rarr;</span>`;
+                }
+
+                return `
+                    <a href="${isLocked ? '#' : href}" class="lvl-row-btn ${isSolved ? 'solved' : ''} ${isLocked ? 'locked' : ''}">
+                        <div class="flex-1 pr-4">
+                            <div class="text-[8px] font-extrabold uppercase tracking-widest text-slate-400">Lab ${String(l).padStart(2,'0')}</div>
+                            <div class="font-display font-extrabold text-xs text-slate-800 mt-0.5">${name}</div>
+                            <div class="text-[10px] text-slate-400 mt-1 leading-normal">${desc}</div>
+                        </div>
+                        <div class="flex-shrink-0">
+                            ${statusBadge}
+                        </div>
+                    </a>
+                `;
+            }).join('');
+
+            drawer.classList.add('open');
+        }
+
+        function closeDrawer() {
+            document.getElementById('detailsDrawer').classList.remove('open');
+            renderMap();
+        }
+
+        // ── SETTINGS MODAL ────────────────────────────────────────────────────────
+        function openSettings() {
+            const el = document.getElementById('settingsModal');
+            el.style.display = 'flex';
+            requestAnimationFrame(() => el.classList.add('active'));
+            syncToggles();
+        }
+        
+        function closeSettings() {
+            const el = document.getElementById('settingsModal');
+            el.classList.remove('active');
+            setTimeout(() => el.style.display = 'none', 300);
+        }
+
+        function syncToggles() {
+            document.getElementById('toggleUnlock').classList.toggle('on', settings.unlock);
+        }
+
+        function toggleSetting(key) {
+            settings[key] = !settings[key];
+            localStorage.setItem('bytelab_settings', JSON.stringify(settings));
+            syncToggles();
+            renderMap();
+            if (document.getElementById('detailsDrawer').classList.contains('open')) {
+                openWorldDrawer(activeWorld);
+            }
+        }
+
+        function resetProgress() {
+            if (!confirm('Are you sure you want to reset ALL progress? This cannot be undone.')) return;
+            for (let w = 0; w <= 10; w++) {
+                localStorage.removeItem(`bl_w${w}`);
+                localStorage.removeItem(`bl_solved_attack_${w}`);
+                localStorage.removeItem(`bl_solved_defend_${w}`);
+            }
+            localStorage.removeItem('bytelearn_attack_0');
+            localStorage.removeItem('bytelearn_alias');
+            closeSettings();
+            setMode(activeMode);
+        }
+
+        // Close settings modal on overlay click
+        document.getElementById('settingsModal').onclick = e => {
+            if (e.target === e.currentTarget) closeSettings();
+        };
+
+        // ── INITIALIZATION ───────────────────────────────────────────────────────
+        const worldParam = new URLSearchParams(location.search).get('world');
+        if (worldParam !== null) {
+            activeWorld = parseInt(worldParam);
+        }
+
+        setMode(activeMode);
+        
+        // Dynamic centering of viewport map on launch
+        setTimeout(() => {
+            const node = WORLDS.find(w => w.id === activeWorld);
+            if (node) {
+                viewport.scrollLeft = node.x - viewport.clientWidth / 2 + 32;
+                viewport.scrollTop = node.y - viewport.clientHeight / 2 + 32;
+            }
+        }, 300);
+    </script>
 </body>
 </html>

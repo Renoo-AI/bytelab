@@ -154,8 +154,8 @@ window.BYTE_TRANSLATIONS = {
         },
         w4l4: {
           title: "تزييف ترويسة المضيف (Host)",
-          story: "يتحقق النظام من المضيف المسموح به عبر متغير عام. افتح الكونسول وغير window.originHeader إلى 'workspacex.com'.",
-          hint: "اكتب: window.originHeader = 'workspacex.com'; في الكونسول ثم اضغط على زر التحقق من المضيف."
+          story: "يتحقق النظام من المضيف المسموح به عبر متغير عام. افتح الكونسول وغير window.originHeader إلى 'Slack.com'.",
+          hint: "اكتب: window.originHeader = 'Slack.com'; في الكونسول ثم اضغط على زر التحقق من المضيف."
         },
         w4l5: {
           title: "تجاوز تخزين الـ SSO LocalStorage",
@@ -406,8 +406,8 @@ window.BYTE_TRANSLATIONS = {
         },
         w4l4: {
           title: "التحقق من مضيفي المصادر الخارجية (CORS)",
-          story: "تأكد من أن مضيف الطلب الوارد يطابق تماماً النطاق المعتمد للشركة 'http://workspacex.com' دون أي تعديل.",
-          hint: "اكتب: return !request.headers || !request.headers.origin || request.headers.origin === 'http://workspacex.com';"
+          story: "تأكد من أن مضيف الطلب الوارد يطابق تماماً النطاق المعتمد للشركة 'http://Slack.com' دون أي تعديل.",
+          hint: "اكتب: return !request.headers || !request.headers.origin || request.headers.origin === 'http://Slack.com';"
         },
         w4l5: {
           title: "حظر تشفير الخوارزميات الضعيفة (JWT none)",
@@ -615,11 +615,11 @@ window.BYTE_TRANSLATIONS = {
     viewWaf: "WAF Guard",
     
     worlds: {
-      1: "PayBal Financial",
-      2: "Netflox Streaming",
-      3: "CloudStore Shop",
-      4: "WorkspaceX SSO",
-      5: "AirBook Travel",
+      1: "PayPal Financial",
+      2: "NNetflix Streaming",
+      3: "Amazon Shop",
+      4: "Slack SSO",
+      5: "Airbnb Travel",
       6: "SecureChat CLI",
       7: "HealthLink Clinic",
       8: "CryptoVault Node",

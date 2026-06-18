@@ -7,8 +7,8 @@
     --border: #e2e8f0;
     --success: #10b981;
     --danger: #ef4444;
-    --font-main: 'Be Vietnam Pro', sans-serif;
-    --font-display: 'Plus Jakarta Sans', sans-serif;
+    --font-main: 'Be Vietnam Pro', 'Cairo', sans-serif;
+    --font-display: 'Plus Jakarta Sans', 'Cairo', sans-serif;
 }
 
 body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:var(--font-main);overflow:hidden;height:100vh;display:flex;flex-direction:column}

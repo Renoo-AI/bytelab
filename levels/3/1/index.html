@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ByteLearn | CloudStore 3.1</title>
-<link rel="icon" type="image/png" href="https://dropshare.42web.io/1/files/UIi3dXms4F.png">
+<link rel="icon" type="image/png" href="assets/logo.png">
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;600;800&family=Be+Vietnam+Pro:wght@400;500;700&display=swap" rel="stylesheet">
@@ -49,7 +49,7 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font-main
 <div id="transition-screen"></div>
 <div id="story-overlay">
   <div class="text-center max-w-md p-5">
-    <img src="https://dropshare.42web.io/1/files/zVYAUZDpex.png" class="w-24 mx-auto mb-8" alt="Byte">
+    <img src="assets/byte-hello.png" class="w-24 mx-auto mb-8" alt="Byte">
     <h1 class="text-3xl font-extrabold mb-4 tracking-tight">Quantity Minus</h1>
     <p class="text-lg text-slate-500 mb-10 font-medium leading-relaxed">The store says you can't order less than 1. That rule lives in a single HTML attribute.</p>
     <button onclick="startLevel()" class="bg-[#4546d7] text-white px-10 py-4 rounded-full text-lg font-bold hover:scale-105 transition-all">Go to Cart</button>
@@ -57,7 +57,7 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font-main
 </div>
 <header id="header-nav" class="opacity-0">
   <div class="logo-group">
-    <img src="https://dropshare.42web.io/1/files/UIi3dXms4F.png" class="app-logo" alt="ByteLearn">
+    <img src="assets/logo.png" class="app-logo" alt="ByteLearn">
     <span class="font-extrabold text-2xl tracking-tighter">CloudStore</span>
   </div>
   <div class="progress-box">
@@ -69,7 +69,7 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font-main
 <main id="game-stage" class="w-full flex flex-col items-center justify-center">
   <div id="assistant" class="assistant-container">
     <div id="bubble-node" class="bubble hidden-msg"><p class="bubble-text" id="talk-text"></p></div>
-    <img id="mascot" src="https://dropshare.42web.io/1/files/n3cWyiNBjO.png" class="mascot-img" alt="Byte">
+    <img id="mascot" src="assets/byte-hacker.png" class="mascot-img" alt="Byte">
   </div>
   <div id="card" class="card"><div class="world-brand"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17,18C15.89,18 15,18.89 15,20A2,2 0 0,0 17,22A2,2 0 0,0 19,20C19,18.89 18.1,18 17,18M1,2V4H3L6.6,11.59L5.24,14C5.09,14.32 5,14.65 5,15A2,2 0 0,0 7,17H19V15H7.42A0.25,0.25 0 0,1 7.17,14.75C7.17,14.7 7.18,14.66 7.2,14.63L8.1,13H15.55C16.3,13 16.96,12.58 17.3,11.97L20.88,5.5C20.95,5.34 21,5.17 21,5A1,1 0 0,0 20,4H5.21L4.27,2M7,18C5.89,18 5,18.89 5,20A2,2 0 0,0 7,22A2,2 0 0,0 9,20C9,18.89 8.1,18 7,18Z"/></svg> CloudStore</div>
 <p class="card-title">Shopping Cart</p>
@@ -83,7 +83,7 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font-main
 </main>
 <script>
 
-const BYTE_PC = 'https://dropshare.42web.io/1/files/OStYxaWILh.png';
+const BYTE_PC = 'assets/byte-pc.png';
 let talkTimeout, hintTimeout, hasWon = false;
 const cardEl = document.getElementById('card');
 const assistant = document.getElementById('assistant');

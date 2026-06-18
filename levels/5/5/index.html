@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ByteLearn | Uper 5.5</title>
-<link rel="icon" type="image/png" href="https://dropshare.42web.io/1/files/UIi3dXms4F.png">
+<link rel="icon" type="image/png" href="assets/logo.png">
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;600;800&family=Be+Vietnam+Pro:wght@400;500;700&display=swap" rel="stylesheet">
@@ -49,7 +49,7 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font-main
 <div id="transition-screen"></div>
 <div id="story-overlay">
   <div class="text-center max-w-md p-5">
-    <img src="https://dropshare.42web.io/1/files/zVYAUZDpex.png" class="w-24 mx-auto mb-8" alt="Byte">
+    <img src="assets/byte-hello.png" class="w-24 mx-auto mb-8" alt="Byte">
     <h1 class="text-3xl font-extrabold mb-4 tracking-tight">Status Unlock</h1>
     <p class="text-lg text-slate-500 mb-10 font-medium leading-relaxed">The Premium Driver section exists. It's visible. But a CSS class is blocking all interaction with it.</p>
     <button onclick="startLevel()" class="bg-[#4546d7] text-white px-10 py-4 rounded-full text-lg font-bold hover:scale-105 transition-all">Open Dashboard</button>
@@ -57,7 +57,7 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font-main
 </div>
 <header id="header-nav" class="opacity-0">
   <div class="logo-group">
-    <img src="https://dropshare.42web.io/1/files/UIi3dXms4F.png" class="app-logo" alt="ByteLearn">
+    <img src="assets/logo.png" class="app-logo" alt="ByteLearn">
     <span class="font-extrabold text-2xl tracking-tighter">Uper</span>
   </div>
   <div class="progress-box">
@@ -69,7 +69,7 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font-main
 <main id="game-stage" class="w-full flex flex-col items-center justify-center">
   <div id="assistant" class="assistant-container">
     <div id="bubble-node" class="bubble hidden-msg"><p class="bubble-text" id="talk-text"></p></div>
-    <img id="mascot" src="https://dropshare.42web.io/1/files/n3cWyiNBjO.png" class="mascot-img" alt="Byte">
+    <img id="mascot" src="assets/byte-hacker.png" class="mascot-img" alt="Byte">
   </div>
   <div id="card" class="card"><div class="world-brand"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18.92,6.01C18.72,5.42 18.16,5 17.5,5H15V3H9V5H6.5C5.84,5 5.29,5.42 5.08,6.01L3,12V20A1,1 0 0,0 4,21H5A1,1 0 0,0 6,20V19H18V20A1,1 0 0,0 19,21H20A1,1 0 0,0 21,20V12L18.92,6.01M6.5,16A1.5,1.5 0 0,1 5,14.5A1.5,1.5 0 0,1 6.5,13A1.5,1.5 0 0,1 8,14.5A1.5,1.5 0 0,1 6.5,16M17.5,16A1.5,1.5 0 0,1 16,14.5A1.5,1.5 0 0,1 17.5,13A1.5,1.5 0 0,1 19,14.5A1.5,1.5 0 0,1 17.5,16M5,11L6.5,6.5H17.5L19,11H5Z"/></svg> Uper</div>
 <p class="card-title">Driver Dashboard</p>
@@ -89,7 +89,7 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font-main
 </main>
 <script>
 
-const BYTE_PC = 'https://dropshare.42web.io/1/files/OStYxaWILh.png';
+const BYTE_PC = 'assets/byte-pc.png';
 let talkTimeout, hintTimeout, hasWon = false;
 const cardEl = document.getElementById('card');
 const assistant = document.getElementById('assistant');

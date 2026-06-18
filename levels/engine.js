@@ -1,10 +1,10 @@
 /* Bytelab Engine v2 — TryHackMe Style */
 (function() {
     const ASSETS = {
-        logo:'assets/logo.png', byteHello:'assets/byte-hello.png', byteDetective:'assets/byte-detective.png',
-        bytePc:'assets/byte-pc.png', byteHappy:'assets/byte-happy.png', byteHang:'assets/byte-hang.png',
-        byteRich:'assets/byte-rich.png', byteHacker:'assets/byte-hacker.png', byteNinja:'assets/byte-ninja.png',
-        byteBook:'assets/byte-book.png', byteLightning:'assets/byte-lightning.png'
+        logo:'../../../assets/logo.png', byteHello:'../../../assets/byte-hello.png', byteDetective:'../../../assets/byte-detective.png',
+        bytePc:'../../../assets/byte-pc.png', byteHappy:'../../../assets/byte-happy.png', byteHang:'../../../assets/byte-hang.png',
+        byteRich:'../../../assets/byte-rich.png', byteHacker:'../../../assets/byte-hello.png', byteNinja:'../../../assets/byte-ninja.png',
+        byteBook:'../../../assets/byte-book.png', byteLightning:'../../../assets/byte-lightning.png'
     };
 
     const ICONS = {
@@ -220,6 +220,27 @@
     };
 
     window.initLevel = function({world,level}) {
+
+    const settings = JSON.parse(localStorage.getItem('bytelab_settings') || '{"unlock":false,"hardcore":false}');
+    if (level > 1 && !settings.unlock) {
+        // Quick validation to see if they solved previous levels
+        // Determine mode from url or default to attack
+        const p = new URLSearchParams(window.location.search);
+        const m = p.get('mode') || 'attack';
+        const solved = JSON.parse(localStorage.getItem(`bl_solved_${m}_${world}`) || localStorage.getItem(`bytelearn_${m}_${world}`) || '[]');
+
+        if (!solved.includes(level - 1)) {
+            document.body.innerHTML = `
+                <div style="height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#0f172a;color:white;font-family:sans-serif;">
+                    <h1 style="font-size:3rem;margin-bottom:1rem;color:#e11d48;">403 Access Denied</h1>
+                    <p style="color:#94a3b8;margin-bottom:2rem;">You haven't unlocked this level yet. Complete the previous challenges or upgrade your clearance.</p>
+                    <button onclick="window.location.href='../../../game.html'" style="background:#4546d7;color:white;padding:12px 24px;border-radius:8px;border:none;cursor:pointer;font-weight:bold;">Return to Hub</button>
+                </div>
+            `;
+            return;
+        }
+    }
+
         state.world=world; state.level=level;
         const p=new URLSearchParams(window.location.search);
         state.mode=p.get('mode')||'attack'; state.lang=p.get('lang')||'en';
@@ -259,7 +280,7 @@
         setTimeout(()=>{const t=document.getElementById('transition-screen');if(t)t.style.opacity='0'},300);
     }
 
-    window.quitToPortal=function(){window.location.href='../../game.html'};
+    window.quitToPortal=function(){window.location.href=\'../../../game.html\'};
 
     function speak(text,duration=5000){
         const b=document.getElementById('mascot-bubble-text');

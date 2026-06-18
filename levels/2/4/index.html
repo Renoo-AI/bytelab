@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ByteLearn | Netflox 2.4</title>
+<title>ByteLearn | Netflix 2.4</title>
 <link rel="icon" type="image/png" href="https://dropshare.42web.io/1/files/UIi3dXms4F.png">
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -58,7 +58,7 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font-main
 <header id="header-nav" class="opacity-0">
   <div class="logo-group">
     <img src="https://dropshare.42web.io/1/files/UIi3dXms4F.png" class="app-logo" alt="ByteLearn">
-    <span class="font-extrabold text-2xl tracking-tighter">Netflox</span>
+    <span class="font-extrabold text-2xl tracking-tighter">Netflix</span>
   </div>
   <div class="progress-box">
     <div class="progress-rail"><div id="progress-fill-bar" class="progress-fill" style="width:60%"></div></div>
@@ -71,7 +71,7 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font-main
     <div id="bubble-node" class="bubble hidden-msg"><p class="bubble-text" id="talk-text"></p></div>
     <img id="mascot" src="https://dropshare.42web.io/1/files/n3cWyiNBjO.png" class="mascot-img" alt="Byte">
   </div>
-  <div id="card" class="card"><div class="world-brand"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18,13.41L16,15.41V13.41H14V16.59L16,14.59V16.59H18M12,3H4V21H12V3M18,9H14V11H18V9M20,7H12V21H20V7M18,15V17H14V15H18Z"/></svg> Netflox</div>
+  <div id="card" class="card"><div class="world-brand"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18,13.41L16,15.41V13.41H14V16.59L16,14.59V16.59H18M12,3H4V21H12V3M18,9H14V11H18V9M20,7H12V21H20V7M18,15V17H14V15H18Z"/></svg> Netflix</div>
 <p class="card-title">Trial Status</p>
 <div id="timer-display" style="font-family:var(--font-display);font-size:3rem;font-weight:800;color:#ef4444;letter-spacing:-2px;margin-bottom:8px;">0:00</div>
 <p class="card-sub">Your free trial has ended. Or has it?</p>
@@ -133,7 +133,7 @@ function handleWin() {
     }, 800);
   }, 1000);
 }
-function quit() { transition.style.opacity = '1'; setTimeout(function(){ window.location.href = '../../game.html'; }, 600); }
+function quit() { transition.style.opacity = '1'; setTimeout(function(){ window.location.href = '../../../game.html'; }, 600); }
 
 window.trialSecondsRemaining = 0;
 function setupDetection() {

@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ByteLearn | Profile</title>
-    <link rel="icon" type="image/png" href="assets/logo.png">
+    <link rel="icon" type="image/png" href="../assets/logo.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;600;800&family=Be+Vietnam+Pro:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;600;800&family=Be+Vietnam+Pro:wght@400;500;700&family=Cairo:wght@400;700;800&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
     <style>*{margin:0;padding:0;box-sizing:border-box}
         :root{--bg:#f5f6fb;--text:#1d1d1f;--primary:#4546d7;--secondary:#86868b;--border:#e2e8f0;--font-main:'Be Vietnam Pro',sans-serif;--font-display:'Plus Jakarta Sans',sans-serif}
         body{background:var(--bg);color:var(--text);font-family:var(--font-main);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 20px}
@@ -63,14 +63,14 @@
 <div class="card">
     <div class="top-bar">
         <div class="logo-row">
-            <img src="assets/logo.png" alt="ByteLearn">
+            <img src="../assets/logo.png" alt="ByteLearn">
             <span>ByteLearn</span>
         </div>
-        <a href="game.html" class="back-btn">&larr; Back</a>
+        <a href="../game.html" class="back-btn">&larr; Back</a>
     </div>
 
     <div class="profile-header">
-        <img src="assets/byte-hello.png" class="avatar" id="avatarImg" alt="Avatar">
+        <img src="../assets/byte-hello.png" class="avatar" id="avatarImg" alt="Avatar">
         <h1>Hacker Profile</h1>
         <div class="alias">
             <input class="alias-input" id="aliasInput" placeholder="Enter alias..." maxlength="20">
@@ -92,7 +92,7 @@
     <div class="achievements" id="achievements"></div>
 
     <div class="btn-group">
-        <a href="game.html" class="btn">Back to Hub</a>
+        <a href="../game.html" class="btn">Back to Hub</a>
         <button class="btn ghost" onclick="resetAll()">Reset</button>
     </div>
 </div>
@@ -162,7 +162,7 @@
 
         const breakdown = document.getElementById('worldBreakdown');
         breakdown.innerHTML = '';
-        const worldNames = ["Discovery","PayBal","Netflox","CloudStore","WorkspaceX","AirBook"];
+        const worldNames = ["Discovery","PayPal","Netflix","Amazon","Slack","Airbnb"];
         for (let w = 0; w <= 5; w++) {
             const a = s.attackWorlds[w];
             const d = s.defendWorlds[w];

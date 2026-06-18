@@ -12,7 +12,7 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&family=Be+Vietnam+Pro:wght@400;500;600;700&family=Cairo:wght@400;700;800&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
     
     <style>
         :root {
@@ -249,7 +249,7 @@
 
     <!-- TOP NAVBAR -->
     <nav class="h-[72px] px-6 md:px-12 flex items-center justify-between border-b border-slate-200 bg-white">
-        <div class="flex items-center gap-3" onclick="window.location.href='index.html'" style="cursor:pointer">
+        <div class="flex items-center gap-3" onclick="window.location.href='profile/index.html'" style="cursor:pointer">
             <img src="assets/logo.png" alt="ByteLab Logo" class="w-8 h-8 object-contain">
             <span class="font-display font-extrabold text-xl tracking-tight text-slate-800">ByteLab</span>
         </div>
@@ -263,7 +263,7 @@
         <!-- ── STREAMING_CHUNK:Building operator card controls... -->
         <!-- Profile/Cadet Status info -->
         <div class="flex items-center gap-4">
-            <div class="flex items-center gap-2.5 bg-slate-50 border border-slate-200 rounded-full py-1.5 pl-2 pr-4 cursor-pointer transition-all hover:bg-slate-100" onclick="window.location.href='index.html'">
+            <div class="flex items-center gap-2.5 bg-slate-50 border border-slate-200 rounded-full py-1.5 pl-2 pr-4 cursor-pointer transition-all hover:bg-slate-100" onclick="window.location.href='profile/index.html'">
                 <img src="assets/byte-hello.png" class="w-8 h-8 object-contain rounded-full bg-white border border-slate-200 p-0.5" alt="Avatar">
                 <div class="text-left">
                     <div class="font-display font-extrabold text-[11px] text-slate-800 leading-none" id="profileName">Hacker</div>
@@ -364,11 +364,11 @@
     <script>
         const WORLDS = [
             { id: 0, name: 'Discovery', desc: 'Tutorial & basics introduction', icon: '🎓', x: 60, y: 120 },
-            { id: 1, name: 'PayBal', desc: 'Banking & payments logic parameters', icon: '🏦', x: 190, y: 220 },
-            { id: 2, name: 'Netflox', desc: 'Streaming authorization checks & paywalls', icon: '🎬', x: 310, y: 450 },
-            { id: 3, name: 'CloudStore', desc: 'E-commerce validation parameters & quantities', icon: '🛒', x: 470, y: 280 },
-            { id: 4, name: 'SpaceY', desc: 'Private mission SSO targets and auth keys', icon: '🚀', x: 630, y: 550 },
-            { id: 5, name: 'Uper', desc: 'Rideshare billing structures & calculations', icon: '🚗', x: 790, y: 340 },
+            { id: 1, name: 'PayPal', desc: 'Banking & payments logic parameters', icon: '🏦', x: 190, y: 220 },
+            { id: 2, name: 'Netflix', desc: 'Streaming authorization checks & paywalls', icon: '🎬', x: 310, y: 450 },
+            { id: 3, name: 'Amazon', desc: 'E-commerce validation parameters & quantities', icon: '🛒', x: 470, y: 280 },
+            { id: 4, name: 'SpaceX', desc: 'Private mission SSO targets and auth keys', icon: '🚀', x: 630, y: 550 },
+            { id: 5, name: 'Uber', desc: 'Rideshare billing structures & calculations', icon: '🚗', x: 790, y: 340 },
             { id: 6, name: 'ApexAI', desc: 'LLM injection & sandbox context overrides', icon: '🤖', x: 970, y: 580 },
             { id: 7, name: 'CareSync', desc: 'Telehealth patient record leaks', icon: '🏥', x: 1150, y: 360 },
             { id: 8, name: 'TokenVault', desc: 'Web3 storage manipulation & cookies', icon: '💎', x: 1310, y: 620 },
@@ -414,7 +414,7 @@
                 { l: 5, name: 'LocalStorage Auth Bypass', desc: 'LocalStorage records active auth sessions. Inject authorized flags directly.' }
             ],
             5: [
-                { l: 1, name: 'Reverse Date Chronology', desc: 'AirBook dates logic checks booking durations. Reverse arrival/departures to get negative days.' },
+                { l: 1, name: 'Reverse Date Chronology', desc: 'Airbnb dates logic checks booking durations. Reverse arrival/departures to get negative days.' },
                 { l: 2, name: 'NaN Weight Injection', desc: 'Form validates payload weight as numbers. Inject NaN strings to skip ceilings checks.' },
                 { l: 3, name: 'Seat Tier Desync', desc: 'Premium seats check membership variables. Mutate ticket ranks attributes to unlock seating.' },
                 { l: 4, name: 'Open Redirect', desc: 'Alter navigation anchors destinative parameters to redirect users outwards.' },
@@ -685,7 +685,7 @@
                 const isSolved = solved.includes(l);
                 const isLocked = !freeMode && !isSolved && l !== nextL && (nextL === -1 || l > nextL);
                 
-                const href = `${activeMode}/${l}/index.html`;
+                const href = `levels/${worldId}/${l}/index.html?mode=${activeMode}`;
 
                 let statusBadge = '';
                 if (isSolved) {

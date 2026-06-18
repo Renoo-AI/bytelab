@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ByteLearn | PayBal 1.1</title>
+<title>ByteLearn | PayPal 1.1</title>
 <link rel="icon" type="image/png" href="../../../assets/logo.png">
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -68,7 +68,7 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font-main
 <header id="header-nav" class="opacity-0">
   <div class="logo-group">
     <img src="../../../assets/logo.png" class="app-logo" alt="ByteLearn">
-    <span class="font-extrabold text-2xl tracking-tighter">PayBal</span>
+    <span class="font-extrabold text-2xl tracking-tighter">PayPal</span>
   </div>
   <div class="progress-box">
     <div class="progress-rail"><div id="progress-fill-bar" class="progress-fill" style="width:0%"></div></div>
@@ -81,7 +81,7 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font-main
     <div id="bubble-node" class="bubble hidden-msg"><p class="bubble-text" id="talk-text"></p></div>
     <img id="mascot" src="../../../assets/byte-hello.png" class="mascot-img" alt="Byte">
   </div>
-  <div id="card" class="card"><div class="world-brand"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M11.5,1L2,6V8H21V6M2,10V12H3V19H2V21H21V19H20V12H21V10M5,12H8V19H5M10,12H13V19H10M15,12H18V19H15M11.5,3C12.3,3 13,3.7 13,4.5C13,5.3 12.3,6 11.5,6C10.7,6 10,5.3 10,4.5C10,3.7 10.7,3 11.5,3Z"/></svg> PayBal</div>
+  <div id="card" class="card"><div class="world-brand"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M11.5,1L2,6V8H21V6M2,10V12H3V19H2V21H21V19H20V12H21V10M5,12H8V19H5M10,12H13V19H10M15,12H18V19H15M11.5,3C12.3,3 13,3.7 13,4.5C13,5.3 12.3,6 11.5,6C10.7,6 10,5.3 10,4.5C10,3.7 10.7,3 11.5,3Z"/></svg> PayPal</div>
 <p class="card-label">Account Balance</p>
 <div class="masked-dots" id="dots">
   <div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
@@ -170,7 +170,7 @@ function handleWin() {
   }, 1000);
 }
 
-function quit() { transition.style.opacity = '1'; setTimeout(function(){ window.location.href = '../../game.html'; }, 600); }
+function quit() { transition.style.opacity = '1'; setTimeout(function(){ window.location.href = '../../../game.html'; }, 600); }
 
 function setupDetection() {
   var el = document.getElementById('real-balance');

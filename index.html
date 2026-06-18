@@ -1,489 +1,1032 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ByteLab — Learn Hacking by Doing It</title>
-<meta name="description" content="The world's most immersive cybersecurity learning platform. Hack real apps, break real systems, learn real skills.">
-<link rel="icon" type="image/png" href="https://dropshare.42web.io/1/files/UIi3dXms4F.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,600;0,700;0,800;1,300&family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-:root{
-  --bg:#05050f;
-  --surface:#0d0d1a;
-  --surface2:#13131f;
-  --primary:#5b5ef4;
-  --primary-glow:rgba(91,94,244,0.35);
-  --accent:#a78bfa;
-  --text:#f0f0ff;
-  --muted:#6b7280;
-  --border:rgba(255,255,255,0.06);
-  --font:'Plus Jakarta Sans',sans-serif;
-  --font-body:'Be Vietnam Pro',sans-serif;
-}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ByteLab — Learn Hacking by Doing It</title>
+    <meta name="description" content="The world's most immersive cybersecurity learning platform. Hack real apps, break real systems, learn real skills.">
+    <link rel="icon" type="image/png" href="https://dropshare.42web.io/1/files/UIi3dXms4F.png">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,600;0,700;0,800;1,300&family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-html{scroll-behavior:smooth}
-body{
-  background:var(--bg);
-  color:var(--text);
-  font-family:var(--font-body);
-  min-height:100vh;
-  overflow-x:hidden;
-}
+        :root {
+            --bg: #f8fafc;
+            --surface: #ffffff;
+            --surface2: #f1f5f9;
+            --primary: #4546d7;
+            --accent: #6366f1;
+            --text: #0f172a;
+            --muted: #64748b;
+            --border: #e2e8f0;
+            --font: 'Plus Jakarta Sans', sans-serif;
+            --font-body: 'Be Vietnam Pro', sans-serif;
+            --red-tag-bg: rgba(239, 68, 68, 0.08);
+            --red-tag-border: #f87171;
+            --green-tag-bg: rgba(16, 185, 129, 0.08);
+            --green-tag-border: #34d399;
+        }
 
-/* ── GRID NOISE BACKGROUND ─────────────────────────── */
-body::before{
-  content:'';
-  position:fixed;inset:0;
-  background-image:
-    linear-gradient(rgba(91,94,244,0.03) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(91,94,244,0.03) 1px,transparent 1px);
-  background-size:60px 60px;
-  pointer-events:none;z-index:0;
-}
+        html {
+            scroll-behavior: smooth;
+        }
 
-/* ── GLOW ORBS ─────────────────────────────────────── */
-.orb{
-  position:fixed;border-radius:50%;filter:blur(120px);pointer-events:none;z-index:0;
-}
-.orb-1{width:600px;height:600px;background:rgba(91,94,244,0.12);top:-200px;left:-200px}
-.orb-2{width:500px;height:500px;background:rgba(167,139,250,0.08);bottom:-100px;right:-100px}
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--font-body);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
 
-/* ── NAV ───────────────────────────────────────────── */
-nav{
-  position:fixed;top:0;left:0;right:0;z-index:100;
-  display:flex;align-items:center;justify-content:space-between;
-  padding:20px 60px;
-  background:rgba(5,5,15,0.7);
-  backdrop-filter:blur(20px);
-  border-bottom:1px solid var(--border);
-}
-.nav-logo{display:flex;align-items:center;gap:10px}
-.nav-logo img{width:28px;height:28px;object-fit:contain}
-.nav-logo span{font-family:var(--font);font-weight:800;font-size:1.2rem;letter-spacing:-.03em}
-.nav-cta{
-  background:var(--primary);color:white;
-  padding:10px 24px;border-radius:99px;
-  font-family:var(--font);font-weight:700;font-size:.9rem;
-  border:none;cursor:pointer;
-  transition:all .25s;
-  box-shadow:0 0 0 0 var(--primary-glow);
-}
-.nav-cta:hover{transform:translateY(-2px);box-shadow:0 0 30px var(--primary-glow)}
+        /* ── SUBTLE LIGHT GRID BACKGROUND (NO GLOW ORBS) ── */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: radial-gradient(var(--border) 1.5px, transparent 1.5px);
+            background-size: 24px 24px;
+            pointer-events: none;
+            z-index: 0;
+        }
 
-/* ── HERO ──────────────────────────────────────────── */
-.hero{
-  position:relative;z-index:1;
-  min-height:100vh;
-  display:flex;flex-direction:column;
-  align-items:center;justify-content:center;
-  text-align:center;
-  padding:120px 24px 80px;
-}
+        /* ── STREAMING_CHUNK:Structuring navigation... --> */
+        /* ── NAV ───────────────────────────────────────────── */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 60px;
+            background: rgba(248, 250, 252, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            transition: all 0.3s;
+        }
 
-.badge{
-  display:inline-flex;align-items:center;gap:8px;
-  background:rgba(91,94,244,0.12);
-  border:1px solid rgba(91,94,244,0.3);
-  border-radius:99px;
-  padding:6px 16px;
-  font-size:.8rem;font-weight:700;
-  color:var(--accent);
-  margin-bottom:32px;
-  letter-spacing:.05em;text-transform:uppercase;
-}
-.badge-dot{
-  width:7px;height:7px;border-radius:50%;
-  background:var(--accent);
-  animation:pulse 2s infinite;
-}
-@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(0.8)}}
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
 
-.hero h1{
-  font-family:var(--font);
-  font-size:clamp(2.8rem,7vw,6rem);
-  font-weight:800;
-  line-height:1.05;
-  letter-spacing:-.04em;
-  margin-bottom:24px;
-  max-width:900px;
-}
-.hero h1 em{
-  font-style:normal;
-  background:linear-gradient(135deg,#818cf8,#a78bfa,#c4b5fd);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-}
+        .nav-logo img {
+            width: 28px;
+            height: 28px;
+            object-fit: contain;
+        }
 
-.hero-sub{
-  font-size:clamp(1rem,2vw,1.2rem);
-  color:var(--muted);
-  max-width:540px;
-  line-height:1.7;
-  margin-bottom:48px;
-  font-weight:500;
-}
+        .nav-logo span {
+            font-family: var(--font);
+            font-weight: 800;
+            font-size: 1.2rem;
+            letter-spacing: -.03em;
+        }
 
-.hero-actions{display:flex;gap:14px;align-items:center;flex-wrap:wrap;justify-content:center;margin-bottom:72px}
+        .nav-cta {
+            background: var(--primary);
+            color: white;
+            padding: 10px 24px;
+            border-radius: 99px;
+            font-family: var(--font);
+            font-weight: 700;
+            font-size: .9rem;
+            border: none;
+            cursor: pointer;
+            transition: all .25s;
+        }
 
-.btn-primary{
-  background:var(--primary);color:white;
-  padding:18px 36px;border-radius:99px;
-  font-family:var(--font);font-weight:800;font-size:1.05rem;
-  border:none;cursor:pointer;
-  transition:all .3s cubic-bezier(0.34,1.56,0.64,1);
-  box-shadow:0 0 0 0 var(--primary-glow);
-  text-decoration:none;display:inline-block;
-}
-.btn-primary:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 20px 60px var(--primary-glow)}
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            background: #3738b8;
+        }
 
-.btn-ghost{
-  padding:18px 36px;border-radius:99px;
-  font-family:var(--font);font-weight:700;font-size:1.05rem;
-  border:1px solid var(--border);
-  background:transparent;color:var(--muted);
-  cursor:pointer;transition:all .25s;
-  text-decoration:none;display:inline-block;
-}
-.btn-ghost:hover{border-color:rgba(255,255,255,0.2);color:var(--text)}
+        /* ── STREAMING_CHUNK:Building hero section... --> */
+        /* ── HERO ──────────────────────────────────────────── */
+        .hero {
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 140px 24px 80px;
+        }
 
-/* ── STATS ROW ─────────────────────────────────────── */
-.stats{
-  display:flex;gap:48px;align-items:center;
-  padding:24px 48px;
-  background:var(--surface);
-  border:1px solid var(--border);
-  border-radius:20px;
-}
-.stat-item{text-align:center}
-.stat-num{
-  font-family:var(--font);font-size:1.8rem;font-weight:800;
-  background:linear-gradient(135deg,#818cf8,#c4b5fd);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-}
-.stat-label{font-size:.75rem;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.08em;margin-top:2px}
-.stat-divider{width:1px;height:40px;background:var(--border)}
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(69, 70, 215, 0.08);
+            border: 1px solid rgba(69, 70, 215, 0.2);
+            border-radius: 99px;
+            padding: 6px 16px;
+            font-size: .8rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 32px;
+            letter-spacing: .05em;
+            text-transform: uppercase;
+        }
 
-/* ── WORLDS SECTION ────────────────────────────────── */
-.section{position:relative;z-index:1;padding:100px 60px}
-.section-label{
-  font-size:.75rem;font-weight:800;letter-spacing:.15em;text-transform:uppercase;
-  color:var(--accent);margin-bottom:16px;
-}
-.section-title{
-  font-family:var(--font);font-size:clamp(2rem,4vw,3rem);font-weight:800;letter-spacing:-.03em;
-  margin-bottom:16px;line-height:1.1;
-}
-.section-sub{color:var(--muted);font-size:1.05rem;max-width:520px;line-height:1.7;margin-bottom:60px}
+        .badge-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--primary);
+            animation: pulse 2s infinite;
+        }
 
-.worlds-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
-  gap:16px;
-  max-width:1100px;margin:0 auto;
-}
-.world-card{
-  background:var(--surface);
-  border:1px solid var(--border);
-  border-radius:24px;
-  padding:28px;
-  cursor:pointer;
-  transition:all .3s ease;
-  position:relative;overflow:hidden;
-}
-.world-card::before{
-  content:'';position:absolute;inset:0;border-radius:24px;
-  background:linear-gradient(135deg,var(--c1,#5b5ef4),var(--c2,#a78bfa));
-  opacity:0;transition:opacity .3s;
-}
-.world-card:hover{transform:translateY(-6px);border-color:rgba(91,94,244,0.4)}
-.world-card:hover::before{opacity:.05}
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: .5;
+                transform: scale(0.8);
+            }
+        }
 
-.world-num{
-  font-family:var(--font);font-size:.7rem;font-weight:800;
-  letter-spacing:.1em;text-transform:uppercase;
-  color:var(--muted);margin-bottom:12px;
-}
-.world-icon{
-  width:44px;height:44px;border-radius:14px;
-  display:flex;align-items:center;justify-content:center;
-  margin-bottom:16px;font-size:1.3rem;
-}
-.world-name{font-family:var(--font);font-size:1.2rem;font-weight:800;margin-bottom:6px}
-.world-desc{font-size:.85rem;color:var(--muted);line-height:1.5;margin-bottom:20px}
-.world-levels{
-  display:flex;gap:4px;
-}
-.level-dot{
-  width:8px;height:8px;border-radius:50%;
-  background:rgba(255,255,255,0.1);transition:background .2s;
-}
-.world-card:hover .level-dot{background:rgba(91,94,244,0.4)}
+        .hero h1 {
+            font-family: var(--font);
+            font-size: clamp(2.8rem, 7vw, 5.5rem);
+            font-weight: 800;
+            line-height: 1.05;
+            letter-spacing: -.04em;
+            margin-bottom: 24px;
+            max-width: 900px;
+        }
 
-/* ── HOW IT WORKS ──────────────────────────────────── */
-.how-grid{
-  display:grid;grid-template-columns:repeat(3,1fr);gap:24px;
-  max-width:900px;margin:0 auto;
-}
-.how-card{
-  background:var(--surface);border:1px solid var(--border);
-  border-radius:24px;padding:32px;text-align:center;
-}
-.how-step{
-  width:48px;height:48px;border-radius:16px;
-  background:rgba(91,94,244,0.15);border:1px solid rgba(91,94,244,0.2);
-  display:flex;align-items:center;justify-content:center;
-  font-family:var(--font);font-weight:800;font-size:1.1rem;color:var(--accent);
-  margin:0 auto 20px;
-}
-.how-card h3{font-family:var(--font);font-weight:800;font-size:1.1rem;margin-bottom:8px}
-.how-card p{font-size:.9rem;color:var(--muted);line-height:1.6}
+        .hero h1 em {
+            font-style: normal;
+            background: linear-gradient(135deg, #4546d7, #6366f1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
 
-/* ── TERMINAL PREVIEW ──────────────────────────────── */
-.terminal{
-  background:#0a0a14;
-  border:1px solid rgba(91,94,244,0.2);
-  border-radius:20px;
-  overflow:hidden;
-  max-width:640px;margin:0 auto;
-  box-shadow:0 40px 100px rgba(91,94,244,0.15);
-}
-.terminal-bar{
-  background:#111122;padding:14px 20px;
-  display:flex;align-items:center;gap:8px;
-  border-bottom:1px solid rgba(255,255,255,0.05);
-}
-.t-dot{width:12px;height:12px;border-radius:50%}
-.t-dot-r{background:#ff5f57}.t-dot-y{background:#febc2e}.t-dot-g{background:#28c840}
-.t-title{flex:1;text-align:center;font-size:.75rem;color:var(--muted);font-weight:600}
-.terminal-body{padding:24px 28px;font-family:monospace;font-size:.9rem;line-height:2}
-.t-comment{color:#4b5563}
-.t-green{color:#34d399}.t-blue{color:#818cf8}.t-red{color:#f87171}.t-yellow{color:#fbbf24}
-.t-cursor{display:inline-block;width:10px;height:1.1em;background:#818cf8;animation:blink .9s infinite}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+        .hero-sub {
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            color: var(--muted);
+            max-width: 540px;
+            line-height: 1.7;
+            margin-bottom: 48px;
+            font-weight: 500;
+        }
 
-/* ── CTA SECTION ───────────────────────────────────── */
-.cta-section{
-  position:relative;z-index:1;
-  text-align:center;padding:100px 24px;
-}
-.cta-card{
-  max-width:700px;margin:0 auto;
-  background:var(--surface);
-  border:1px solid var(--border);
-  border-radius:40px;
-  padding:70px 60px;
-  position:relative;overflow:hidden;
-}
-.cta-card::after{
-  content:'';position:absolute;bottom:-100px;left:50%;transform:translateX(-50%);
-  width:400px;height:400px;border-radius:50%;
-  background:var(--primary-glow);filter:blur(80px);pointer-events:none;
-}
-.cta-card h2{
-  font-family:var(--font);font-size:clamp(2rem,4vw,2.8rem);font-weight:800;
-  letter-spacing:-.03em;margin-bottom:16px;line-height:1.1;
-}
-.cta-card p{color:var(--muted);font-size:1.05rem;line-height:1.7;margin-bottom:40px}
-.bytemascot{width:80px;margin:0 auto 24px;display:block}
+        .hero-actions {
+            display: flex;
+            gap: 14px;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 72px;
+        }
 
-@media(max-width:768px){
-  nav{padding:16px 24px}
-  .section{padding:60px 24px}
-  .how-grid{grid-template-columns:1fr}
-  .stats{gap:24px;padding:20px 24px;flex-wrap:wrap;justify-content:center}
-  .cta-card{padding:40px 28px}
-}
-</style>
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            padding: 18px 36px;
+            border-radius: 99px;
+            font-family: var(--font);
+            font-weight: 800;
+            font-size: 1.05rem;
+            border: none;
+            cursor: pointer;
+            transition: all .3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px) scale(1.02);
+            background: #3738b8;
+        }
+
+        .btn-ghost {
+            padding: 18px 36px;
+            border-radius: 99px;
+            font-family: var(--font);
+            font-weight: 700;
+            font-size: 1.05rem;
+            border: 1px solid var(--border);
+            background: var(--surface);
+            color: var(--muted);
+            cursor: pointer;
+            transition: all .25s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-ghost:hover {
+            border-color: #cbd5e1;
+            color: var(--text);
+        }
+
+        /* ── STREAMING_CHUNK:Building statistics components... --> */
+        /* ── STATS ROW ─────────────────────────────────────── */
+        .stats {
+            display: flex;
+            gap: 48px;
+            align-items: center;
+            padding: 24px 48px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-num {
+            font-family: var(--font);
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .stat-label {
+            font-size: .75rem;
+            color: var(--muted);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: .08em;
+            margin-top: 2px;
+        }
+
+        .stat-divider {
+            width: 1px;
+            height: 40px;
+            background: var(--border);
+        }
+
+        /* ── STREAMING_CHUNK:Rendering world curriculum... --> */
+        /* ── WORLDS SECTION ────────────────────────────────── */
+        .section {
+            position: relative;
+            z-index: 1;
+            padding: 100px 60px;
+        }
+
+        .section-label {
+            font-size: .75rem;
+            font-weight: 800;
+            letter-spacing: .15em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            font-family: var(--font);
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 800;
+            letter-spacing: -.03em;
+            margin-bottom: 16px;
+            line-height: 1.1;
+        }
+
+        .section-sub {
+            color: var(--muted);
+            font-size: 1.05rem;
+            max-width: 520px;
+            line-height: 1.7;
+            margin-bottom: 60px;
+        }
+
+        .worlds-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .world-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 28px;
+            padding: 28px;
+            cursor: pointer;
+            transition: all .3s ease;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 320px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.01);
+        }
+
+        .world-card:hover {
+            transform: translateY(-6px);
+            border-color: #cbd5e1;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+        }
+
+        .world-num {
+            font-family: var(--font);
+            font-size: .7rem;
+            font-weight: 800;
+            letter-spacing: .15em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 12px;
+        }
+
+        .world-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+            font-size: 1.3rem;
+            background: var(--surface2);
+            transition: transform 0.3s;
+        }
+
+        .world-card:hover .world-icon {
+            transform: scale(1.08);
+        }
+
+        .world-name {
+            font-family: var(--font);
+            font-size: 1.2rem;
+            font-weight: 800;
+            margin-bottom: 6px;
+        }
+
+        .world-desc {
+            font-size: .85rem;
+            color: var(--muted);
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .world-levels {
+            display: flex;
+            gap: 4px;
+            margin-top: auto;
+        }
+
+        .level-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #e2e8f0;
+            transition: background .2s, transform 0.2s;
+        }
+
+        .world-card:hover .level-dot {
+            background: var(--primary);
+            transform: scale(1.1);
+        }
+
+        /* ── STREAMING_CHUNK:Building instruction panels... --> */
+        /* ── HOW IT WORKS ──────────────────────────────────── */
+        .how-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .how-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 28px;
+            padding: 32px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.01);
+        }
+
+        .how-step {
+            width: 48px;
+            height: 48px;
+            border-radius: 16px;
+            background: rgba(69, 70, 215, 0.08);
+            border: 1px solid rgba(69, 70, 215, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font);
+            font-weight: 800;
+            font-size: 1.1rem;
+            color: var(--primary);
+            margin: 0 auto 20px;
+        }
+
+        .how-card h3 {
+            font-family: var(--font);
+            font-weight: 800;
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+        }
+
+        .how-card p {
+            font-size: .9rem;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+
+        /* ── STREAMING_CHUNK:Integrating sandbox interactive elements... --> */
+        /* ── INTERACTIVE TERMINAL PLAYGROUND ──────────────── */
+        .interactive-playground {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 32px;
+            align-items: center;
+        }
+
+        .terminal {
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.03);
+            transition: all 0.3s ease;
+        }
+
+        .terminal.success-active {
+            border-color: #34d399;
+        }
+
+        .terminal-bar {
+            background: #f1f5f9;
+            padding: 14px 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .t-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .t-dot-r { background: #ff5f57; }
+        .t-dot-y { background: #febc2e; }
+        .t-dot-g { background: #28c840; }
+
+        .t-title {
+            flex: 1;
+            text-align: center;
+            font-size: .75rem;
+            color: var(--muted);
+            font-weight: 600;
+            font-family: var(--font);
+        }
+
+        .terminal-body {
+            padding: 24px 28px;
+            font-family: monospace;
+            font-size: .9rem;
+            line-height: 1.8;
+            background: #fafafa;
+        }
+
+        .t-comment { color: #94a3b8; }
+        .t-green { color: #10b981; }
+        .t-blue { color: #4f46e5; }
+        .t-red { color: #ef4444; }
+        .t-yellow { color: #d97706; }
+        
+        .t-interactive-pill {
+            background: var(--red-tag-bg);
+            border: 1.5px dashed var(--red-tag-border);
+            padding: 2px 8px;
+            border-radius: 6px;
+            color: #ef4444;
+            cursor: pointer;
+            font-weight: bold;
+            display: inline-block;
+            transition: all 0.2s;
+        }
+
+        .t-interactive-pill.active {
+            background: var(--green-tag-bg);
+            border: 1.5px solid var(--green-tag-border);
+            color: #10b981;
+        }
+
+        .t-cursor {
+            display: inline-block;
+            width: 8px;
+            height: 1.1em;
+            background: var(--primary);
+            vertical-align: middle;
+            animation: blink .9s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* ── STREAMING_CHUNK:Designing app preview layouts... --> */
+        .live-app-preview {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 28px;
+            padding: 32px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.01);
+        }
+
+        .preview-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 16px;
+        }
+
+        .preview-logo {
+            font-family: var(--font);
+            font-weight: 800;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .preview-balance-container {
+            background: #fafafa;
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 24px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            min-height: 110px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .balance-hidden-state {
+            font-size: .85rem;
+            color: var(--muted);
+            font-weight: 500;
+        }
+
+        .balance-visible-state {
+            display: none;
+            animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .live-balance-number {
+            font-family: var(--font);
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #10b981;
+        }
+
+        /* ── STREAMING_CHUNK:Finalizing layout modules... --> */
+        /* ── MASCOT BUBBLE ─────────────────────────────────── */
+        .mascot-speaks {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            background: #fafafa;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 16px 24px;
+            margin-top: 24px;
+            text-align: left;
+        }
+
+        .mascot-speaks img {
+            width: 44px;
+            height: 44px;
+            object-fit: contain;
+        }
+
+        .speech-bubble {
+            font-size: .85rem;
+            line-height: 1.5;
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        /* ── CTA SECTION ───────────────────────────────────── */
+        .cta-section {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 100px 24px;
+        }
+
+        .cta-card {
+            max-width: 700px;
+            margin: 0 auto;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 40px;
+            padding: 70px 60px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.01);
+        }
+
+        .cta-card h2 {
+            font-family: var(--font);
+            font-size: clamp(2rem, 4vw, 2.8rem);
+            font-weight: 800;
+            letter-spacing: -.03em;
+            margin-bottom: 16px;
+            line-height: 1.1;
+        }
+
+        .cta-card p {
+            color: var(--muted);
+            font-size: 1.05rem;
+            line-height: 1.7;
+            margin-bottom: 40px;
+        }
+
+        .bytemascot {
+            width: 80px;
+            margin: 0 auto 24px;
+            display: block;
+            transition: transform 0.3s;
+        }
+
+        .cta-card:hover .bytemascot {
+            transform: scale(1.08);
+        }
+
+        /* ── RESPONSIVENESS ────────────────────────────────── */
+        @media(max-width: 900px) {
+            .interactive-playground {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+        }
+
+        @media(max-width: 768px) {
+            nav {
+                padding: 16px 24px;
+            }
+            .section {
+                padding: 60px 24px;
+            }
+            .how-grid {
+                grid-template-columns: 1fr;
+            }
+            .stats {
+                gap: 24px;
+                padding: 20px 24px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .cta-card {
+                padding: 40px 28px;
+            }
+        }
+    </style>
 </head>
 <body>
 
-<div class="orb orb-1"></div>
-<div class="orb orb-2"></div>
-
-<!-- NAV -->
-<nav>
-  <div class="nav-logo">
-    <img src="https://dropshare.42web.io/1/files/UIi3dXms4F.png" alt="ByteLab">
-    <span>ByteLab</span>
-  </div>
-  <button class="nav-cta" onclick="window.location.href='game.html'">Start Learning</button>
-</nav>
-
-<!-- HERO -->
-<section class="hero">
-  <div class="badge">
-    <span class="badge-dot"></span>
-    Live Interactive Labs — No Setup Required
-  </div>
-
-  <h1>Learn to hack.<br><em>By actually hacking.</em></h1>
-
-  <p class="hero-sub">
-    Real web apps. Real vulnerabilities. Real techniques.
-    ByteLab puts you inside the exploit — no videos, no lectures, just hands-on labs.
-  </p>
-
-  <div class="hero-actions">
-    <a href="game.html" class="btn-primary">Start for free &rarr;</a>
-    <a href="#worlds" class="btn-ghost">See the curriculum</a>
-  </div>
-
-  <div class="stats">
-    <div class="stat-item">
-      <div class="stat-num">25</div>
-      <div class="stat-label">Live Labs</div>
-    </div>
-    <div class="stat-divider"></div>
-    <div class="stat-item">
-      <div class="stat-num">5</div>
-      <div class="stat-label">Real App Clones</div>
-    </div>
-    <div class="stat-divider"></div>
-    <div class="stat-item">
-      <div class="stat-num">0</div>
-      <div class="stat-label">Setup Required</div>
-    </div>
-    <div class="stat-divider"></div>
-    <div class="stat-item">
-      <div class="stat-num">100%</div>
-      <div class="stat-label">Hands-On</div>
-    </div>
-  </div>
-</section>
-
-<!-- WORLDS -->
-<section class="section" id="worlds">
-  <div style="max-width:1100px;margin:0 auto">
-    <p class="section-label">The Curriculum</p>
-    <h2 class="section-title">5 worlds.<br>25 real exploits.</h2>
-    <p class="section-sub">Each world is a high-fidelity clone of a real product category. You're not solving puzzles — you're hacking realistic apps.</p>
-
-    <div class="worlds-grid">
-      <div class="world-card" onclick="window.location.href='game.html?world=1'" style="--c1:#5b5ef4;--c2:#818cf8">
-        <div class="world-num">World 01</div>
-        <div class="world-icon" style="background:rgba(91,94,244,0.15)">🏦</div>
-        <div class="world-name">PayBal</div>
-        <div class="world-desc">Expose hidden balances, bypass transfer locks, escalate account roles in a banking app clone.</div>
-        <div class="world-levels">
-          <div class="level-dot"></div><div class="level-dot"></div><div class="level-dot"></div><div class="level-dot"></div><div class="level-dot"></div>
+    <!-- NAV -->
+    <nav>
+        <div class="nav-logo" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+            <img src="https://dropshare.42web.io/1/files/UIi3dXms4F.png" alt="ByteLab">
+            <span>ByteLab</span>
         </div>
-      </div>
+        <button class="nav-cta" onclick="window.location.href='game.html'">Start Learning</button>
+    </nav>
 
-      <div class="world-card" onclick="window.location.href='game.html?world=2'" style="--c1:#ef4444;--c2:#f87171">
-        <div class="world-num">World 02</div>
-        <div class="world-icon" style="background:rgba(239,68,68,0.15)">🎬</div>
-        <div class="world-name">Netflox</div>
-        <div class="world-desc">Forge session cookies, delete paywalls, redirect OAuth buttons, reset trial timers.</div>
-        <div class="world-levels">
-          <div class="level-dot"></div><div class="level-dot"></div><div class="level-dot"></div><div class="level-dot"></div><div class="level-dot"></div>
+    <!-- HERO -->
+    <section class="hero">
+        <div class="badge">
+            <span class="badge-dot"></span>
+            50 Live Interactive Labs — No Setup Required
         </div>
-      </div>
-
-      <div class="world-card" onclick="window.location.href='game.html?world=3'" style="--c1:#f59e0b;--c2:#fbbf24">
-        <div class="world-num">World 03</div>
-        <div class="world-icon" style="background:rgba(245,158,11,0.15)">🛒</div>
-        <div class="world-name">CloudStore</div>
-        <div class="world-desc">Negative cart quantities, injected shipping options, zero-rated tax, locked coupon bypass.</div>
-        <div class="world-levels">
-          <div class="level-dot"></div><div class="level-dot"></div><div class="level-dot"></div><div class="level-dot"></div><div class="level-dot"></div>
+        <h1>Learn to hack.<br><em>By actually hacking.</em></h1>
+        <p class="hero-sub">
+            Real web apps. Real vulnerabilities. Real techniques.
+            ByteLab puts you inside the exploit — no videos, no lectures, just hands-on labs.
+        </p>
+        <div class="hero-actions">
+            <a href="game.html" class="btn-primary">Start for free &rarr;</a>
+            <a href="#worlds" class="btn-ghost">See the curriculum</a>
         </div>
-      </div>
-
-      <div class="world-card" onclick="window.location.href='game.html?world=4'" style="--c1:#0ea5e9;--c2:#38bdf8">
-        <div class="world-num">World 04</div>
-        <div class="world-icon" style="background:rgba(14,165,233,0.15)">🚀</div>
-        <div class="world-name">SpaceY</div>
-        <div class="world-desc">Declassify mission budgets, override launch prices, unlock Mission Control, exceed payload limits.</div>
-        <div class="world-levels">
-          <div class="level-dot"></div><div class="level-dot"></div><div class="level-dot"></div><div class="level-dot"></div><div class="level-dot"></div>
+        
+        <div class="stats">
+            <div class="stat-item">
+                <div class="stat-num">50</div>
+                <div class="stat-label">Live Labs</div>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+                <div class="stat-num">5</div>
+                <div class="stat-label">Real App Clones</div>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+                <div class="stat-num">0</div>
+                <div class="stat-label">Setup Required</div>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+                <div class="stat-num">100%</div>
+                <div class="stat-label">Hands-On</div>
+            </div>
         </div>
-      </div>
+    </section>
 
-      <div class="world-card" onclick="window.location.href='game.html?world=5'" style="--c1:#10b981;--c2:#34d399">
-        <div class="world-num">World 05</div>
-        <div class="world-icon" style="background:rgba(16,185,129,0.15)">🚗</div>
-        <div class="world-name">Uper</div>
-        <div class="world-desc">Reveal promo codes, hack fares, bypass verification, reset surge multipliers, unlock premium status.</div>
-        <div class="world-levels">
-          <div class="level-dot"></div><div class="level-dot"></div><div class="level-dot"></div><div class="level-dot"></div><div class="level-dot"></div>
+    <!-- WORLDS -->
+    <section class="section" id="worlds">
+        <div style="max-width:1100px;margin:0 auto">
+            <p class="section-label">The Curriculum</p>
+            <h2 class="section-title">5 worlds.<br>50 real exploits.</h2>
+            <p class="section-sub">Each world is a high-fidelity clone of a real product category. You're not solving puzzles — you're hacking realistic apps.</p>
+            
+            <div class="worlds-grid">
+                <!-- WORLD 1 -->
+                <div class="world-card" onclick="window.location.href='game.html?world=1'" onmouseenter="talkByte('🏦 In World 1: PayBal, you will bypass input checks and parameters validations to steal admin privileges!')">
+                    <div>
+                        <div class="world-num">World 01</div>
+                        <div class="world-icon">🏦</div>
+                        <div class="world-name">PayBal</div>
+                        <div class="world-desc">Expose hidden balances, bypass transfer locks, escalate account roles in a banking app clone.</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 11px; font-weight: bold; color: var(--muted); margin-bottom: 8px; font-family: monospace;">10 Levels</div>
+                        <div class="world-levels">
+                            <div class="level-dot"></div><div class="level-dot"></div><div class="level-dot"></div><div class="level-dot"></div><div class="level-dot"></div><div class="level-dot"></div><div class="level-dot"></div><div class="level-dot"></div><div class="level-dot"></div><div class="level-dot"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- WORLD 2 -->
+                <div class="world-card" onclick="window.location.href='game.html?world=2'" onmouseenter="talkByte('🎬 In World 2: Netflox, learn to forge cookie parameters and escape trial subscription boundaries!')">
+                    <div>
+                        <div class="world-num">World 02</div>
+                        <div class="world-icon">🎬</div>
+                        <div class="world-name">Netflox</div>
+                        <div class="world-desc">Forge session cookies, delete paywalls, redirect OAuth buttons, reset trial timers.</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 11px; font-weight: bold; color: var(--muted); margin-bottom: 8px; font-family: monospace;">10 Levels</div>
+                        <div class="world-levels">
+                            <div class="level-dot"></div><div class="level-dot"></div><div class="level-dot"></div><div class="level-dot"></div><div class="level-dot"></div><div class="level-dot"></div><div class="level-dot"></div><div class="level-dot"></div><div class="level-dot"></div><div class="level-dot"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- WORLD 3 -->
+                <div class="world-card" onclick="window.location.href='game.html?world=3'" onmouseenter="talkByte('🛒 In World 3: CloudStore, you will force prices to negatives and skip billing taxes completely!')">
+                    <div>
+                        <div class="world-num">World 03</div>
+                        <div class="world-icon">🛒</div>
+                        <div class="world-name">CloudStore</div>
+                        <div class="world-desc">Negative cart quantities, injected shipping options, zero-rated tax, locked coupon bypass.</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 11px; font-weight: bold; color: var(--muted); margin-bottom: 8px; font-family: monospace;">10 Levels</div>
+                        <div class="world-levels">
+                            <div class="level-dot"></div><div class="level-dot"></div><div class="level-dot"></div><div class="level-dot"></div><div class="level-dot"></div><div class="level-dot"></div><div class="level-dot"></div><div class="level-dot"></div><div class="level-dot"></div><div class="level-dot"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- WORLD 4 -->
+                <div class="world-card" onclick="window.location.href='game.html?world=4'" onmouseenter="talkByte('🚀 In World 4: SpaceY, bypass the authorization limits and override launch mission parameters!')">
+                    <div>
+                        <div class="world-num">World 04</div>
+                        <div class="world-icon">🚀</div>
+                        <div class="world-name">SpaceY</div>
+                        <div class="world-desc">Declassify mission budgets, override launch prices, unlock Mission Control, exceed payload limits.</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 11px; font-weight: bold; color: var(--muted); margin-bottom: 8px; font-family: monospace;">10 Levels</div>
+                        <div class="world-levels">
+                            <div class="level-dot"></div><div class="level-dot"></div><div class="level-dot"></div><div class="level-dot"></div><div class="level-dot"></div><div class="level-dot"></div><div class="level-dot"></div><div class="level-dot"></div><div class="level-dot"></div><div class="level-dot"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- WORLD 5 -->
+                <div class="world-card" onclick="window.location.href='game.html?world=5'" onmouseenter="talkByte('🚗 In World 5: Uper, override distance parameters to get ride fares down to zero!')">
+                    <div>
+                        <div class="world-num">World 05</div>
+                        <div class="world-icon">🚗</div>
+                        <div class="world-name">Uper</div>
+                        <div class="world-desc">Reveal promo codes, hack fares, bypass verification, reset surge multipliers, unlock premium status.</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 11px; font-weight: bold; color: var(--muted); margin-bottom: 8px; font-family: monospace;">10 Levels</div>
+                        <div class="world-levels">
+                            <div class="level-dot"></div><div class="level-dot"></div><div class="level-dot"></div><div class="level-dot"></div><div class="level-dot"></div><div class="level-dot"></div><div class="level-dot"></div><div class="level-dot"></div><div class="level-dot"></div><div class="level-dot"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CTA CARD -->
+                <div class="world-card" style="background: rgba(69, 70, 215, 0.05); border-color: rgba(69, 70, 215, 0.2); display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; min-height:320px;" onclick="window.location.href='game.html'">
+                    <div style="font-size:2rem;margin-bottom:12px">⚡</div>
+                    <div class="world-name">Start Now</div>
+                    <div class="world-desc" style="margin-bottom:16px">Jump in. World 1 is unlocked and ready. Explore 50 challenging environments.</div>
+                    <div style="font-size:.85rem;font-weight:800;color:var(--primary)">Begin &rarr;</div>
+                </div>
+            </div>
         </div>
-      </div>
+    </section>
 
-      <!-- CTA card -->
-      <div class="world-card" style="background:rgba(91,94,244,0.06);border-color:rgba(91,94,244,0.2);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;min-height:200px;" onclick="window.location.href='game.html'">
-        <div style="font-size:2rem;margin-bottom:12px">⚡</div>
-        <div class="world-name">Start Now</div>
-        <div class="world-desc" style="margin-bottom:16px">Jump in. World 1 is unlocked and ready.</div>
-        <div style="font-size:.8rem;font-weight:800;color:#818cf8">Begin &rarr;</div>
-      </div>
-    </div>
-  </div>
-</section>
+    <!-- HOW IT WORKS -->
+    <section class="section" style="padding-top:0">
+        <div style="max-width:900px;margin:0 auto;text-align:center">
+            <p class="section-label">How It Works</p>
+            <h2 class="section-title" style="margin-bottom:48px">No lectures. Just labs.</h2>
+            <div class="how-grid">
+                <div class="how-card">
+                    <div class="how-step">1</div>
+                    <h3>Enter the App</h3>
+                    <p>You land inside a realistic mock app — a bank, a streaming service, a store. Byte briefs you on the mission.</p>
+                </div>
+                <div class="how-card">
+                    <div class="how-step">2</div>
+                    <h3>Find the Exploit</h3>
+                    <p>Use your browser's DevTools to inspect, modify, and bypass the client-side restriction hidden in the HTML.</p>
+                </div>
+                <div class="how-card">
+                    <div class="how-step">3</div>
+                    <h3>See It Work</h3>
+                    <p>The app detects your exploit in real time. Byte celebrates. You move to the next level with a new technique.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<!-- HOW IT WORKS -->
-<section class="section" style="padding-top:0">
-  <div style="max-width:900px;margin:0 auto;text-align:center">
-    <p class="section-label">How It Works</p>
-    <h2 class="section-title" style="margin-bottom:48px">No lectures. Just labs.</h2>
-    <div class="how-grid">
-      <div class="how-card">
-        <div class="how-step">1</div>
-        <h3>Enter the App</h3>
-        <p>You land inside a realistic mock app — a bank, a streaming service, a store. Byte briefs you on the mission.</p>
-      </div>
-      <div class="how-card">
-        <div class="how-step">2</div>
-        <h3>Find the Exploit</h3>
-        <p>Use your browser's DevTools to inspect, modify, and bypass the client-side restriction hidden in the HTML.</p>
-      </div>
-      <div class="how-card">
-        <div class="how-step">3</div>
-        <h3>See It Work</h3>
-        <p>The app detects your exploit in real time. Byte celebrates. You move to the next level with a new technique.</p>
-      </div>
-    </div>
-  </div>
-</section>
+    <!-- INTERACTIVE TERMINAL PLAYGROUND -->
+    <section class="section" style="padding-top:0">
+        <p class="section-label" style="text-align:center;margin-bottom:12px">What you'll actually do</p>
+        <h3 style="text-align:center;font-family:var(--font);font-size:1.8rem;font-weight:800;margin-bottom:48px">Interactive DevTools Simulator</h3>
+        
+        <div class="interactive-playground">
+            <!-- Left Side: Interactive Mock DevTools Code block -->
+            <div class="terminal" id="term-box">
+                <div class="terminal-bar">
+                    <div class="t-dot t-dot-r"></div>
+                    <div class="t-dot t-dot-y"></div>
+                    <div class="t-dot t-dot-g"></div>
+                    <div class="t-title">DevTools — Elements Panel</div>
+                </div>
+                <div class="terminal-body">
+                    <div><span class="t-comment">/* Level 1 — PayBal: The Hidden Balance */</span></div>
+                    <div><span class="t-comment">/* The balance is here. Just not visible. */</span></div>
+                    <div>&nbsp;</div>
+                    <div><span class="t-blue">&lt;div</span> <span class="t-yellow">id</span>=<span class="t-green">"real-balance"</span></div>
+                    <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="t-yellow">style</span>=<span class="t-red">"display:<span id="interactive-style" class="t-interactive-pill" onclick="triggerMockExploit()">none</span>"</span><span class="t-blue">&gt;</span></div>
+                    <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="t-green">$12,500.00</span></div>
+                    <div><span class="t-blue">&lt;/div&gt;</span></div>
+                    <div>&nbsp;</div>
+                    <div><span class="t-comment">/* Click on "none" above to mutate style attributes! */</span></div>
+                    <div><span class="t-comment">/* The detection fires. Byte goes wild. */</span></div>
+                    <div>&nbsp;</div>
+                    <div id="success-log" style="display:none;" class="t-green">✓ Exploit detected! — navigating to Level 2 <span class="t-cursor"></span></div>
+                    <div id="waiting-log" class="t-comment">Waiting for DevTools manipulation...</div>
+                </div>
+            </div>
 
-<!-- TERMINAL DEMO -->
-<section class="section" style="padding-top:0">
-  <p class="section-label" style="text-align:center;margin-bottom:40px">What you'll actually do</p>
-  <div class="terminal">
-    <div class="terminal-bar">
-      <div class="t-dot t-dot-r"></div>
-      <div class="t-dot t-dot-y"></div>
-      <div class="t-dot t-dot-g"></div>
-      <div class="t-title">DevTools — Elements Panel</div>
-    </div>
-    <div class="terminal-body">
-      <div><span class="t-comment">/* Level 1 — PayBal: The Hidden Balance */</span></div>
-      <div><span class="t-comment">/* The balance is here. Just not visible. */</span></div>
-      <div>&nbsp;</div>
-      <div><span class="t-blue">&lt;div</span> <span class="t-yellow">id</span>=<span class="t-green">"real-balance"</span></div>
-      <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="t-yellow">style</span>=<span class="t-red">"display:<span id="style-val">none</span>"</span><span class="t-blue">&gt;</span></div>
-      <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="t-green">$12,500.00</span></div>
-      <div><span class="t-blue">&lt;/div&gt;</span></div>
-      <div>&nbsp;</div>
-      <div><span class="t-comment">/* Change display:none → display:block */</span></div>
-      <div><span class="t-comment">/* The detection fires. Byte goes wild. */</span></div>
-      <div>&nbsp;</div>
-      <div><span class="t-green">✓ Level Complete</span> — <span class="t-blue">navigating to Level 2</span> <span class="t-cursor"></span></div>
-    </div>
-  </div>
-</section>
+            <!-- Right Side: Live Mock App Representation -->
+            <div class="live-app-preview">
+                <div class="preview-header">
+                    <div class="preview-logo">
+                        <span>🏦</span> PayBal Interface
+                    </div>
+                    <span style="font-size: .75rem; color: #10b981; font-weight: bold; background: rgba(16, 185, 129, 0.08); border: 1px solid rgba(16, 185, 129, 0.2); padding: 4px 10px; border-radius: 99px;">
+                        Online Secure
+                    </span>
+                </div>
 
-<!-- CTA -->
-<section class="cta-section">
-  <div class="cta-card">
-    <img src="https://dropshare.42web.io/1/files/zVYAUZDpex.png" class="bytemascot" alt="Byte">
-    <h2>Ready to think like a hacker?</h2>
-    <p>No account needed. Open your browser, open DevTools, and start breaking things. Byte will guide you through every step.</p>
-    <a href="game.html" class="btn-primary" style="font-size:1.1rem;padding:20px 48px">Enter ByteLab &rarr;</a>
-  </div>
-</section>
+                <div class="preview-balance-container">
+                    <div class="balance-hidden-state" id="balance-hidden-text">
+                        🔒 Balance parameters restricted by client-side rules <br> (display: none)
+                    </div>
+                    <div class="balance-visible-state" id="balance-visible-number">
+                        <div style="font-size: 11px; text-transform: uppercase; color: var(--muted); font-weight: bold; letter-spacing: 0.05em; margin-bottom: 4px; font-family: monospace;">Exposed Live Balance</div>
+                        <div class="live-balance-number">$12,500.00</div>
+                    </div>
+                </div>
 
+                <!-- Mascot Speaks Widget -->
+                <div class="mascot-speaks">
+                    <img src="https://dropshare.42web.io/1/files/zVYAUZDpex.png" alt="Byte">
+                    <div class="speech-bubble" id="byte-speech">
+                        "Hey cadet! Click on that red <span style='color: #ef4444; font-weight:bold;'>'none'</span> inside the style attributes of the Elements Panel to reveal the secret bank balance!"
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+        <div class="cta-card">
+            <img src="https://dropshare.42web.io/1/files/zVYAUZDpex.png" class="bytemascot" alt="Byte">
+            <h2>Ready to think like a hacker?</h2>
+            <p>No account needed. Open your browser, open DevTools, and start breaking things. Byte will guide you through all 50 challenges.</p>
+            <a href="game.html" class="btn-primary" style="font-size:1.1rem;padding:20px 48px">Enter ByteLab &rarr;</a>
+        </div>
+    </section>
+
+    <!-- INTERACTIVE JAVASCRIPT MECHANICS -->
+    <script>
+        // Custom dialogue management for Byte the Mascot
+        function talkByte(msg) {
+            const speech = document.getElementById('byte-speech');
+            if(speech) {
+                speech.innerHTML = `"${msg}"`;
+            }
+        }
+
+        // Live Mock Exploit simulation mechanics
+        function triggerMockExploit() {
+            const styleBtn = document.getElementById('interactive-style');
+            const hiddenText = document.getElementById('balance-hidden-text');
+            const visibleNumber = document.getElementById('balance-visible-number');
+            const successLog = document.getElementById('success-log');
+            const waitingLog = document.getElementById('waiting-log');
+            const termBox = document.getElementById('term-box');
+
+            if(styleBtn && !styleBtn.classList.contains('active')) {
+                // Mutate style value in Elements Panel
+                styleBtn.innerText = 'block';
+                styleBtn.classList.add('active');
+
+                // Animate app representation
+                if(hiddenText) hiddenText.style.display = 'none';
+                if(visibleNumber) visibleNumber.style.display = 'block';
+
+                // Display success terminal lines
+                if(successLog) successLog.style.display = 'block';
+                if(waitingLog) waitingLog.style.display = 'none';
+
+                // Highlight terminal board green
+                if(termBox) termBox.classList.add('success-active');
+
+                // Update assistant speech bubble
+                talkByte("Boom! You did it! See how changing display properties exposed the data? This is exactly how you'll beat the other levels inside ByteLab!");
+            } else {
+                // Toggle back if clicked again
+                styleBtn.innerText = 'none';
+                styleBtn.classList.remove('active');
+
+                if(hiddenText) hiddenText.style.display = 'block';
+                if(visibleNumber) visibleNumber.style.display = 'none';
+
+                if(successLog) successLog.style.display = 'none';
+                if(waitingLog) waitingLog.style.display = 'block';
+
+                if(termBox) termBox.classList.remove('success-active');
+
+                talkByte("Ah, you set it back to 'none'! Click it again to reveal the balance!");
+            }
+        }
+    </script>
 </body>
 </html>

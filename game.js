@@ -8,7 +8,7 @@
   const level = params.get('level');
 
   if (level !== null) {
-    window.location.href = `levels/${world}/${level}/index.html`;
+    window.location.href = `${mode}/${level}/index.html`;
   } else {
     window.location.href = `game.html?mode=${mode}&world=${world}`;
   }

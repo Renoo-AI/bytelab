@@ -211,5 +211,60 @@
 
     render();
 </script>
+
+    <!-- DYNAMIC FEATURES REQUESTED BY USER -->
+    <div class="card mt-6">
+        <h2 class="text-xl font-bold mb-4">Account Settings</h2>
+
+        <div class="mb-6 p-4 bg-slate-50 rounded-xl border border-slate-200">
+            <h3 class="font-bold text-slate-800 mb-2">Fake Auth Configuration</h3>
+            <div class="flex gap-4 items-center">
+                <button class="bg-primary text-white px-4 py-2 rounded-lg font-bold hover:bg-primary-dark">Authenticate Fake User</button>
+                <span class="text-sm text-slate-500">Status: Unauthenticated</span>
+            </div>
+        </div>
+
+        <div class="mb-6 p-4 bg-indigo-50 rounded-xl border border-indigo-100">
+            <div class="flex justify-between items-center mb-2">
+                <h3 class="font-bold text-indigo-900">Hint Inventory</h3>
+                <span class="bg-indigo-600 text-white text-xs font-bold px-2 py-1 rounded-full">5 / 5 Available</span>
+            </div>
+            <p class="text-sm text-indigo-700">You have 5 free hints remaining. Use them wisely during challenges.</p>
+        </div>
+
+        <div class="mb-6">
+            <h3 class="font-bold text-slate-800 mb-4">Subscription Plans</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="border-2 border-slate-200 rounded-xl p-4 cursor-pointer hover:border-primary transition-all">
+                    <div class="font-bold text-lg">Tier 1: Core</div>
+                    <div class="text-slate-500 text-sm mb-4">Free forever</div>
+                    <div class="text-xs text-slate-600 font-medium">10 Free Worlds</div>
+                </div>
+                <div class="border-2 border-primary bg-primary/5 rounded-xl p-4 cursor-pointer relative shadow-sm hover:shadow-md transition-all">
+                    <div class="absolute -top-3 right-3 bg-primary text-white text-[10px] font-bold px-2 py-1 rounded-full">POPULAR</div>
+                    <div class="font-bold text-lg text-primary">Tier 2: Pro Sandbox</div>
+                    <div class="text-slate-500 text-sm mb-4">$5.99 / month</div>
+                    <div class="text-xs text-slate-600 font-medium">+ 40 Paid Worlds (20 Red / 20 Blue)</div>
+                </div>
+                <div class="border-2 border-slate-200 rounded-xl p-4 cursor-pointer hover:border-slate-800 transition-all bg-slate-900 text-white">
+                    <div class="font-bold text-lg text-white">Tier 3: Elite Stack</div>
+                    <div class="text-slate-400 text-sm mb-4">$14.99 / month</div>
+                    <div class="text-xs text-slate-300 font-medium">REAL SIMULATION Mode (Uber/Netflix Clones)</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="p-4 bg-red-50 rounded-xl border border-red-200 flex justify-between items-center">
+            <div>
+                <h3 class="font-bold text-red-800 mb-1">Hardcore Timer Option</h3>
+                <p class="text-xs text-red-600">Enable 30s max timer for elite challenges.</p>
+            </div>
+            <label class="relative inline-flex items-center cursor-pointer">
+              <input type="checkbox" value="" class="sr-only peer">
+              <div class="w-11 h-6 bg-red-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-red-600"></div>
+            </label>
+        </div>
+    </div>
+
 </body>
 </html>

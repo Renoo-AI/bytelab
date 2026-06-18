@@ -108,7 +108,7 @@
             w15l3:{title:"Sub-Frame Presentation Hijack",desc:"Pass raw HTML iframe strings into input fields to test if the platform allows rogue external windows.",objective:"Inject <iframe src='https://evil.com'> into a field and check if it mounts on the page."},
             w15l4:{title:"The Base64 Payload Cloak",desc:"Convert an injection string entirely into base64, routing delivery via inline functions that compile and execute at runtime.",objective:"Pass eval(atob('base64_encoded_payload')) through an input to slip past word filter blacklists."},
             w15l5:{title:"Runtime Character Compilation",desc:"Piece together forbidden script terms using safe decimal character matrices.",objective:"Use String.fromCharCode(60,115,99,...) to build a script tag that completely bypasses word filter blacklists."}
-
+,
         ar: {
             w0l1:{title:"عرض مخفي",desc:"لوحة تحكم البنك تخفي الأرصدة الحقيقية. لكن الرصيد الحقيقي موجود في DOM.",objective:"ابحث عن العنصر المخفي بـ display:none وغيّره إلى display:block لكشف الرصيد."},
             w0l2:{title:"تعديل السعر",desc:"الترقية المميزة تكلف $999. لكن السعر مجرد نص يمكن تغييره.",objective:"عدّل السعر في DevTools قبل النقر على ترقية الآن. ادفع ما تريد!"},
@@ -148,7 +148,7 @@
             w7l2:{title:"الاستيلاء على حساب السائق",desc:"جلسات السائق تستخدم cookies. غيّر driver_id لسرقة حساب سائق آخر.",objective:"غيّر driver_id cookie إلى 'DRV-001'."},
             w7l3:{title:"تزوير الموقع",desc:"إحداثيات موقعك تأتي من جهة العميل. زوّرها إلى 0,0.",objective:"أضف ?pickup=0,0 إلى الرابط لتزوير موقعك."},
             w7l4:{title:"استغلال نظام التقييم",desc:"تقييمات السائقين تقبل أرقاماً أعلى من 5.0. ضخّم التقييم.",objective:"غيّر تقييم السائق إلى أكثر من 5.0."},
-            w7l5:{title:"تجاوز بوابة الدفع",desc:"تأكيد الدفع مخزن في localStorage. غيّره لتتخطى الدفع.",objective:"غيّر localStorage uper_payment إلى 'bypass
+            w7l5:{title:"تجاوز بوابة الدفع",desc:"تأكيد الدفع مخزن في localStorage. غيّره لتتخطى الدفع.",objective:"غيّر localStorage uper_payment إلى 'bypass'."},
             w6l1:{title:"تسريب تعليمات النظام",desc:"واجهة ذكاء اصطناعي تخفي تعليماتها الداخلية باستخدام خدعة CSS. اعترض هيكل DOM لاستخراج التوجيهات المخفية.",objective:"جد عنصر تعليمات النظام المخفي واجعله مرئياً لاستخراج التعليمات الداخلية للذكاء الاصطناعي."},
             w6l2:{title:"فيضان درجة الحرارة",desc:"عناصر التحكم بالانزلاق تسمح بتعديل القيم العشرية. تجاوز الحد الأقصى لدرجة الحرارة.",objective:"غيّر قيمة درجة الحرارة إلى أكثر من 2.0 عبر DevTools لتعطيل حلقة التوليد."},
             w6l3:{title:"اختطاف البث المميز",desc:"تخطيط عرض البث يقيد طول النص المرئي بناءً على كود CSS.",objective:"احذف الكود .blur-response من حاوية الرد لقراءة المخرجات الكاملة بدون اشتراك."},
@@ -199,7 +199,6 @@
             w15l3:{title:"اختطاف عرض الإطار الفرعي",desc:"مرر سلاسل iframe HTML خام إلى حقول الإدخال لاختبار السماح بنوافذ خارجية.",objective:"احقن <iframe src='https://evil.com'> في حقل وتحقق مما إذا كان يظهر على الصفحة."},
             w15l4:{title:"عباءة حمولة Base64",desc:"حوّل سلسلة حقن بالكامل إلى base64، موجهاً التسليم عبر دوال مضمنة تترجم وتنفذ.",objective:"مرر eval(atob('base64_payload')) عبر مدخل للتسلل عبر مرشحات الكلمات."},
             w15l5:{title:"تجميع أحرف وقت التشغيل",desc:"جمع مصطلحات النص المحظورة باستخدام مصفوفات أحرف عشرية آمنة.",objective:"استخدم String.fromCharCode(60,115,99,...) لبناء وسم script يتجاوز مرشحات الكلمات."}
-'."}
         }
     };
 

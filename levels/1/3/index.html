@@ -9,7 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;600;800&family=Be+Vietnam+Pro:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#f5f6fb;--text:#1d1d1f;--primary:#0070ba;--secondary:#86868b;--border:#e2e8f0;--font-main:'Be Vietnam Pro',sans-serif;--font-display:'Plus Jakarta Sans',sans-serif}
-body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font-main);overflow:hidden;height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font-main);overflow:hidden;height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;}
 #header-nav{position:fixed;top:0;left:0;right:0;height:80px;padding:0 60px;display:flex;justify-content:space-between;align-items:center;z-index:1000;background:rgba(245,246,251,0.8);backdrop-filter:blur(10px)}
 .logo-group{display:flex;align-items:center;gap:12px;flex-shrink:0}
 .app-logo{width:32px;height:32px;object-fit:contain}
@@ -29,7 +29,7 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font-main
 .bubble-text{font-size:1.1rem;font-weight:600;line-height:1.5;color:#334155}
 .mascot-img{width:72px;height:72px;object-fit:contain;transition:all .6s cubic-bezier(0.175,0.885,0.32,1.275)}
 .assistant-container.victory-move .mascot-img{width:150px;height:150px}
-.card{background:white;width:100%;max-width:440px;padding:50px 40px;border-radius:48px;box-shadow:0 10px 40px rgba(0,0,0,0.02);text-align:center;opacity:0;transform:translateY(20px);transition:all .8s cubic-bezier(0.2,1,0.2,1)}
+.card{background:#f5f7fa;color:#1d1d1f;width:100vw;height:100vh;max-width:none;padding:120px 40px 40px;border-radius:0;box-shadow:none;text-align:center;opacity:0;transform:translateY(20px);transition:all .8s cubic-bezier(0.2,1,0.2,1);display:flex;flex-direction:column;align-items:center;justify-content:center;position:absolute;top:0;left:0;z-index:1;}
 .card-exit{transform:scale(0.85) translateY(-50px);opacity:0!important;filter:blur(12px);pointer-events:none}
 #transition-screen{position:fixed;inset:0;background:var(--primary);z-index:3000;opacity:1;pointer-events:none;transition:opacity .6s ease}
 #story-overlay{position:fixed;inset:0;background:white;z-index:1500;display:flex;justify-content:center;align-items:center;transition:opacity .5s ease}
@@ -44,7 +44,7 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font-main
 .btn-main:hover:not([disabled]){transform:translateY(-2px);box-shadow:0 8px 24px rgba(69,70,215,0.25)}
 .btn-main[disabled]{opacity:.45;cursor:not-allowed}
 
-body{display:flex;flex-direction:column;align-items:unset;justify-content:unset;padding:0;overflow:hidden}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font-main);overflow:hidden;height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;}
 #main-viewport{flex-grow:1;display:flex;margin-top:80px;opacity:0;transform:translateY(20px);transition:all .8s ease}
 .sidebar{width:280px;flex-shrink:0;background:white;border-right:1px solid var(--border);padding:32px 16px;display:flex;flex-direction:column;gap:6px}
 .sidebar-item{padding:12px 18px;border-radius:12px;color:#64748b;font-weight:600;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:10px;border:none;background:none;width:100%;text-align:left;font-family:var(--font-main);font-size:1rem}

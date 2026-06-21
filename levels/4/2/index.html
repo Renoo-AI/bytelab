@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ByteLearn | SpaceY 4.2</title>
+<title>ByteLearn | SpaceX 4.2</title>
 <link rel="icon" type="image/png" href="https://dropshare.42web.io/1/files/UIi3dXms4F.png">
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;600;800&family=Be+Vietnam+Pro:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#f5f6fb;--text:#1d1d1f;--primary:#4546d7;--secondary:#86868b;--border:#e2e8f0;--font-main:'Be Vietnam Pro',sans-serif;--font-display:'Plus Jakarta Sans',sans-serif}
+:root{--bg:#f5f6fb;--text:#1d1d1f;--primary:#000000;--secondary:#86868b;--border:#e2e8f0;--font-main:'Be Vietnam Pro',sans-serif;--font-display:'Plus Jakarta Sans',sans-serif}
 body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font-main);overflow:hidden;height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px}
 #header-nav{position:fixed;top:0;left:0;right:0;height:80px;padding:0 60px;display:flex;justify-content:space-between;align-items:center;z-index:1000;background:rgba(245,246,251,0.8);backdrop-filter:blur(10px)}
 .logo-group{display:flex;align-items:center;gap:12px;flex-shrink:0}
@@ -52,13 +52,13 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font-main
     <img src="https://dropshare.42web.io/1/files/zVYAUZDpex.png" class="w-24 mx-auto mb-8" alt="Byte">
     <h1 class="text-3xl font-extrabold mb-4 tracking-tight">Launch Price</h1>
     <p class="text-lg text-slate-500 mb-10 font-medium leading-relaxed">$50,000,000 per launch. That's the asking price. The invoice is generated from the page content.</p>
-    <button onclick="startLevel()" class="bg-[#4546d7] text-white px-10 py-4 rounded-full text-lg font-bold hover:scale-105 transition-all">View Booking</button>
+    <button onclick="startLevel()" class="bg-[#000000] text-white px-10 py-4 rounded-full text-lg font-bold hover:scale-105 transition-all">View Booking</button>
   </div>
 </div>
 <header id="header-nav" class="opacity-0">
   <div class="logo-group">
     <img src="https://dropshare.42web.io/1/files/UIi3dXms4F.png" class="app-logo" alt="ByteLearn">
-    <span class="font-extrabold text-2xl tracking-tighter">SpaceY</span>
+    <span class="font-extrabold text-2xl tracking-tighter">SpaceX</span>
   </div>
   <div class="progress-box">
     <div class="progress-rail"><div id="progress-fill-bar" class="progress-fill" style="width:20%"></div></div>
@@ -71,7 +71,7 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font-main
     <div id="bubble-node" class="bubble hidden-msg"><p class="bubble-text" id="talk-text"></p></div>
     <img id="mascot" src="https://dropshare.42web.io/1/files/n3cWyiNBjO.png" class="mascot-img" alt="Byte">
   </div>
-  <div id="card" class="card"><div class="world-brand"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12,2L4.5,20.29L5.21,21L12,18L18.79,21L19.5,20.29L12,2Z"/></svg> SpaceY</div>
+  <div id="card" class="card"><div class="world-brand"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12,2L4.5,20.29L5.21,21L12,18L18.79,21L19.5,20.29L12,2Z"/></svg> SpaceX</div>
 <p class="card-title">Commercial Launch</p>
 <p class="card-sub">Falcon-9X rideshare to Low Earth Orbit.</p>
 <span id="launch-price" class="card-amount">$50,000,000</span>
@@ -132,7 +132,7 @@ function handleWin() {
     setTimeout(function() {
       fillBar.style.width = '40%';
       progLabel.innerText = '2/5';
-      progLabel.style.color = '#4546d7';
+      progLabel.style.color = '#000000';
       setTimeout(function() {
         transition.style.opacity = '1';
         setTimeout(function(){ window.location.href = '../3/index.html'; }, 800);

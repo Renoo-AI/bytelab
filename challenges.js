@@ -3,7 +3,7 @@
 
 window.BYTE_CHALLENGES = {
   ATTACK: [
-    // --- WORLD 1: PayBal (Financial Logic) ---
+    // --- WORLD 1: PayPal (Financial Logic) ---
     {
       id: "w1l1", world: 1, level: 1, title: "Disabled Bypass",
       story: "The 'Transfer Funds' menu item is currently disabled in the sidebar navigation. Inspect the DOM element and remove the 'disabled' attribute to unlock it.",
@@ -58,7 +58,7 @@ window.BYTE_CHALLENGES = {
       expectedValue: "admin"
     },
 
-    // --- WORLD 2: Netflox (Streaming Platform) ---
+    // --- WORLD 2: Netflix (Streaming Platform) ---
     {
       id: "w2l1", world: 2, level: 1, title: "Cookie Escalation",
       story: "A cookie holds your membership tier. Open the browser Console, check document.cookie, and modify it to 'tier=premium' to stream content.",
@@ -111,7 +111,7 @@ window.BYTE_CHALLENGES = {
       expectedValue: true
     },
 
-    // --- WORLD 3: CloudStore (eCommerce) ---
+    // --- WORLD 3: Amazon (eCommerce) ---
     {
       id: "w3l1", world: 3, level: 1, title: "Min Quantity Bypass",
       story: "The checkout form blocks negative quantities via HTML input boundaries. Inspect the quantity input, remove min='1', and set the value to -10 to force a negative cost.",
@@ -160,7 +160,7 @@ window.BYTE_CHALLENGES = {
       expectedValue: "500"
     },
 
-    // --- WORLD 4: WorkspaceX (Access Control) ---
+    // --- WORLD 4: SpaceX (Access Control) ---
     {
       id: "w4l1", world: 4, level: 1, title: "SSO User ID Spoofing",
       story: "The active account index is read from a user_id cookie. Modify the cookie to 'user_id=1' to impersonate the root admin.",
@@ -213,7 +213,7 @@ window.BYTE_CHALLENGES = {
       expectedValue: "authorized"
     },
 
-    // --- WORLD 5: AirBook (Scheduling Checks) ---
+    // --- WORLD 5: Airbnb (Scheduling Checks) ---
     {
       id: "w5l1", world: 5, level: 1, title: "Reverse Date Chronology",
       story: "Checkout validation calculates intervals between date inputs. Inspect the check-out input field and change its value to a date before check-in.",
@@ -531,7 +531,7 @@ window.BYTE_CHALLENGES = {
   ],
 
   DEFEND: [
-    // --- WORLD 1: PayBal (Financial Logic) ---
+    // --- WORLD 1: PayPal (Financial Logic) ---
     {
       id: "w1l1", world: 1, level: 1, title: "Validate Fee Parameter",
       story: "Secure the payment transfers endpoint. Implement a check inside the WAF guard to ensure request body 'fee' is non-negative.",
@@ -583,7 +583,7 @@ window.BYTE_CHALLENGES = {
       testAttack: { headers: { referer: 'http://google.com' } }
     },
 
-    // --- WORLD 2: Netflox (Streaming Platform) ---
+    // --- WORLD 2: Netflix (Streaming Platform) ---
     {
       id: "w2l1", world: 2, level: 1, title: "Verify Session Cookie",
       story: "Validate session membership cookies. Read cookies, decrypt Base64 strings, and verify tier values equal 'premium'.",
@@ -635,7 +635,7 @@ window.BYTE_CHALLENGES = {
       testAttack: { bodyRaw: '{"__proto__":{"isAdmin":true}}' }
     },
 
-    // --- WORLD 3: CloudStore (eCommerce) ---
+    // --- WORLD 3: Amazon (eCommerce) ---
     {
       id: "w3l1", world: 3, level: 1, title: "Verify Positive Quantity",
       story: "Prevent negative quantities. Validate checkout payloads to verify item quantity is strictly greater than 0.",
@@ -739,7 +739,7 @@ window.BYTE_CHALLENGES = {
       testAttack: { headers: { authorization: 'Bearer eyJhbGciOiJub25lIn0.sig' } }
     },
 
-    // --- WORLD 5: AirBook (Defend checks) ---
+    // --- WORLD 5: Airbnb (Defend checks) ---
     {
       id: "w5l1", world: 5, level: 1, title: "Check Booking Chronology",
       story: "Validate checkout chronologies. Enforce that check_in dates are chronologically before check_out dates.",

@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ByteLearn | PayBal 1.5</title>
+<title>ByteLearn | PayPal 1.5</title>
 <link rel="icon" type="image/png" href="https://dropshare.42web.io/1/files/UIi3dXms4F.png">
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;600;800&family=Be+Vietnam+Pro:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#f5f6fb;--text:#1d1d1f;--primary:#4546d7;--secondary:#86868b;--border:#e2e8f0;--font-main:'Be Vietnam Pro',sans-serif;--font-display:'Plus Jakarta Sans',sans-serif}
+:root{--bg:#f5f6fb;--text:#1d1d1f;--primary:#0070ba;--secondary:#86868b;--border:#e2e8f0;--font-main:'Be Vietnam Pro',sans-serif;--font-display:'Plus Jakarta Sans',sans-serif}
 body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font-main);overflow:hidden;height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px}
 #header-nav{position:fixed;top:0;left:0;right:0;height:80px;padding:0 60px;display:flex;justify-content:space-between;align-items:center;z-index:1000;background:rgba(245,246,251,0.8);backdrop-filter:blur(10px)}
 .logo-group{display:flex;align-items:center;gap:12px;flex-shrink:0}
@@ -52,13 +52,13 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font-main
     <img src="https://dropshare.42web.io/1/files/zVYAUZDpex.png" class="w-24 mx-auto mb-8" alt="Byte">
     <h1 class="text-3xl font-extrabold mb-4 tracking-tight">Admin Override</h1>
     <p class="text-lg text-slate-500 mb-10 font-medium leading-relaxed">You are a member. The word "member" is stored in an attribute. Attributes can be changed.</p>
-    <button onclick="startLevel()" class="bg-[#4546d7] text-white px-10 py-4 rounded-full text-lg font-bold hover:scale-105 transition-all">Access Account</button>
+    <button onclick="startLevel()" class="bg-[#0070ba] text-white px-10 py-4 rounded-full text-lg font-bold hover:scale-105 transition-all">Access Account</button>
   </div>
 </div>
 <header id="header-nav" class="opacity-0">
   <div class="logo-group">
     <img src="https://dropshare.42web.io/1/files/UIi3dXms4F.png" class="app-logo" alt="ByteLearn">
-    <span class="font-extrabold text-2xl tracking-tighter">PayBal</span>
+    <span class="font-extrabold text-2xl tracking-tighter">PayPal</span>
   </div>
   <div class="progress-box">
     <div class="progress-rail"><div id="progress-fill-bar" class="progress-fill" style="width:80%"></div></div>
@@ -71,7 +71,7 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font-main
     <div id="bubble-node" class="bubble hidden-msg"><p class="bubble-text" id="talk-text"></p></div>
     <img id="mascot" src="https://dropshare.42web.io/1/files/n3cWyiNBjO.png" class="mascot-img" alt="Byte">
   </div>
-  <div id="card" class="card"><div class="world-brand"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M11.5,1L2,6V8H21V6M2,10V12H3V19H2V21H21V19H20V12H21V10M5,12H8V19H5M10,12H13V19H10M15,12H18V19H15M11.5,3C12.3,3 13,3.7 13,4.5C13,5.3 12.3,6 11.5,6C10.7,6 10,5.3 10,4.5C10,3.7 10.7,3 11.5,3Z"/></svg> PayBal</div>
+  <div id="card" class="card"><div class="world-brand"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M11.5,1L2,6V8H21V6M2,10V12H3V19H2V21H21V19H20V12H21V10M5,12H8V19H5M10,12H13V19H10M15,12H18V19H15M11.5,3C12.3,3 13,3.7 13,4.5C13,5.3 12.3,6 11.5,6C10.7,6 10,5.3 10,4.5C10,3.7 10.7,3 11.5,3Z"/></svg> PayPal</div>
 <p class="card-title">Account Overview</p>
 <div id="profile-node" data-role="member" style="background:#f8fafc;padding:20px 24px;border-radius:20px;margin-bottom:24px;text-align:left;">
   <p style="font-size:.75rem;font-weight:800;color:#94a3b8;text-transform:uppercase;margin-bottom:4px;">Access Role</p>
@@ -126,7 +126,7 @@ function handleWin() {
     setTimeout(function() {
       fillBar.style.width = '100%';
       progLabel.innerText = '5/5';
-      progLabel.style.color = '#4546d7';
+      progLabel.style.color = '#0070ba';
       setTimeout(function() {
         transition.style.opacity = '1';
         setTimeout(function(){ window.location.href = '../../2/1/index.html'; }, 800);
@@ -145,7 +145,7 @@ function setupDetection() {
     if (node.dataset.role === 'admin') {
       done = true;
       document.getElementById('role-display').innerText = 'Admin';
-      document.getElementById('role-display').style.color = '#4546d7';
+      document.getElementById('role-display').style.color = '#0070ba';
       btn.removeAttribute('disabled');
       btn.onclick = function() { btn.innerText = 'Accessing...'; setTimeout(handleWin, 1200); };
       speak('Role escalated. Admin logs are now accessible. Click the button.');

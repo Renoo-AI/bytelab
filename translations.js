@@ -615,11 +615,11 @@ window.BYTE_TRANSLATIONS = {
     viewWaf: "WAF Guard",
     
     worlds: {
-      1: "PayBal Financial",
-      2: "Netflox Streaming",
-      3: "CloudStore Shop",
-      4: "WorkspaceX SSO",
-      5: "AirBook Travel",
+      1: "PayPal Financial",
+      2: "Netflix Streaming",
+      3: "Amazon Shop",
+      4: "SpaceX SSO",
+      5: "Airbnb Travel",
       6: "SecureChat CLI",
       7: "HealthLink Clinic",
       8: "CryptoVault Node",

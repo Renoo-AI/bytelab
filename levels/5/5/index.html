@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ByteLearn | Uper 5.5</title>
+<title>ByteLearn | Uber 5.5</title>
 <link rel="icon" type="image/png" href="https://dropshare.42web.io/1/files/UIi3dXms4F.png">
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;600;800&family=Be+Vietnam+Pro:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#f5f6fb;--text:#1d1d1f;--primary:#4546d7;--secondary:#86868b;--border:#e2e8f0;--font-main:'Be Vietnam Pro',sans-serif;--font-display:'Plus Jakarta Sans',sans-serif}
-body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font-main);overflow:hidden;height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px}
+:root{--bg:#f5f6fb;--text:#1d1d1f;--primary:#000000;--secondary:#86868b;--border:#e2e8f0;--font-main:'Be Vietnam Pro',sans-serif;--font-display:'Plus Jakarta Sans',sans-serif}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font-main);overflow:hidden;height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;}
 #header-nav{position:fixed;top:0;left:0;right:0;height:80px;padding:0 60px;display:flex;justify-content:space-between;align-items:center;z-index:1000;background:rgba(245,246,251,0.8);backdrop-filter:blur(10px)}
 .logo-group{display:flex;align-items:center;gap:12px;flex-shrink:0}
 .app-logo{width:32px;height:32px;object-fit:contain}
@@ -29,7 +29,7 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font-main
 .bubble-text{font-size:1.1rem;font-weight:600;line-height:1.5;color:#334155}
 .mascot-img{width:72px;height:72px;object-fit:contain;transition:all .6s cubic-bezier(0.175,0.885,0.32,1.275)}
 .assistant-container.victory-move .mascot-img{width:150px;height:150px}
-.card{background:white;width:100%;max-width:440px;padding:50px 40px;border-radius:48px;box-shadow:0 10px 40px rgba(0,0,0,0.02);text-align:center;opacity:0;transform:translateY(20px);transition:all .8s cubic-bezier(0.2,1,0.2,1)}
+.card{background:#ffffff;color:#222222;width:100vw;height:100vh;max-width:none;padding:120px 40px 40px;border-radius:0;box-shadow:none;text-align:center;opacity:0;transform:translateY(20px);transition:all .8s cubic-bezier(0.2,1,0.2,1);display:flex;flex-direction:column;align-items:center;justify-content:center;position:absolute;top:0;left:0;z-index:1;}
 .card-exit{transform:scale(0.85) translateY(-50px);opacity:0!important;filter:blur(12px);pointer-events:none}
 #transition-screen{position:fixed;inset:0;background:var(--primary);z-index:3000;opacity:1;pointer-events:none;transition:opacity .6s ease}
 #story-overlay{position:fixed;inset:0;background:white;z-index:1500;display:flex;justify-content:center;align-items:center;transition:opacity .5s ease}
@@ -52,13 +52,13 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font-main
     <img src="https://dropshare.42web.io/1/files/zVYAUZDpex.png" class="w-24 mx-auto mb-8" alt="Byte">
     <h1 class="text-3xl font-extrabold mb-4 tracking-tight">Status Unlock</h1>
     <p class="text-lg text-slate-500 mb-10 font-medium leading-relaxed">The Premium Driver section exists. It's visible. But a CSS class is blocking all interaction with it.</p>
-    <button onclick="startLevel()" class="bg-[#4546d7] text-white px-10 py-4 rounded-full text-lg font-bold hover:scale-105 transition-all">Open Dashboard</button>
+    <button onclick="startLevel()" class="bg-[#000000] text-white px-10 py-4 rounded-full text-lg font-bold hover:scale-105 transition-all">Open Dashboard</button>
   </div>
 </div>
 <header id="header-nav" class="opacity-0">
   <div class="logo-group">
     <img src="https://dropshare.42web.io/1/files/UIi3dXms4F.png" class="app-logo" alt="ByteLearn">
-    <span class="font-extrabold text-2xl tracking-tighter">Uper</span>
+    <span class="font-extrabold text-2xl tracking-tighter">Uber</span>
   </div>
   <div class="progress-box">
     <div class="progress-rail"><div id="progress-fill-bar" class="progress-fill" style="width:80%"></div></div>
@@ -71,7 +71,7 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font-main
     <div id="bubble-node" class="bubble hidden-msg"><p class="bubble-text" id="talk-text"></p></div>
     <img id="mascot" src="https://dropshare.42web.io/1/files/n3cWyiNBjO.png" class="mascot-img" alt="Byte">
   </div>
-  <div id="card" class="card"><div class="world-brand"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18.92,6.01C18.72,5.42 18.16,5 17.5,5H15V3H9V5H6.5C5.84,5 5.29,5.42 5.08,6.01L3,12V20A1,1 0 0,0 4,21H5A1,1 0 0,0 6,20V19H18V20A1,1 0 0,0 19,21H20A1,1 0 0,0 21,20V12L18.92,6.01M6.5,16A1.5,1.5 0 0,1 5,14.5A1.5,1.5 0 0,1 6.5,13A1.5,1.5 0 0,1 8,14.5A1.5,1.5 0 0,1 6.5,16M17.5,16A1.5,1.5 0 0,1 16,14.5A1.5,1.5 0 0,1 17.5,13A1.5,1.5 0 0,1 19,14.5A1.5,1.5 0 0,1 17.5,16M5,11L6.5,6.5H17.5L19,11H5Z"/></svg> Uper</div>
+  <div id="card" class="card"><div class="world-brand"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18.92,6.01C18.72,5.42 18.16,5 17.5,5H15V3H9V5H6.5C5.84,5 5.29,5.42 5.08,6.01L3,12V20A1,1 0 0,0 4,21H5A1,1 0 0,0 6,20V19H18V20A1,1 0 0,0 19,21H20A1,1 0 0,0 21,20V12L18.92,6.01M6.5,16A1.5,1.5 0 0,1 5,14.5A1.5,1.5 0 0,1 6.5,13A1.5,1.5 0 0,1 8,14.5A1.5,1.5 0 0,1 6.5,16M17.5,16A1.5,1.5 0 0,1 16,14.5A1.5,1.5 0 0,1 17.5,13A1.5,1.5 0 0,1 19,14.5A1.5,1.5 0 0,1 17.5,16M5,11L6.5,6.5H17.5L19,11H5Z"/></svg> Uber</div>
 <p class="card-title">Driver Dashboard</p>
 <div style="width:100%;margin-bottom:16px;text-align:left;">
   <div style="background:#f0fdf4;border-radius:16px;padding:16px 20px;border:1.5px solid #bbf7d0;margin-bottom:10px;">
@@ -134,7 +134,7 @@ function handleWin() {
     setTimeout(function() {
       fillBar.style.width = '100%';
       progLabel.innerText = '5/5';
-      progLabel.style.color = '#4546d7';
+      progLabel.style.color = '#000000';
       setTimeout(function() {
         transition.style.opacity = '1';
         setTimeout(function(){ window.location.href = '../../game.html'; }, 800);

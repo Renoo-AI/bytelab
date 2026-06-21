@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ByteLearn | CloudStore 3.5</title>
+<title>ByteLearn | Amazon 3.5</title>
 <link rel="icon" type="image/png" href="https://dropshare.42web.io/1/files/UIi3dXms4F.png">
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;600;800&family=Be+Vietnam+Pro:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#f5f6fb;--text:#1d1d1f;--primary:#4546d7;--secondary:#86868b;--border:#e2e8f0;--font-main:'Be Vietnam Pro',sans-serif;--font-display:'Plus Jakarta Sans',sans-serif}
-body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font-main);overflow:hidden;height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px}
+:root{--bg:#f5f6fb;--text:#1d1d1f;--primary:#ff9900;--secondary:#86868b;--border:#e2e8f0;--font-main:'Be Vietnam Pro',sans-serif;--font-display:'Plus Jakarta Sans',sans-serif}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font-main);overflow:hidden;height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;}
 #header-nav{position:fixed;top:0;left:0;right:0;height:80px;padding:0 60px;display:flex;justify-content:space-between;align-items:center;z-index:1000;background:rgba(245,246,251,0.8);backdrop-filter:blur(10px)}
 .logo-group{display:flex;align-items:center;gap:12px;flex-shrink:0}
 .app-logo{width:32px;height:32px;object-fit:contain}
@@ -29,7 +29,7 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font-main
 .bubble-text{font-size:1.1rem;font-weight:600;line-height:1.5;color:#334155}
 .mascot-img{width:72px;height:72px;object-fit:contain;transition:all .6s cubic-bezier(0.175,0.885,0.32,1.275)}
 .assistant-container.victory-move .mascot-img{width:150px;height:150px}
-.card{background:white;width:100%;max-width:440px;padding:50px 40px;border-radius:48px;box-shadow:0 10px 40px rgba(0,0,0,0.02);text-align:center;opacity:0;transform:translateY(20px);transition:all .8s cubic-bezier(0.2,1,0.2,1)}
+.card{background:#ffffff;color:#0f1111;width:100vw;height:100vh;max-width:none;padding:120px 40px 40px;border-radius:0;box-shadow:none;text-align:center;opacity:0;transform:translateY(20px);transition:all .8s cubic-bezier(0.2,1,0.2,1);display:flex;flex-direction:column;align-items:center;justify-content:center;position:absolute;top:0;left:0;z-index:1;}
 .card-exit{transform:scale(0.85) translateY(-50px);opacity:0!important;filter:blur(12px);pointer-events:none}
 #transition-screen{position:fixed;inset:0;background:var(--primary);z-index:3000;opacity:1;pointer-events:none;transition:opacity .6s ease}
 #story-overlay{position:fixed;inset:0;background:white;z-index:1500;display:flex;justify-content:center;align-items:center;transition:opacity .5s ease}
@@ -52,13 +52,13 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font-main
     <img src="https://dropshare.42web.io/1/files/zVYAUZDpex.png" class="w-24 mx-auto mb-8" alt="Byte">
     <h1 class="text-3xl font-extrabold mb-4 tracking-tight">Payload Injection</h1>
     <p class="text-lg text-slate-500 mb-10 font-medium leading-relaxed">Forms send data to servers as parameters. The server reads whatever parameters it receives. Add your own.</p>
-    <button onclick="startLevel()" class="bg-[#4546d7] text-white px-10 py-4 rounded-full text-lg font-bold hover:scale-105 transition-all">Open Cart</button>
+    <button onclick="startLevel()" class="bg-[#ff9900] text-white px-10 py-4 rounded-full text-lg font-bold hover:scale-105 transition-all">Open Cart</button>
   </div>
 </div>
 <header id="header-nav" class="opacity-0">
   <div class="logo-group">
     <img src="https://dropshare.42web.io/1/files/UIi3dXms4F.png" class="app-logo" alt="ByteLearn">
-    <span class="font-extrabold text-2xl tracking-tighter">CloudStore</span>
+    <span class="font-extrabold text-2xl tracking-tighter">Amazon</span>
   </div>
   <div class="progress-box">
     <div class="progress-rail"><div id="progress-fill-bar" class="progress-fill" style="width:80%"></div></div>
@@ -71,7 +71,7 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font-main
     <div id="bubble-node" class="bubble hidden-msg"><p class="bubble-text" id="talk-text"></p></div>
     <img id="mascot" src="https://dropshare.42web.io/1/files/n3cWyiNBjO.png" class="mascot-img" alt="Byte">
   </div>
-  <div id="card" class="card"><div class="world-brand"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17,18C15.89,18 15,18.89 15,20A2,2 0 0,0 17,22A2,2 0 0,0 19,20C19,18.89 18.1,18 17,18M1,2V4H3L6.6,11.59L5.24,14C5.09,14.32 5,14.65 5,15A2,2 0 0,0 7,17H19V15H7.42A0.25,0.25 0 0,1 7.17,14.75C7.17,14.7 7.18,14.66 7.2,14.63L8.1,13H15.55C16.3,13 16.96,12.58 17.3,11.97L20.88,5.5C20.95,5.34 21,5.17 21,5A1,1 0 0,0 20,4H5.21L4.27,2M7,18C5.89,18 5,18.89 5,20A2,2 0 0,0 7,22A2,2 0 0,0 9,20C9,18.89 8.1,18 7,18Z"/></svg> CloudStore</div>
+  <div id="card" class="card"><div class="world-brand"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17,18C15.89,18 15,18.89 15,20A2,2 0 0,0 17,22A2,2 0 0,0 19,20C19,18.89 18.1,18 17,18M1,2V4H3L6.6,11.59L5.24,14C5.09,14.32 5,14.65 5,15A2,2 0 0,0 7,17H19V15H7.42A0.25,0.25 0 0,1 7.17,14.75C7.17,14.7 7.18,14.66 7.2,14.63L8.1,13H15.55C16.3,13 16.96,12.58 17.3,11.97L20.88,5.5C20.95,5.34 21,5.17 21,5A1,1 0 0,0 20,4H5.21L4.27,2M7,18C5.89,18 5,18.89 5,20A2,2 0 0,0 7,22A2,2 0 0,0 9,20C9,18.89 8.1,18 7,18Z"/></svg> Amazon</div>
 <p class="card-title">Final Checkout</p>
 <form id="checkout-form">
   <div style="background:#f8fafc;border-radius:16px;padding:20px;margin-bottom:20px;text-align:left;">
@@ -128,7 +128,7 @@ function handleWin() {
     setTimeout(function() {
       fillBar.style.width = '100%';
       progLabel.innerText = '5/5';
-      progLabel.style.color = '#4546d7';
+      progLabel.style.color = '#ff9900';
       setTimeout(function() {
         transition.style.opacity = '1';
         setTimeout(function(){ window.location.href = '../../4/1/index.html'; }, 800);

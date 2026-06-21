@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ByteLearn | PayBal 1.1</title>
+<title>ByteLearn | PayPal 1.1</title>
 <link rel="icon" type="image/png" href="../../../assets/logo.png">
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;600;800&family=Be+Vietnam+Pro:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#f5f6fb;--text:#1d1d1f;--primary:#4546d7;--secondary:#86868b;--border:#e2e8f0;--font-main:'Be Vietnam Pro',sans-serif;--font-display:'Plus Jakarta Sans',sans-serif}
-body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font-main);overflow:hidden;height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px}
+:root{--bg:#f5f6fb;--text:#1d1d1f;--primary:#0070ba;--secondary:#86868b;--border:#e2e8f0;--font-main:'Be Vietnam Pro',sans-serif;--font-display:'Plus Jakarta Sans',sans-serif}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font-main);overflow:hidden;height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;}
 #header-nav{position:fixed;top:0;left:0;right:0;height:80px;padding:0 60px;display:flex;justify-content:space-between;align-items:center;z-index:1000;background:rgba(245,246,251,0.8);backdrop-filter:blur(10px)}
 .logo-group{display:flex;align-items:center;gap:12px;flex-shrink:0}
 .app-logo{width:32px;height:32px;object-fit:contain}
@@ -29,7 +29,7 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font-main
 .bubble-text{font-size:1.1rem;font-weight:600;line-height:1.5;color:#334155}
 .mascot-img{width:72px;height:72px;object-fit:contain;transition:all .6s cubic-bezier(0.175,0.885,0.32,1.275)}
 .assistant-container.victory-move .mascot-img{width:150px;height:150px}
-.card{background:white;width:100%;max-width:440px;padding:50px 40px;border-radius:48px;box-shadow:0 10px 40px rgba(0,0,0,0.02);text-align:center;opacity:0;transform:translateY(20px);transition:all .8s cubic-bezier(0.2,1,0.2,1)}
+.card{background:#f5f7fa;color:#1d1d1f;width:100vw;height:100vh;max-width:none;padding:120px 40px 40px;border-radius:0;box-shadow:none;text-align:center;opacity:0;transform:translateY(20px);transition:all .8s cubic-bezier(0.2,1,0.2,1);display:flex;flex-direction:column;align-items:center;justify-content:center;position:absolute;top:0;left:0;z-index:1;}
 .card-exit{transform:scale(0.85) translateY(-50px);opacity:0!important;filter:blur(12px);pointer-events:none}
 #transition-screen{position:fixed;inset:0;background:var(--primary);z-index:3000;opacity:1;pointer-events:none;transition:opacity .6s ease}
 #story-overlay{position:fixed;inset:0;background:white;z-index:1500;display:flex;justify-content:center;align-items:center;transition:opacity .5s ease}
@@ -51,7 +51,7 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font-main
 @keyframes shake { 10%, 90% { transform: translate3d(-1px, 0, 0); } 20%, 80% { transform: translate3d(2px, 0, 0); } 30%, 50%, 70% { transform: translate3d(-4px, 0, 0); } 40%, 60% { transform: translate3d(4px, 0, 0); } }
 
 /* Next Level Button */
-.btn-next { display:inline-block; margin-top:16px; background:#4546d7; color:white; padding:12px 24px; border-radius:16px; font-weight:700; text-decoration:none; cursor:pointer; border:none; transition:transform 0.2s; }
+.btn-next { display:inline-block; margin-top:16px; background:#0070ba; color:white; padding:12px 24px; border-radius:16px; font-weight:700; text-decoration:none; cursor:pointer; border:none; transition:transform 0.2s; }
 .btn-next:hover { transform: translateY(-2px); }
 </style>
 </head>
@@ -62,13 +62,13 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font-main
     <img src="../../../assets/byte-hello.png" class="w-24 mx-auto mb-8" alt="Byte">
     <h1 class="text-3xl font-extrabold mb-4 tracking-tight">The Hidden Balance</h1>
     <p class="text-lg text-slate-500 mb-10 font-medium leading-relaxed">Not locked. Just hidden. Everything you need is already there — you just can't see it yet.</p>
-    <button onclick="startLevel()" class="bg-[#4546d7] text-white px-10 py-4 rounded-full text-lg font-bold hover:scale-105 transition-all">Start</button>
+    <button onclick="startLevel()" class="bg-[#0070ba] text-white px-10 py-4 rounded-full text-lg font-bold hover:scale-105 transition-all">Start</button>
   </div>
 </div>
 <header id="header-nav" class="opacity-0">
   <div class="logo-group">
     <img src="../../../assets/logo.png" class="app-logo" alt="ByteLearn">
-    <span class="font-extrabold text-2xl tracking-tighter">PayBal</span>
+    <span class="font-extrabold text-2xl tracking-tighter">PayPal</span>
   </div>
   <div class="progress-box">
     <div class="progress-rail"><div id="progress-fill-bar" class="progress-fill" style="width:0%"></div></div>
@@ -81,7 +81,7 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font-main
     <div id="bubble-node" class="bubble hidden-msg"><p class="bubble-text" id="talk-text"></p></div>
     <img id="mascot" src="../../../assets/byte-hello.png" class="mascot-img" alt="Byte">
   </div>
-  <div id="card" class="card"><div class="world-brand"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M11.5,1L2,6V8H21V6M2,10V12H3V19H2V21H21V19H20V12H21V10M5,12H8V19H5M10,12H13V19H10M15,12H18V19H15M11.5,3C12.3,3 13,3.7 13,4.5C13,5.3 12.3,6 11.5,6C10.7,6 10,5.3 10,4.5C10,3.7 10.7,3 11.5,3Z"/></svg> PayBal</div>
+  <div id="card" class="card"><div class="world-brand"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M11.5,1L2,6V8H21V6M2,10V12H3V19H2V21H21V19H20V12H21V10M5,12H8V19H5M10,12H13V19H10M15,12H18V19H15M11.5,3C12.3,3 13,3.7 13,4.5C13,5.3 12.3,6 11.5,6C10.7,6 10,5.3 10,4.5C10,3.7 10.7,3 11.5,3Z"/></svg> PayPal</div>
 <p class="card-label">Account Balance</p>
 <div class="masked-dots" id="dots">
   <div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
@@ -166,7 +166,7 @@ function handleWin() {
     speak('You see past the surface. That is the first skill.<br><button class="btn-next" onclick="nextLevel()">Next Challenge</button>', true);
     if (fillBar) fillBar.style.width = '20%';
     if (progLabel) progLabel.innerText = '1/5';
-    if (progLabel) progLabel.style.color = '#4546d7';
+    if (progLabel) progLabel.style.color = '#0070ba';
   }, 1000);
 }
 

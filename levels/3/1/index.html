@@ -1,8 +1,8 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ByteLearn | CloudStore 3.1</title>
+<title>ByteLab | TokenVault 3.1</title>
 <link rel="icon" type="image/png" href="https://dropshare.42web.io/1/files/UIi3dXms4F.png">
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,6 +19,7 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font-main
 .progress-text{font-size:.85rem;font-weight:800;color:var(--secondary);min-width:30px}
 .btn-quit{color:var(--secondary);font-weight:700;font-size:1rem;transition:color .2s;cursor:pointer;border:none;background:none}
 .btn-quit:hover{color:#f43f5e}
+
 .assistant-container{position:fixed;top:120px;right:60px;display:flex;flex-direction:column;align-items:flex-end;gap:12px;z-index:1000;max-width:280px;opacity:0;transform:translateY(10px);transition:all .9s cubic-bezier(0.34,1.56,0.64,1)}
 .assistant-container.victory-move{top:50%!important;right:50%!important;transform:translate(50%,-50%) scale(1.1)!important;align-items:center;max-width:440px}
 .bubble{background:white;padding:20px 24px;border-radius:28px;box-shadow:0 20px 50px rgba(0,0,0,0.06);text-align:right;position:relative;transition:opacity .4s ease,transform .4s ease}
@@ -29,36 +30,43 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font-main
 .bubble-text{font-size:1.1rem;font-weight:600;line-height:1.5;color:#334155}
 .mascot-img{width:72px;height:72px;object-fit:contain;transition:all .6s cubic-bezier(0.175,0.885,0.32,1.275)}
 .assistant-container.victory-move .mascot-img{width:150px;height:150px}
-.card{background:white;width:100%;max-width:440px;padding:50px 40px;border-radius:48px;box-shadow:0 10px 40px rgba(0,0,0,0.02);text-align:center;opacity:0;transform:translateY(20px);transition:all .8s cubic-bezier(0.2,1,0.2,1)}
+
+.card{background:white;width:100%;max-width:600px;border-radius:24px;box-shadow:0 10px 40px rgba(0,0,0,0.04);border:1px solid var(--border);opacity:0;transform:translateY(20px);transition:all .8s cubic-bezier(0.2,1,0.2,1);display:flex;flex-direction:column;overflow:hidden}
 .card-exit{transform:scale(0.85) translateY(-50px);opacity:0!important;filter:blur(12px);pointer-events:none}
+
 #transition-screen{position:fixed;inset:0;background:var(--primary);z-index:3000;opacity:1;pointer-events:none;transition:opacity .6s ease}
 #story-overlay{position:fixed;inset:0;background:white;z-index:1500;display:flex;justify-content:center;align-items:center;transition:opacity .5s ease}
-.world-brand{display:flex;align-items:center;justify-content:center;gap:10px;font-family:var(--font-display);font-weight:800;font-size:.85rem;text-transform:uppercase;letter-spacing:.2rem;color:var(--secondary);margin-bottom:32px}
-.card-label{font-size:1.05rem;font-weight:600;color:#94a3b8;margin-bottom:24px}
-.masked-dots{display:flex;justify-content:center;gap:10px;margin-bottom:40px}
-.dot{width:16px;height:16px;background:#1e293b;border-radius:50%;flex-shrink:0}
-.card-amount{display:block;font-family:var(--font-display);font-size:3.8rem;font-weight:800;letter-spacing:-2px;margin-bottom:40px;color:var(--primary)}
-.card-title{font-family:var(--font-display);font-size:1.5rem;font-weight:800;margin-bottom:8px}
-.card-sub{color:var(--secondary);margin-bottom:32px;line-height:1.6;font-weight:500}
-.btn-main{background:var(--primary);color:white;width:100%;padding:20px;border-radius:20px;font-weight:800;font-size:1.2rem;cursor:pointer;border:none;transition:all .2s}
-.btn-main:hover:not([disabled]){transform:translateY(-2px);box-shadow:0 8px 24px rgba(69,70,215,0.25)}
-.btn-main[disabled]{opacity:.45;cursor:not-allowed}
+
+
+.vault-header{padding:24px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;background:white;}
+.vault-title{font-family:var(--font-display);font-weight:800;font-size:1.2rem;color:var(--text);}
+.tier-badge{background:#f1f5f9;color:#475569;padding:6px 12px;border-radius:99px;font-size:0.8rem;font-weight:700;text-transform:uppercase;}
+.tier-badge.whale{background:#fef08a;color:#854d0e;}
+.vault-body{padding:32px;background:#fafafa;}
+.asset-list{display:flex;flex-direction:column;gap:12px;}
+.asset-item{display:flex;justify-content:space-between;padding:16px;background:white;border:1px solid var(--border);border-radius:12px;font-weight:600;}
+.asset-hidden{filter:blur(5px);user-select:none;opacity:0.5;}
+.btn-refresh{background:var(--primary);color:white;padding:10px 20px;border-radius:8px;font-weight:700;cursor:pointer;border:none;}
+
 </style>
 </head>
 <body>
+
 <div id="transition-screen"></div>
+
 <div id="story-overlay">
   <div class="text-center max-w-md p-5">
     <img src="https://dropshare.42web.io/1/files/zVYAUZDpex.png" class="w-24 mx-auto mb-8" alt="Byte">
-    <h1 class="text-3xl font-extrabold mb-4 tracking-tight">Quantity Minus</h1>
-    <p class="text-lg text-slate-500 mb-10 font-medium leading-relaxed">The store says you can't order less than 1. That rule lives in a single HTML attribute.</p>
-    <button onclick="startLevel()" class="bg-[#4546d7] text-white px-10 py-4 rounded-full text-lg font-bold hover:scale-105 transition-all">Go to Cart</button>
+    <h1 class="text-3xl font-extrabold mb-4 tracking-tight" style="font-family: var(--font-display);">TokenVault: Cookie Allowance Expansion</h1>
+    <p class="text-lg text-slate-500 mb-10 font-medium leading-relaxed">The asset tracker stores tier limitations inside plain, non-HttpOnly browser cookies. Mutate user_tier=free to whale to instantly bypass asset display ceilings.</p>
+    <button onclick="startLevel()" class="bg-[#4546d7] text-white px-10 py-4 rounded-full text-lg font-bold hover:scale-105 transition-all shadow-lg shadow-[#4546d7]/30">Start Simulation</button>
   </div>
 </div>
+
 <header id="header-nav" class="opacity-0">
   <div class="logo-group">
     <img src="https://dropshare.42web.io/1/files/UIi3dXms4F.png" class="app-logo" alt="ByteLearn">
-    <span class="font-extrabold text-2xl tracking-tighter">CloudStore</span>
+    <span style="font-family: var(--font-display); font-weight:800; font-size:1.1rem; letter-spacing:-0.5px;">ByteLab</span>
   </div>
   <div class="progress-box">
     <div class="progress-rail"><div id="progress-fill-bar" class="progress-fill" style="width:0%"></div></div>
@@ -66,94 +74,146 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font-main
   </div>
   <button onclick="quit()" class="btn-quit">Quit</button>
 </header>
+
 <main id="game-stage" class="w-full flex flex-col items-center justify-center">
   <div id="assistant" class="assistant-container">
     <div id="bubble-node" class="bubble hidden-msg"><p class="bubble-text" id="talk-text"></p></div>
     <img id="mascot" src="https://dropshare.42web.io/1/files/n3cWyiNBjO.png" class="mascot-img" alt="Byte">
   </div>
-  <div id="card" class="card"><div class="world-brand"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17,18C15.89,18 15,18.89 15,20A2,2 0 0,0 17,22A2,2 0 0,0 19,20C19,18.89 18.1,18 17,18M1,2V4H3L6.6,11.59L5.24,14C5.09,14.32 5,14.65 5,15A2,2 0 0,0 7,17H19V15H7.42A0.25,0.25 0 0,1 7.17,14.75C7.17,14.7 7.18,14.66 7.2,14.63L8.1,13H15.55C16.3,13 16.96,12.58 17.3,11.97L20.88,5.5C20.95,5.34 21,5.17 21,5A1,1 0 0,0 20,4H5.21L4.27,2M7,18C5.89,18 5,18.89 5,20A2,2 0 0,0 7,22A2,2 0 0,0 9,20C9,18.89 8.1,18 7,18Z"/></svg> CloudStore</div>
-<p class="card-title">Shopping Cart</p>
-<div style="background:#f8fafc;border-radius:20px;padding:20px;margin-bottom:24px;display:flex;align-items:center;gap:16px;text-align:left;">
-  <div style="width:52px;height:52px;background:linear-gradient(135deg,#4546d7,#818cf8);border-radius:14px;flex-shrink:0;"></div>
-  <div style="flex-grow:1;"><p style="font-weight:700;margin-bottom:2px;">Premium Gadget Pro</p><p style="font-size:.85rem;color:#94a3b8;font-weight:600;">$299.00 each</p></div>
-  <input id="qty-input" type="number" value="1" min="1" style="width:64px;padding:10px;border-radius:12px;border:1.5px solid var(--border);text-align:center;font-weight:800;font-size:1rem;">
-</div>
-<p id="total-display" style="font-family:var(--font-display);font-size:2rem;font-weight:800;color:var(--primary);margin-bottom:24px;">Total: $299.00</p>
-<button id="checkout-btn" class="btn-main" disabled>Checkout</button></div>
-</main>
-<script>
 
-const BYTE_PC = 'https://dropshare.42web.io/1/files/OStYxaWILh.png';
-let talkTimeout, hintTimeout, hasWon = false;
-const cardEl = document.getElementById('card');
+  <div id="card" class="card">
+
+    <div class="vault-header">
+      <div class="vault-title">Crypto Portfolio</div>
+      <div id="tier-display" class="tier-badge">Free Tier</div>
+    </div>
+    <div class="vault-body">
+      <div class="flex justify-between items-center mb-6">
+        <h3 class="font-bold text-lg">Your Assets</h3>
+        <button class="btn-refresh" id="refresh-btn">Sync Chain</button>
+      </div>
+      <div class="asset-list" id="asset-list">
+        <div class="asset-item"><span>Bitcoin (BTC)</span><span>2.4501</span></div>
+        <div class="asset-item"><span>Ethereum (ETH)</span><span>14.20</span></div>
+        <div class="asset-item asset-hidden"><span>Solana (SOL)</span><span>[UPGRADE]</span></div>
+        <div class="asset-item asset-hidden"><span>Monero (XMR)</span><span>[UPGRADE]</span></div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<script>
+const BYTE_NORMAL = 'https://dropshare.42web.io/1/files/n3cWyiNBjO.png';
+const BYTE_PC = 'https://dropshare.42web.io/1/files/Ld5zPZ4pIf.png';
+let hasWon = false;
+let hintTimeout, talkTimeout;
+
+const transition = document.getElementById('transition-screen');
 const assistant = document.getElementById('assistant');
+const mascot = document.getElementById('mascot');
 const bubble = document.getElementById('bubble-node');
 const talkText = document.getElementById('talk-text');
-const mascot = document.getElementById('mascot');
+const cardEl = document.getElementById('card');
 const fillBar = document.getElementById('progress-fill-bar');
 const progLabel = document.getElementById('progress-text-val');
-const transition = document.getElementById('transition-screen');
+
 function speak(text, persist) {
-  if (hasWon && !persist) return;
   clearTimeout(talkTimeout);
   talkText.innerText = text;
   bubble.classList.remove('hidden-msg');
   if (!persist) talkTimeout = setTimeout(function(){ bubble.classList.add('hidden-msg'); }, 6000);
 }
-// Fade transition screen as soon as DOM is ready (not waiting for CDN assets)
+
 function fadeIn() { transition.style.opacity = '0'; }
 document.addEventListener('DOMContentLoaded', function(){ setTimeout(fadeIn, 200); });
-// Hard fallback in case DOMContentLoaded already fired
 setTimeout(fadeIn, 800);
+
 function startLevel() {
   document.getElementById('story-overlay').style.display = 'none';
   document.getElementById('header-nav').style.opacity = '1';
   assistant.style.opacity = '1';
   assistant.style.transform = 'translateY(0)';
   if (cardEl) { cardEl.style.opacity = '1'; cardEl.style.transform = 'translateY(0)'; }
-  speak('The quantity has a minimum of 1. Find the input and remove that restriction.');
-  hintTimeout = setTimeout(function(){ if (!hasWon) speak('Find the input with id="qty-input". Remove the min attribute, then set the value to a negative number.'); }, 20000);
-  setupDetection();
+
+  speak("Check your application cookies.", false);
+
+  hintTimeout = setTimeout(function(){
+    if (!hasWon) speak("Open DevTools > Application > Cookies. Change `user_tier` from 'free' to 'whale'. Reload or click refresh.");
+  }, 15000);
+
+  document.cookie = 'user_tier=free; path=/';
 }
-function handleWin() {
+
+function handleWin(winMsg) {
   if (hasWon) return;
   hasWon = true;
-  clearTimeout(hintTimeout); clearTimeout(talkTimeout);
+  clearTimeout(hintTimeout);
+  clearTimeout(talkTimeout);
+
   if (window.parent) window.parent.postMessage({ type: 'LEVEL_COMPLETE', world: 3, level: 1 }, '*');
+
   setTimeout(function() {
     if (cardEl) cardEl.classList.add('card-exit');
     assistant.classList.add('victory-move');
     mascot.src = BYTE_PC;
-    speak('Negative quantity. The store owes you a refund.', true);
+    speak(winMsg || 'Bypass successful. You forced the system logic to break.', true);
+
     setTimeout(function() {
       fillBar.style.width = '20%';
       progLabel.innerText = '1/5';
       progLabel.style.color = '#4546d7';
+
       setTimeout(function() {
         transition.style.opacity = '1';
-        setTimeout(function(){ window.location.href = '../2/index.html'; }, 800);
+        setTimeout(function(){
+          window.location.href = '../2/index.html';
+        }, 800);
       }, 2500);
     }, 800);
-  }, 1000);
+  }, 1500);
 }
-function quit() { transition.style.opacity = '1'; setTimeout(function(){ window.location.href = '../../game.html'; }, 600); }
 
-function setupDetection() {
-  var inp = document.getElementById('qty-input');
-  var btn = document.getElementById('checkout-btn');
-  var total = document.getElementById('total-display');
-  var done = false;
-  setInterval(function() {
-    var v = parseInt(inp.value);
-    if (!isNaN(v)) total.innerText = 'Total: $' + (v * 299).toFixed(2);
-    if (!done && v < 0) {
-      done = true;
-      btn.removeAttribute('disabled');
-      btn.onclick = handleWin;
-      speak('Negative quantity! CloudStore will process a refund. Checkout now.');
-    }
-  }, 400);
+function quit() {
+  transition.style.opacity = '1';
+  setTimeout(function(){ window.location.href = '../../game.html'; }, 600);
 }
+
+
+document.getElementById('refresh-btn').addEventListener('click', function() {
+  if (hasWon) return;
+  const cookies = document.cookie.split(';');
+  let tier = 'free';
+  for (let c of cookies) {
+    const [k, v] = c.trim().split('=');
+    if (k === 'user_tier') tier = v;
+  }
+
+  if (tier === 'whale') {
+    document.getElementById('tier-display').innerText = "Whale Tier";
+    document.getElementById('tier-display').className = "tier-badge whale";
+    document.querySelectorAll('.asset-hidden').forEach(el => {
+      el.classList.remove('asset-hidden');
+      el.innerHTML = "<span>" + el.innerText.split('\n')[0] + "</span><span>1,450.00</span>";
+    });
+    handleWin('Cookie manipulation successful. Client-side state is insecure.');
+  } else {
+    speak('Sync complete. You are still on the ' + tier + ' tier.');
+  }
+});
+
+setInterval(()=>{
+  const cookies = document.cookie.split(';');
+  let tier = 'free';
+  for (let c of cookies) {
+    const [k, v] = c.trim().split('=');
+    if (k === 'user_tier') tier = v;
+  }
+  if(tier === 'whale' && !hasWon) {
+      document.getElementById('refresh-btn').style.boxShadow = "0 0 15px #4546d7";
+  }
+}, 1000);
+
 </script>
 </body>
 </html>
